@@ -45,7 +45,7 @@ pośrednictwem aplikacji przeglądarkowej.</p>
 
 ## Informacje
 
-- Część dokumentacyjna została zrealizowana w **3-ech pierwszych milestonach** gdzie zostały opisane zgadnieniazgodne z dostarczoną specyfikacją
+- Część dokumentacyjna została zrealizowana w **3-ech pierwszych milestonach** gdzie zostały opisane zgadnienia zgodne z dostarczoną specyfikacją
 
 - Dokument projektowy znaduje się w głównym katalogu i ingeruje pod nazwą **dokument_projektowy.pdf**
 
