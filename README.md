@@ -7,7 +7,7 @@ udostępnianych przez twórców z całego świata. Korzystanie z serwisu jest mo
 pośrednictwem aplikacji przeglądarkowej.</p>
 <br>
 
->## Autorzy projektu
+## Autorzy projektu
 <table>
 
 <tr>
@@ -43,7 +43,7 @@ pośrednictwem aplikacji przeglądarkowej.</p>
 </table>
 <br>
 
->## Informacje
+## Informacje
 
 - Część dokumentacyjna została zrealizowana w **3-ech pierwszych milestonach** gdzie zostały opisane zgadnieniazgodne z dostarczoną specyfikacją
 
