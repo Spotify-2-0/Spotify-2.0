@@ -1,1 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --defaultFont: Roboto;
+  --textColor: #000000;
+  --colorAccent: #BCB6FF;
+  --colorAccent2: #756ccc;
+  --background-1: #FFFFFF;
+  --backgroundMain: linear-gradient(
+    0deg,
+    rgba(114, 114, 114, 0.1),
+    rgba(147, 147, 147, 0.3)),
+    url("/assets/images/pattern3.gif"
+  );
+}
+
+[data-theme="dark"] {
+  --background-1: #10141D;
+  --textColor: #FFFFFF;
+  --backgroundMain: url("/assets/images/pattern3.png");
+}

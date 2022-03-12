@@ -1,0 +1,20 @@
+circle {
+  opacity: 1;
+  fill: var(--colorAccent2);
+}
+
+.pulse {
+  fill: #755df8;
+  transition: all 2s ease;
+  box-shadow: 0 0 0 0 rgba(232, 76, 61, 0.7);
+  animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+}
+
+@keyframes pulse {
+  50% {
+    r: 5;
+  }
+  100% {
+    r: 1.9
+  }
+}

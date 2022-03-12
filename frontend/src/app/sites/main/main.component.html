@@ -1,0 +1,42 @@
+<div class="grid">
+  <div class="navbar">
+    <div class="logo">Spotify 2.0</div>
+    <div class="navbar__left">
+      <div class="sign-up">Sign Up</div>
+      <div class="divider"></div>
+      <div class="sign-in">Sign In</div>
+      <app-icon class="icon-theme" icon="theme" (click)="toggleTheme()"></app-icon>
+    </div>
+  </div>
+
+  <div [@ani] class="left">
+    <div class="info__wrapper">
+      <div class="info">
+        <div class="info--header">
+          Your music <span class="info--header__accent">anywhere</span>.
+        </div>
+        <div class="info__text">
+          Listen to your favourite music artists from any place you wish.
+        </div>
+        <button class="button">Sign Up</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="right">
+    <div class="pattern__wrapper">
+      <div class="pattern">
+        <!--<div class="pattern__img"></div>-->
+        <app-world-map class="pattern__img"></app-world-map>
+      </div>
+    </div>
+    <div class="artists">
+      <div class="artist"></div>
+      <div class="artist"></div>
+      <div class="artist"></div>
+      <div class="artist"></div>
+      <div class="artist"></div>
+      <div class="artist"></div>
+    </div>
+  </div>
+</div>
