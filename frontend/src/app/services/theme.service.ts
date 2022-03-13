@@ -5,7 +5,15 @@ import { Injectable } from '@angular/core';
 })
 export class ThemeService {
 
-  constructor() { }
+  constructor() {
+    window.addEventListener('storage', (event) => {
+      if (event.storageArea === localStorage) {
+        if (event.key == 'user_theme' && event.newValue) {
+          document.documentElement.setAttribute('data-theme', event.newValue);
+        }
+      }
+    }, false);
+  }
 
   public toggleTheme(): void {
     const theme = localStorage.getItem('user_theme')

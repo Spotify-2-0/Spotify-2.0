@@ -1,0 +1,15 @@
+<div class="wrapper" [formGroup]="formGroup">
+  <div class="label"> {{ label }} </div>
+  <div class="input">
+    <input
+      [formControlName]="formName"
+      [class.input-error]="isError()"
+      [type]="hideInput ? 'password' : 'text'"
+      [value]="value"
+    >
+    <app-icon *ngIf="isError()" class="error__icon" icon="invalid"></app-icon>
+  </div>
+  <div class="error">
+    <span *ngIf="isError()" class="error__text"> {{ getErrorMessage() }} </span>
+  </div>
+</div>

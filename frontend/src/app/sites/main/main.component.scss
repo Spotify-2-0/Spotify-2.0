@@ -10,7 +10,7 @@
 .info {
   opacity: 1;
   padding: 5rem;
-  color: var(--textColor);
+  color: var(--color-text-normal);
   text-align: left;
 
   &__wrapper {
@@ -27,7 +27,7 @@
     font-size: 4rem;
     font-weight: 600;
     &__accent {
-      color: var(--colorAccent2);
+      color: var(--color-accent-richer);
     }
   }
 
@@ -39,8 +39,8 @@
   .button {
     text-align: center;
     margin-top: 50px;
-    background: var(--colorAccent2);
-    color: var(--textColor);
+    background: var(--color-accent-richer);
+    color: var(--color-text-normal);
     outline: none;
     border: none;
     border-radius: 50px;
@@ -51,7 +51,7 @@
 
     &:hover {
       cursor: pointer;
-      background: var(--colorAccent);
+      background: var(--color-accent);
     }
   }
 }
@@ -198,7 +198,7 @@
 
 
 .logo {
-  color: var(--textColor);
+  color: var(--color-text-normal);
   font-size: 2.5rem;
   font-weight: 600;
   font-family: var(--defaultFont);
@@ -209,7 +209,7 @@
 .divider {
   width: 2px;
   height: 36px;
-  background: var(--textColor);
+  background: var(--color-text-normal);
   margin-left: 1rem;
   margin-right: 1rem;
   transition: 0.3s;
@@ -227,12 +227,12 @@
 }
 
 .sign-up {
-  color: var(--colorAccent2);
+  color: var(--color-accent-richer);
   @include sign
 }
 
 .sign-in {
-  color: var(--textColor);
+  color: var(--color-text-normal);
   @include sign
 }
 
@@ -241,12 +241,12 @@
   margin-right: 25px;
   width: 36px;
   height: 36px;
-  color: var(--textColor);
+  color: var(--color-text-normal);
   cursor: pointer;
   transition: color 0.3s;
   user-select: none;
   &:hover {
-    color: var(--colorAccent2);
+    color: var(--color-accent-richer);
   }
 }
 
@@ -256,7 +256,7 @@
   height: 100vh;
   flex-wrap: wrap;
   overflow: hidden;
-  background-color: var(--background-1);
+  background-color: var(--color-background);
   transition: background-color 0.3s;
 
   @media only screen and (max-width: 1000px) {
