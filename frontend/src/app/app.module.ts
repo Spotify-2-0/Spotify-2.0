@@ -12,6 +12,8 @@ import { SignupPageComponent } from './sites/signup-page/signup-page.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { FormInputTextComponent } from "./components/form-input-text/form-input-text.component";
 import { ReactiveFormsModule } from "@angular/forms";
+import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
+import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { ReactiveFormsModule } from "@angular/forms";
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    LoadingBarRouterModule,
+    LoadingBarHttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
