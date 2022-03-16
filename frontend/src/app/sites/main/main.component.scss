@@ -23,10 +23,10 @@
     font-family: var(--defaultFont);
   }
 
-  &--header {
+  &__header {
     font-size: 4rem;
     font-weight: 600;
-    &__accent {
+    &--accent {
       color: var(--color-accent-richer);
     }
   }
