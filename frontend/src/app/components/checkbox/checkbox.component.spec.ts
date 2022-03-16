@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CheckboxComponent } from './checkbox.component';
+import { FormControl, FormGroup } from "@angular/forms";
 
 describe('CheckboxComponent', () => {
   let component: CheckboxComponent;
@@ -16,6 +17,10 @@ describe('CheckboxComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CheckboxComponent);
     component = fixture.componentInstance;
+    component.form = new FormGroup({
+      checkbox: new FormControl(true),
+    });
+    component.formName = 'checkbox'
     fixture.detectChanges();
   });
 
