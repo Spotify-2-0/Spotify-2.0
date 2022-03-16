@@ -16,6 +16,23 @@ export const firstNameValidator = (): ValidatorFn => {
   };
 }
 
+export const displayNameValidator = (): ValidatorFn => {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (control.value.length === 0) {
+      return {
+        required: 'Display name cannot be empty'
+      }
+    }
+    if (control.value.length > 16) {
+      return {
+        required: 'Display name cannot be longer than 16 characters'
+      }
+    }
+    return null;
+  };
+}
+
+
 export const lastNameValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
     if (control.value.length === 0) {

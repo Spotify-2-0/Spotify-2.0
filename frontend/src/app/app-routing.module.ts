@@ -2,6 +2,7 @@ import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from "./sites/main/main.component";
 import { SignupPageComponent } from "./sites/signup-page/signup-page.component";
+import {SetupComponent} from "./components/setup/setup.component";
 
 
 
@@ -28,6 +29,10 @@ const routes: Routes = [
   {
     path: 'signup',
     component: SignupPageComponent,
+  },
+  {
+    path: 'setup',
+    component: SetupComponent,
   },
 ];
 

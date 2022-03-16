@@ -41,3 +41,27 @@ html {
   border-radius: 10px;
   background: var(--colorAccent);
 }
+
+.w100 {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+  &-row {
+    flex-flow: row;
+  }
+  &-col {
+    flex-flow: column;
+  }
+  &-center-y {
+    align-items: center;
+  }
+  &-center-x {
+    justify-content: center;
+  }
+  &-center {
+    align-items: center;
+    justify-content: center;
+  }
+}

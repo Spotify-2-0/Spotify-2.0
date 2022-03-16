@@ -1,0 +1,96 @@
+<div class="grid">
+
+  <div class="navbar">
+    <div class="logo" routerLink="/">Spotify 2.0</div>
+    <div class="navbar__left">
+      <app-icon class="icon-theme" icon="theme" (click)="toggleTheme()"></app-icon>
+    </div>
+  </div>
+
+  <div class="left"></div>
+
+  <div class="right">
+
+    <div class="step__wrapper">
+
+      <div class="options">
+        <div class="option" *ngFor="let step of steps; let i = index">
+          <div class="option__index">
+            <app-icon *ngIf="stepIndex > i" icon="tick"></app-icon>
+            <div *ngIf="stepIndex <= i">{{i + 1}}</div>
+          </div>
+          <div class="flex-column">
+            <div class="option__status">{{getStatus(i)}}</div>
+            <div class="option__details">{{getStep(i).title}}</div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="step">
+        <div class="step__header">{{ currentStep().title }}</div>
+        <ng-container [ngTemplateOutlet]="currentStep().getTemplate()"></ng-container>
+      </div>
+
+      <div class="step-progress">
+        <div class="step-progress__help">
+          Having troubles? <span class="highlight">Get Help</span>
+        </div>
+
+        <button class="step-progress--button" (click)="nextStep()">
+          Next <app-icon class="step-progress--button__icon" icon="arrow-right"></app-icon>
+        </button>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+
+
+<ng-template #step_1st>
+    <div class="step__text">
+      In order to proceed with your setup you must confirm your email address.
+      Message has been sent to <span class="highlight">user@domain.com</span>,
+      please follow instructions from the email.
+    </div>
+    <div class="step__text" style="margin-top: 50px">
+      You can’t see the message? <span class="highlight">click here</span> to send it again.
+    </div>
+</ng-template>
+
+<ng-template #step_2nd>
+  <div class="flex flex-row flex-center">
+    <div class="flex flex-col" style="width: 250px">
+      <div class="avatar">
+        <app-icon class="avatar__icon-change" icon="picture"></app-icon>
+        <div class="avatar__initials">{{getUserInitials()}}</div>
+      </div>
+      <div class="avatar__info" style="margin-top: 30px">
+        We recommend an image of at least <span class="highlight">600x600</span>.
+        You can upload a PNG or an JPG <span class="highlight">under 10 MB</span>.
+      </div>
+    </div>
+    <div style="margin-left: auto">
+      <app-form-input-text
+        [formGroup]="form"
+        formName="displayName"
+        label="Display name">
+      </app-form-input-text>
+    </div>
+
+  </div>
+
+</ng-template>
+
+<ng-template #step_3rd>
+  <div class="step__text">
+    In order to proceed with your setup you must confirm your email address.
+    Message has been sent to <span class="highlight">user@domain.com</span>,
+    please follow instructions from the email.
+  </div>
+  <div class="step__text" style="margin-top: 50px">
+    You can’t see the message? <span class="highlight">click here</span> to send it again.
+  </div>
+</ng-template>
