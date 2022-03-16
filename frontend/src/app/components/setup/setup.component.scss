@@ -93,13 +93,13 @@
 .options {
   color: var(--color-text-normal);
   height: 20%;
-  display: -webkit-box;
+  display: flex;
   .option {
+    flex: 1 1 auto;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-flow: row;
-    width: 220px;
     margin-right: 10px;
     &__index {
       color: #000000;

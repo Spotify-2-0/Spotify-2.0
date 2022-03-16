@@ -14,14 +14,16 @@
     <div class="step__wrapper">
 
       <div class="options">
-        <div class="option" *ngFor="let step of steps; let i = index">
+        <div class="option"
+
+             *ngFor="let step of steps; let i = index">
           <div class="option__index">
             <app-icon *ngIf="stepIndex > i" icon="tick"></app-icon>
             <div *ngIf="stepIndex <= i">{{i + 1}}</div>
           </div>
           <div class="flex-column">
             <div class="option__status">{{getStatus(i)}}</div>
-            <div class="option__details">{{getStep(i).title}}</div>
+            <div class="option__details">{{step.title}}</div>
           </div>
         </div>
 

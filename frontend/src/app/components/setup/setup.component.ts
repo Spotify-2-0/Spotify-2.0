@@ -1,13 +1,7 @@
 import {AfterViewInit, ChangeDetectorRef, Component, TemplateRef, ViewChild} from '@angular/core';
 import { ThemeService } from "../../services/theme.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {
-  ConfirmedValidator, displayNameValidator,
-  emailValidator,
-  firstNameValidator,
-  lastNameValidator,
-  passwordValidator, tosValidator
-} from "../../sites/signup-page/validators";
+import { displayNameValidator } from "../../sites/signup-page/validators";
 
 @Component({
   selector: 'app-setup',
@@ -23,7 +17,7 @@ export class SetupComponent implements AfterViewInit{
     displayName: ['', [displayNameValidator()]],
   })
 
-  public stepIndex = 1;
+  public stepIndex = 0;
   public steps: {
     getTemplate: () => TemplateRef<HTMLElement>,
     title: string,
