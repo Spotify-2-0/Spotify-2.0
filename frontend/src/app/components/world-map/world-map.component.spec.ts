@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { WorldMapComponent } from './world-map.component';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 describe('WorldMapComponent', () => {
   let component: WorldMapComponent;
@@ -8,7 +9,8 @@ describe('WorldMapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WorldMapComponent ]
+      declarations: [ WorldMapComponent ],
+      imports: [ BrowserAnimationsModule ]
     })
     .compileComponents();
   });

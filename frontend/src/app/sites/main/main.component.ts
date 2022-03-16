@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import {ThemeService} from "../../services/theme.service";
-import {animate, style, transition, trigger} from "@angular/animations";
+import { ThemeService } from "../../services/theme.service";
+import { animate, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: 'app-main',
