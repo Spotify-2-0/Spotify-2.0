@@ -8,19 +8,31 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { WorldMapComponent } from './components/world-map/world-map.component';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { SignupPageComponent } from './sites/signup-page/signup-page.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { FormInputTextComponent } from "./components/form-input-text/form-input-text.component";
+import { ReactiveFormsModule } from "@angular/forms";
+import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
+import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
 
 @NgModule({
   declarations: [
     AppComponent,
     MainComponent,
     IconComponent,
-    WorldMapComponent
+    WorldMapComponent,
+    SignupPageComponent,
+    FormInputTextComponent,
+    CheckboxComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    LoadingBarRouterModule,
+    LoadingBarHttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

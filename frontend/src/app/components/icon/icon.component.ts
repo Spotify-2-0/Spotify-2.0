@@ -17,11 +17,11 @@ export class IconComponent implements OnInit, OnChanges {
     private readonly sanitizer: DomSanitizer
   ) { }
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.requestIcon();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  public ngOnChanges(changes: SimpleChanges) {
     this.requestIcon();
   }
 
