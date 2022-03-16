@@ -51,8 +51,8 @@ export const lastNameValidator = (): ValidatorFn => {
 
 export const emailValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
-    const regex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    if (!regex.test(control.value)) {
+    const validEmailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    if (!validEmailRegex.test(control.value)) {
       return {
         password: 'Email must be in format user.name@domain.com'
       }
@@ -67,8 +67,8 @@ export const passwordValidator = (): ValidatorFn => {
       Minimum eight characters, at least one uppercase letter,
       one lowercase letter, one number and one special character
     */
-    const regex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
-    if (!regex.test(control.value)) {
+    const validPasswordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
+    if (!validPasswordRegex.test(control.value)) {
       return {
         password: 'Password must be at least 8 characters long, contain uppercase letter, lowercase letter, number, and special character'
       }
