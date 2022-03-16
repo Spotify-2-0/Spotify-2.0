@@ -34,8 +34,8 @@ export const lastNameValidator = (): ValidatorFn => {
 
 export const emailValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
-    const regex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    if (!regex.test(control.value)) {
+    const validEmailRegex = new RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    if (!validEmailRegex.test(control.value)) {
       return {
         password: 'Email must be in format user.name@domain.com'
       }
