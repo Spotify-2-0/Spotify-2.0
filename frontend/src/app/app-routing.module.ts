@@ -1,6 +1,6 @@
-import {APP_INITIALIZER, NgModule} from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {MainComponent} from "./sites/main/main.component";
+import { MainComponent } from "./sites/main/main.component";
 
 
 

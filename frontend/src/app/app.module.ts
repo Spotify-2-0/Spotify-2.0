@@ -7,7 +7,7 @@ import { IconComponent } from './components/icon/icon.component';
 import { HttpClientModule } from "@angular/common/http";
 import { AppComponent } from "./app.component";
 import { WorldMapComponent } from './components/world-map/world-map.component';
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [
