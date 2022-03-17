@@ -1,6 +1,5 @@
-.logo {
-  color: #ffffff;
-  font-size: 2.5rem;
+@mixin logo-default {
+  font-size: 4rem;
   font-weight: 600;
   font-family: var(--defaultFont);
   margin-left: 2rem;
@@ -8,7 +7,17 @@
   cursor: pointer;
 
   @media (max-width: 1000px) {
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     color: var(--color-text-normal);
   }
+}
+
+.logo {
+  @include logo-default;
+  color: var(--color-text-normal);
+  &--on-img {
+    @include logo-default;
+    color: #FFFFFF;
+  }
+
 }

@@ -22,6 +22,7 @@
   margin-top: 3rem;
 
   &-text {
+    font-size: 1.2rem;
     margin-top: 0.25rem;
     margin-left: 5px;
     color: var(--color-text-normal);
@@ -53,7 +54,7 @@
     background: var(--color-accent-richer);
     flex-direction: column;
     background-size: contain;
-    background: url("/assets/images/bg_signup.jpg") 30% 50%;
+    background: url("/assets/images/bg_signup.webp") 30% 50%;
     @media (max-width: 1000px) {
       width: 0;
     }
@@ -90,8 +91,8 @@
 
 .sign-up__button {
   margin-top: 30px;
-  width: 10rem;
-  height: 3rem;
+  width: 12rem;
+  height: 4rem;
   border: 0;
   outline: 0;
   border-radius: 10px;
@@ -125,7 +126,7 @@
   }
 
   &__text {
-    font-size: 1.125rem;
+    font-size: 1.3rem;
     margin-left: 10px;
   }
   @media (max-width: 1000px) {
@@ -136,7 +137,7 @@
 .form {
   width: 400px;
   @media (max-width: 1000px) {
-    margin: 140px 15px 15px 15px;
-    width: auto;
+    padding: 140px 30px 30px 30px;
+    width: 100%;
   }
 }

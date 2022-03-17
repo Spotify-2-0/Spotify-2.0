@@ -52,7 +52,7 @@
     background: var(--color-accent-richer);
     flex-direction: column;
     background-size: contain;
-    background: url("/assets/images/bg_signup.jpg") 30% 50%;
+    background: url("/assets/images/bg_signup.webp") 30% 50%;
     @media (max-width: 1000px) {
       width: 0;
     }
@@ -89,8 +89,8 @@
 
 .sign-up__button {
   margin-top: 30px;
-  width: 10rem;
-  height: 3rem;
+  width: 12rem;
+  height: 4rem;
   border: 0;
   outline: 0;
   border-radius: 10px;
@@ -124,7 +124,7 @@
   }
 
   &__text {
-    font-size: 1.125rem;
+    font-size: 1.3rem;
     margin-left: 10px;
   }
   @media (max-width: 1000px) {
