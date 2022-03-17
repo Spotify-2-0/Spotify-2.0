@@ -1,0 +1,19 @@
+.icon-theme {
+  margin-left: 50px;
+  margin-right: 25px;
+  width: 36px;
+  height: 36px;
+  color: var(--color-text-normal);
+  cursor: pointer;
+  transition: color 0.1s;
+  user-select: none;
+
+  svg {
+    width: 3.6rem;
+    height: 3.6rem;
+  }
+
+  &:hover {
+    color: var(--color-accent-richer);
+  }
+}

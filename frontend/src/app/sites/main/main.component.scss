@@ -1,3 +1,5 @@
+
+
 @mixin singer {
   position: absolute;
   background-position: center;
@@ -61,6 +63,7 @@
   height: 100%;
   border-radius: 50px;
   background: transparent;
+  margin-top: 7rem;
 
   @media (max-width: 1000px) {
     display: none;
@@ -189,13 +192,13 @@
 }
 
 @mixin sign {
-  font-size: 1.5rem;
+  font-size: 2.4rem;
   font-family: var(--defaultFont);
   cursor: pointer;
   transition: 0.3s;
 
   @media (max-width: 1000px) {
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
 
   &:hover {
@@ -252,6 +255,7 @@
     height: calc(100% - 70px);
     width: 30%;
     flex-direction: column;
+    animation: moveInRight 1s ease-out 0.2s;
 
     @media only screen and (max-width: 1000px) {
       width: 100%;

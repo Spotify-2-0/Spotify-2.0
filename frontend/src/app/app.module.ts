@@ -14,6 +14,7 @@ import { FormInputTextComponent } from "./components/form-input-text/form-input-
 import { ReactiveFormsModule } from "@angular/forms";
 import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
+import { SigninPageComponent } from './sites/signin-page/signin-page.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
     IconComponent,
     WorldMapComponent,
     SignupPageComponent,
+    SigninPageComponent,
     FormInputTextComponent,
     CheckboxComponent
   ],

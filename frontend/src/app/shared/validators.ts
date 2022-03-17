@@ -1,5 +1,17 @@
 import {AbstractControl, FormGroup, ValidationErrors, ValidatorFn} from "@angular/forms";
 
+
+export const requiredValidator = (): ValidatorFn => {
+  return (control: AbstractControl): ValidationErrors | null =>  {
+    if (control.value.length === 0){
+      return {
+        required: 'This field is required'
+      }
+    }
+    return null;
+  }
+}
+
 export const firstNameValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
     if (control.value.length === 0) {
