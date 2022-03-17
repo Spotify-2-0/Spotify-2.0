@@ -91,10 +91,26 @@
 }
 
 .options {
+  position: relative;
+  &__underline {
+    &--wrapper {
+      height: 100%;
+      transform: translate(0, 62%);
+    }
+    transition: all 0.3s;
+    position: absolute;
+    height: 3px;
+    width: 250px;
+    background: var(--color-accent-richer);
+    flex: 1 1 auto;
+    display: flex;
+  }
   color: var(--color-text-normal);
   height: 20%;
   display: flex;
+  align-items: center;
   .option {
+    height: fit-content;
     flex: 1 1 auto;
     display: flex;
     justify-content: center;
@@ -193,8 +209,13 @@
   width: 250px;
   height: 250px;
   border-radius: 50%;
-  background: var(--color-accent-richer);
-  position: relative;
+  &--wrapper {
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: var(--color-accent-richer);
+    position: relative;
+  }
   &__icon-change {
     color: #000000;
     position: absolute;
@@ -203,6 +224,7 @@
     right: 20px;
     top: 20px;
     z-index: 1;
+    cursor: pointer;
     &:after {
       position: absolute;
       z-index: -1;
@@ -233,5 +255,26 @@
       color: inherit;
       cursor: inherit;
     }
+  }
+}
+
+.modal {
+
+  &--bg {
+    width: 100vw;
+    height: 100vh;
+    z-index: 9998;
+    position: absolute;
+    left: 0;
+    top: 0;
+    backdrop-filter: blur(10px) brightness(0.8);
+  }
+
+  &--content {
+    z-index: 9999;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%)
   }
 }

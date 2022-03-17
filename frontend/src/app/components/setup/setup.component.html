@@ -14,8 +14,18 @@
     <div class="step__wrapper">
 
       <div class="options">
-        <div class="option"
 
+          <div class="options__underline"
+               style="top: 60%"
+               [style.width]="getCurrentWidth()"
+               [style.top]="getTopOffset()"
+               [style.left]="getLeftOffset()">
+
+          </div>
+
+
+        <div #option
+             class="option"
              *ngFor="let step of steps; let i = index">
           <div class="option__index">
             <app-icon *ngIf="stepIndex > i" icon="tick"></app-icon>
@@ -65,9 +75,14 @@
 <ng-template #step_2nd>
   <div class="flex flex-row flex-center">
     <div class="flex flex-col" style="width: 250px">
-      <div class="avatar">
-        <app-icon class="avatar__icon-change" icon="picture"></app-icon>
-        <div class="avatar__initials">{{getUserInitials()}}</div>
+      <div class="avatar--wrapper">
+        <div class="avatar" *ngIf="!cropped">
+          <div class="avatar__initials">{{getUserInitials()}}</div>
+        </div>
+        <img class="avatar" *ngIf="cropped" [src]="cropped.base64">
+        <label for="avatar">
+          <app-icon class="avatar__icon-change" icon="picture"></app-icon>
+        </label>
       </div>
       <div class="avatar__info" style="margin-top: 30px">
         We recommend an image of at least <span class="highlight">600x600</span>.
@@ -84,6 +99,28 @@
 
   </div>
 
+  <ng-container class="modal" *ngIf="modal">
+    <div class="modal--bg"></div>
+    <div class="modal--content">
+
+      <app-avatar-cropper
+          [width]="width"
+          [height]="height"
+          [dataURI]=dataUri
+          format="jpeg"
+          (onFinish)="cropped = $event; modal = false"
+      >
+      </app-avatar-cropper>
+    </div>
+  </ng-container>
+
+  <input style="display: none"
+         type="file"
+         accept="image/*"
+         id="avatar"
+         name="avatar"
+         (change)="selectFile($event)" />
+
 </ng-template>
 
 <ng-template #step_3rd>
@@ -96,3 +133,4 @@
     You can’t see the message? <span class="highlight">click here</span> to send it again.
   </div>
 </ng-template>
+

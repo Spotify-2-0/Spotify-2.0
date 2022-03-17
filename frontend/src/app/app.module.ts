@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
 import { SetupComponent } from './components/setup/setup.component';
+import { AvatarCropperComponent } from './components/avatar-cropper/avatar-cropper.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SetupComponent } from './components/setup/setup.component';
     FormInputTextComponent,
     CheckboxComponent,
     SetupComponent,
+    AvatarCropperComponent,
   ],
   imports: [
     BrowserModule,

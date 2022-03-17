@@ -1,0 +1,46 @@
+<!--<div class="cropper-container">
+  <div class="cropper-wrapper"
+       (mouseleave)="stopMoving()"
+       (mouseup)="stopMoving()"
+       (touchend)="stopMoving()"
+       (mousemove)="resize($event); moving($event)"
+       >
+
+    <div class="cropper-resizable"
+         (mousedown)="startMoving($event)"
+         #childSource>
+      <div class="cropper-resizer"
+           (mousedown)="startResize($event)">
+      </div>
+    </div>
+
+    <div class="wrapme">
+      <img
+        [style]="height > width ? 'height: 100%': 'width: 100%'"
+        #parentSource [src]="dataURI" draggable="false">
+    </div>
+
+    </div>
+</div>-->
+  <div class="content">
+    <div class="wrapme" #wrapper>
+
+        <img #parentSource
+
+          [style.transform]="'scale(' + scale + ')'"
+          [style]="height > width ? 'height: 100%': 'width: 100%'"
+          [src]="dataURI"/>
+      <div #childSource class="area" [style.width]="bigger" [style.height]="bigger"></div>
+    </div>
+    <div class="scale">
+      <app-icon icon="photo" class="scale--photo__small"></app-icon>
+      <input class="scale--slider" type="range" min="1" max="2" step="0.001" (input)="changeScale($event)" [value]="scale">
+      <app-icon icon="photo" class="scale--photo__big"></app-icon>
+    </div>
+    <div class="buttons">
+      <button class="button--cancel">Cancel</button>
+      <button class="button--apply" (click)="onApply()">Apply</button>
+    </div>
+  </div>
+
+<!--<img style="position:absolute; border-radius: 50%; top:0;" *ngIf="this.result" [src]="this.result.base64">-->
