@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ThemeService } from "../../services/theme.service";
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup} from "@angular/forms";
 import {
   ConfirmedValidator,
   emailValidator,
   firstNameValidator,
   lastNameValidator,
   passwordValidator, tosValidator
-} from "./validators";
+} from "../../shared/validators";
 
 @Component({
   selector: 'app-signup-page',

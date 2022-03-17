@@ -19,9 +19,10 @@
 }
 
 .checkbox {
-  margin-top: 30px;
+  margin-top: 3rem;
 
   &-text {
+    margin-top: 0.25rem;
     margin-left: 5px;
     color: var(--color-text-normal);
 
@@ -43,24 +44,6 @@
   @media (max-width: 1000px) {
     width: unset;
     height: unset;
-  }
-
-  .navbar {
-    position: absolute;
-    height: 70px;
-    min-height: 70px;
-    width: 100%;
-    flex-direction: row;
-    display: flex;
-    background: inherit;
-    align-items: flex-end;
-    z-index: 2;
-
-    &__left {
-      display: flex;
-      flex-wrap: nowrap;
-      margin-left: auto;
-    }
   }
 
   .left {
@@ -96,26 +79,6 @@
   }
 }
 
-.header {
-  margin-bottom: 80px;
-  color: var(--color-text-normal);
-  font-size: 2.25rem;
-  font-weight: 600;
-}
-
-.logo {
-  color: #FFFFFF;
-  font-size: 2.5rem;
-  font-weight: 600;
-  font-family: var(--defaultFont);
-  margin-left: 2rem;
-  user-select: none;
-  @media (max-width: 1000px) {
-    color: var(--color-text-normal);
-  }
-  cursor: pointer;
-}
-
 .divider {
   width: 2px;
   height: 36px;
@@ -123,20 +86,6 @@
   margin-left: 1rem;
   margin-right: 1rem;
   transition: 0.3s;
-}
-
-.icon-theme {
-  margin-left: 50px;
-  margin-right: 25px;
-  width: 36px;
-  height: 36px;
-  color: var(--color-text-normal);
-  cursor: pointer;
-  transition: color 0.1s;
-  user-select: none;
-  &:hover {
-    color: var(--color-accent-richer);
-  }
 }
 
 .sign-up__button {
