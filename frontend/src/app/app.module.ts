@@ -25,7 +25,7 @@ import { SigninPageComponent } from './sites/signin-page/signin-page.component';
     SignupPageComponent,
     SigninPageComponent,
     FormInputTextComponent,
-    CheckboxComponent
+    CheckboxComponent,
   ],
   imports: [
     BrowserModule,

@@ -59,17 +59,3 @@
 input {
   display: none;
 }
-
-.error {
-  margin-top: 10px;
-  color: #ed4337;
-  display: flex;
-  min-height: 0.8rem;
-  transition: all 125ms ease-in-out;
-
-  align-items: flex-start;
-}
-
-.error__text {
-  font-size: 0.8rem;
-}

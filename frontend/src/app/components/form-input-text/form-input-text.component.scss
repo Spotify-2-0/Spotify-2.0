@@ -3,10 +3,12 @@
 }
 
 :host {
-  display: contents;
+  //display: contents;
 }
 
-.wrapper {}
+.wrapper {
+  width: 100%;
+}
 
 .input {
   display: flex;
@@ -20,19 +22,19 @@ input {
   color: var(--color-text-normal);
   width: 100%;
   outline: none;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
   line-height:40px;
   padding-left: 8px;
   padding-right: 30px;
   margin: 5px 0;
   transition: 0.3s;
 
-  &:focus {
+  &:focus, .input-error:focus {
     box-shadow: 0 4px 2px -2px rgba(81, 203, 238, 1);
     border-bottom: 1px solid rgba(81, 203, 238, 1);
   }
 }
-.input-error, .input-error:focus {
+.input-error {
   border-bottom: 0.5px solid var(--color-error-richer);
   box-shadow: 0 4px 2px -2px var(--color-error-richer);
 }
@@ -43,18 +45,18 @@ input {
 
 .error {
   margin-top: 10px;
+  margin-bottom: 5px;
   color: var(--color-error-normal);
   display: flex;
   height: auto;
   min-height: 0.8rem;
-  max-height: 1.6rem;
   transition: all 125ms ease-in-out;
 
   align-items: center;
 }
 
 .error__text {
-  font-size: 0.8rem;
+  font-size: 1.2rem;
 }
 
 .error__icon {
@@ -78,6 +80,7 @@ input {
 .label {
   font-weight: 600;
   padding-left: 5px;
+  font-size: 1.3rem;
   color: var(--color-text-normal)
 }
 
