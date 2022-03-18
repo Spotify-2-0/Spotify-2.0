@@ -1,0 +1,49 @@
+<div class="grid">
+  <div class="navbar">
+    <div class="logo--on-img" routerLink="/">Spotify 2.0</div>
+    <div class="navbar__left">
+      <app-icon
+        class="icon-theme"
+        icon="theme"
+        (click)="toggleTheme()"
+      ></app-icon>
+    </div>
+  </div>
+
+  <div class="left"></div>
+
+  <div class="right">
+    <form class="form" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+      <div class="header">Sign in</div>
+
+      <div style="display: flex; flex-flow: column">
+        <app-form-input-text
+          label="Email"
+          formName="email"
+          [formGroup]="signinForm"
+        ></app-form-input-text>
+
+        <div style="margin-left: 1rem">&nbsp;</div>
+
+        <app-form-input-text
+          label="Password"
+          formName="password"
+          [formGroup]="signinForm"
+          [hideInput]="true"
+        ></app-form-input-text>
+      </div>
+      <div
+        style="display: flex; justify-content: center; align-content: center"
+      >
+        <button class="sign-up__button" type="submit">Sign in</button>
+      </div>
+    </form>
+
+    <div class="or">OR</div>
+
+    <button class="google">
+      <app-icon class="google__icon" icon="google"></app-icon>
+      <span class="google__text">Continue with google</span>
+    </button>
+  </div>
+</div>

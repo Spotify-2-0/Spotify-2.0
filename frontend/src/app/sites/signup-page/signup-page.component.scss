@@ -19,9 +19,11 @@
 }
 
 .checkbox {
-  margin-top: 30px;
+  margin-top: 3rem;
 
   &-text {
+    font-size: 1.2rem;
+    margin-top: 0.25rem;
     margin-left: 5px;
     color: var(--color-text-normal);
 
@@ -45,24 +47,6 @@
     height: unset;
   }
 
-  .navbar {
-    position: absolute;
-    height: 70px;
-    min-height: 70px;
-    width: 100%;
-    flex-direction: row;
-    display: flex;
-    background: inherit;
-    align-items: flex-end;
-    z-index: 2;
-
-    &__left {
-      display: flex;
-      flex-wrap: nowrap;
-      margin-left: auto;
-    }
-  }
-
   .left {
     position: relative;
     width: 60%;
@@ -70,7 +54,7 @@
     background: var(--color-accent-richer);
     flex-direction: column;
     background-size: contain;
-    background: url("/assets/images/bg_signup.jpg") 30% 50%;
+    background: url("/assets/images/bg_signup.webp") 30% 50%;
     @media (max-width: 1000px) {
       width: 0;
     }
@@ -96,26 +80,6 @@
   }
 }
 
-.header {
-  margin-bottom: 80px;
-  color: var(--color-text-normal);
-  font-size: 2.25rem;
-  font-weight: 600;
-}
-
-.logo {
-  color: #FFFFFF;
-  font-size: 2.5rem;
-  font-weight: 600;
-  font-family: var(--defaultFont);
-  margin-left: 2rem;
-  user-select: none;
-  @media (max-width: 1000px) {
-    color: var(--color-text-normal);
-  }
-  cursor: pointer;
-}
-
 .divider {
   width: 2px;
   height: 36px;
@@ -125,24 +89,10 @@
   transition: 0.3s;
 }
 
-.icon-theme {
-  margin-left: 50px;
-  margin-right: 25px;
-  width: 36px;
-  height: 36px;
-  color: var(--color-text-normal);
-  cursor: pointer;
-  transition: color 0.1s;
-  user-select: none;
-  &:hover {
-    color: var(--color-accent-richer);
-  }
-}
-
 .sign-up__button {
   margin-top: 30px;
-  width: 10rem;
-  height: 3rem;
+  width: 12rem;
+  height: 4rem;
   border: 0;
   outline: 0;
   border-radius: 10px;
@@ -176,7 +126,7 @@
   }
 
   &__text {
-    font-size: 1.125rem;
+    font-size: 1.3rem;
     margin-left: 10px;
   }
   @media (max-width: 1000px) {
@@ -187,7 +137,7 @@
 .form {
   width: 400px;
   @media (max-width: 1000px) {
-    margin: 140px 15px 15px 15px;
-    width: auto;
+    padding: 140px 30px 30px 30px;
+    width: 100%;
   }
 }

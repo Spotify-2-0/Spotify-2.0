@@ -4,13 +4,17 @@ import {
   EventEmitter,
   Input,
   OnChanges,
-  OnInit,
   Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
 import { fromEvent, Subscription } from "rxjs";
+import { b64toBlob } from "../../shared/functions";
 
+export interface CropResult {
+  blob: Blob,
+  base64: string
+}
 
 @Component({
   selector: 'app-avatar-cropper',
@@ -45,8 +49,7 @@ export class AvatarCropperComponent implements OnChanges {
   @Input() format: 'png' | 'jpeg' | 'bmp' | 'webp' | 'ico' = 'png';
 
 
-  // eslint-disable-next-line @angular-eslint/no-output-on-prefix
-  @Output() onFinish: EventEmitter<any> = new EventEmitter();
+  @Output() finished: EventEmitter<CropResult | null> = new EventEmitter();
 
 
   @ViewChild('parentSource', { static: true }) parentSource!: ElementRef;
@@ -170,36 +173,10 @@ export class AvatarCropperComponent implements OnChanges {
   }
 
   onApply() {
-    this.onFinish.emit(this.crop());
+    this.finished.emit(this.crop());
   }
-}
 
-
-export function image2base64(file: any, callback: any) {
-  if (!/image\/(png|jpg|jpeg|bmp|gif|tiff|webp)/.test(file.type))
-    throw ("Not Valid Image");
-
-  const reader = new FileReader();
-  reader.onload = (file) => {
-    const image = new Image();
-    console.log("loaded 1")
-    image.onload = (cos: Event) => {
-      const loadedImg = cos.target as HTMLImageElement;
-      callback(reader.result, loadedImg.width, loadedImg.height);
-      console.log("loaded 2")
-    };
-
-    image.src = file.target?.result as string;
-  };
-  reader.readAsDataURL(file);
-}
-
-export function b64toBlob(dataURI:any, type:any) {
-  let byteString = atob(dataURI.split(',').pop());
-  let ab = new ArrayBuffer(byteString.length);
-  let ia = new Uint8Array(ab);
-  for (let i = 0; i < byteString.length; i++) {
-    ia[i] = byteString.charCodeAt(i);
+  onCancel() {
+    this.finished.emit(null);
   }
-  return new Blob([ab], { type });
 }

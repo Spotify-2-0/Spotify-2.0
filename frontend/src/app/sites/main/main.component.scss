@@ -1,3 +1,5 @@
+
+
 @mixin singer {
   position: absolute;
   background-position: center;
@@ -24,7 +26,7 @@
   }
 
   &__header {
-    font-size: 4rem;
+    font-size: 5rem;
     font-weight: 600;
     &--accent {
       color: var(--color-accent-richer);
@@ -33,7 +35,7 @@
 
   &__text {
     margin-top: 30px;
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .button {
@@ -61,6 +63,7 @@
   height: 100%;
   border-radius: 50px;
   background: transparent;
+  margin-top: 7rem;
 
   @media (max-width: 1000px) {
     display: none;
@@ -71,7 +74,7 @@
     height: 25vh;
     left: 65%;
     top: 30%;
-    background: url("/assets/images/img_1.png");
+    background: url("/assets/images/img_1.webp");
     @include singer;
   }
 
@@ -80,7 +83,7 @@
     height: 17vh;
     left: 40%;
     top: 50%;
-    background: url("/assets/images/img_2.png");
+    background: url("/assets/images/img_2.webp");
     @include singer;
   }
 
@@ -90,7 +93,7 @@
     height: 30vh;
     left: 50%;
     top: 90%;
-    background: url("/assets/images/img_3.png");
+    background: url("/assets/images/img_3.webp");
     @include singer;
   }
 
@@ -100,7 +103,7 @@
     height: 20vh;
     left: 74%;
     top: 75%;
-    background: url("/assets/images/img_4.png");
+    background: url("/assets/images/img_4.webp");
     @include singer;
   }
 
@@ -110,7 +113,7 @@
     height: 18vh;
     left: 90%;
     top: 70%;
-    background: url("/assets/images/img_5.png");
+    background: url("/assets/images/img_5.webp");
     @include singer;
   }
 
@@ -120,7 +123,7 @@
     height: 35vh;
     left: 90%;
     top: 45%;
-    background: url("/assets/images/img_6.png") 45% 30%;
+    background: url("/assets/images/img_6.webp") 45% 30%;
     background-size: cover;
     @include singer;
   }
@@ -163,18 +166,7 @@
 }
 
 
-.logo {
-  color: var(--color-text-normal);
-  font-size: 2.5rem;
-  font-weight: 600;
-  font-family: var(--defaultFont);
-  margin-left: 2rem;
-  user-select: none;
 
-  @media (max-width: 1000px) {
-    font-size: 1.5rem;
-  }
-}
 
 .divider {
   width: 2px;
@@ -189,13 +181,13 @@
 }
 
 @mixin sign {
-  font-size: 1.5rem;
+  font-size: 2.4rem;
   font-family: var(--defaultFont);
   cursor: pointer;
   transition: 0.3s;
 
   @media (max-width: 1000px) {
-    font-size: 1rem;
+    font-size: 1.6rem;
   }
 
   &:hover {
@@ -252,10 +244,11 @@
     height: calc(100% - 70px);
     width: 30%;
     flex-direction: column;
+    animation: moveInRight 1s ease-out 0.2s;
 
     @media only screen and (max-width: 1000px) {
       width: 100%;
-      height: unset;
+      margin-top: 5rem;
     }
 
   }

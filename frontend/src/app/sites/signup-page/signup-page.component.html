@@ -1,9 +1,12 @@
 <div class="grid">
-
   <div class="navbar">
-    <div class="logo" routerLink="/">Spotify 2.0</div>
+    <div class="logo--on-img" routerLink="/">Spotify 2.0</div>
     <div class="navbar__left">
-      <app-icon class="icon-theme" icon="theme" (click)="toggleTheme()"></app-icon>
+      <app-icon
+        class="icon-theme"
+        icon="theme"
+        (click)="toggleTheme()"
+      ></app-icon>
     </div>
   </div>
 
@@ -13,57 +16,56 @@
     <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="header">Sign up</div>
 
-      <div style="display: flex; flex-flow: row;">
-
+      <div style="display: flex; flex-flow: row">
         <app-form-input-text
-          label="First Name"
           formName="firstName"
-          [formGroup]="form"
-        ></app-form-input-text>
-
-        <div style="margin-left: 10px"></div>
+          label="First Name"
+          [formGroup]="form">
+        </app-form-input-text>
 
         <app-form-input-text
-          label="Last Name"
+          class="u-margin-left-small"
           formName="lastName"
-          [formGroup]="form"
-        ></app-form-input-text>
-
+          label="Last Name"
+          [formGroup]="form">
+        </app-form-input-text>
       </div>
 
-      <div style="margin-top: 10px"></div>
-
       <app-form-input-text
-        label="Email address"
+        class="u-margin-top-small"
         formName="email"
-        [formGroup]="form"
-      ></app-form-input-text>
-
-      <div style="margin-top: 10px"></div>
+        label="Email address"
+        [formGroup]="form">
+      </app-form-input-text>
 
       <app-form-input-text
-        label="Password"
+        class="u-margin-top-small"
         formName="password"
+        label="Password"
         [hideInput]="true"
-        [formGroup]="form"
-      ></app-form-input-text>
-
-      <div style="margin-top: 10px"></div>
+        [formGroup]="form">
+      </app-form-input-text>
 
       <app-form-input-text
+        class="u-margin-top-small"
         label="Re-enter password"
         formName="rePassword"
         [hideInput]="true"
-        [formGroup]="form"
-      ></app-form-input-text>
+        [formGroup]="form">
+      </app-form-input-text>
 
       <div class="checkbox">
         <app-checkbox formName="tos" [form]="form">
-          <span class="checkbox-text">I accept our <span class="highlight">Terms of Service</span> and <span class="highlight">Privacy Policy</span></span>
+          <span class="checkbox-text"
+            >I accept our <span class="highlight">Terms of Service</span> and
+            <span class="highlight">Privacy Policy</span></span
+          >
         </app-checkbox>
       </div>
 
-      <div style="display: flex; justify-content: center; align-content: center">
+      <div
+        style="display: flex; justify-content: center; align-content: center"
+      >
         <button class="sign-up__button" type="submit">Sign up</button>
       </div>
     </form>
@@ -74,6 +76,5 @@
       <app-icon class="google__icon" icon="google"></app-icon>
       <span class="google__text">Continue with google</span>
     </button>
-
   </div>
 </div>

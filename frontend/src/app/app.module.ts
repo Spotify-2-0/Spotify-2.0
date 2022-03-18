@@ -14,8 +14,14 @@ import { FormInputTextComponent } from "./components/form-input-text/form-input-
 import { ReactiveFormsModule } from "@angular/forms";
 import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
-import { SetupComponent } from './components/setup/setup.component';
 import { AvatarCropperComponent } from './components/avatar-cropper/avatar-cropper.component';
+import { SigninPageComponent } from './sites/signin-page/signin-page.component';
+import { StepperComponent } from './components/stepper/stepper.component';
+import { StepEmailValidationComponent } from './components/setup/step-email-validation/step-email-validation.component';
+import { StepUserProfileComponent } from './components/setup/step-user-profile/step-user-profile.component';
+import { StepUserInterestsComponent } from './components/setup/step-user-interests/step-user-interests.component';
+import { SetupPageComponent } from './sites/setup-page/setup-page.component';
+import { StepFinalComponent } from './components/setup/step-final/step-final.component';
 
 @NgModule({
   declarations: [
@@ -24,10 +30,16 @@ import { AvatarCropperComponent } from './components/avatar-cropper/avatar-cropp
     IconComponent,
     WorldMapComponent,
     SignupPageComponent,
+    SigninPageComponent,
     FormInputTextComponent,
     CheckboxComponent,
-    SetupComponent,
     AvatarCropperComponent,
+    StepperComponent,
+    StepEmailValidationComponent,
+    StepUserProfileComponent,
+    StepUserInterestsComponent,
+    SetupPageComponent,
+    StepFinalComponent,
   ],
   imports: [
     BrowserModule,

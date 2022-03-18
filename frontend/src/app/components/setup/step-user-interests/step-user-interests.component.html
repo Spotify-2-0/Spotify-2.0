@@ -1,0 +1,9 @@
+<div class="genres">
+  <div class="genre"
+       [class.genre--chosen]="isChosen(genre)"
+       (click)="onGenreClick(genre)"
+       *ngFor="let genre of genres">
+    <app-icon class="genre--icon" [icon]="'genres/' + genre[1]"></app-icon>
+    <span class="genre--title">{{ genre[0] }}</span>
+  </div>
+</div>

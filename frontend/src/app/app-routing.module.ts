@@ -1,10 +1,9 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from "./sites/main/main.component";
+import { SigninPageComponent } from './sites/signin-page/signin-page.component';
 import { SignupPageComponent } from "./sites/signup-page/signup-page.component";
-import {SetupComponent} from "./components/setup/setup.component";
-
-
+import { SetupPageComponent } from "./sites/setup-page/setup-page.component";
 
 const initializer = (): (() => Promise<void>) => {
   let theme = localStorage.getItem('user_theme')
@@ -32,9 +31,13 @@ const routes: Routes = [
   },
   {
     path: 'setup',
-    component: SetupComponent,
+    component: SetupPageComponent,
   },
-];
+  {
+    path: 'signin',
+    component: SigninPageComponent
+  }
+]
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
