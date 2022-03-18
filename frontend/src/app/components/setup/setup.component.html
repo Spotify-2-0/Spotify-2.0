@@ -49,9 +49,14 @@
           Having troubles? <span class="highlight">Get Help</span>
         </div>
 
-        <button class="step-progress--button" (click)="nextStep()">
-          Next <app-icon class="step-progress--button__icon" icon="arrow-right"></app-icon>
-        </button>
+        <div class="flex flex-col flex-center-x">
+          <button class="step-progress--button" (click)="nextStep()">
+            Next <app-icon class="step-progress--button__icon" icon="arrow-right"></app-icon>
+          </button>
+          <span class="step-progress--skip" *ngIf="currentStep().isSkippable">
+            Don't know yet? <span class="highlight">Skip this step</span>
+          </span>
+        </div>
       </div>
 
     </div>
@@ -124,13 +129,18 @@
 </ng-template>
 
 <ng-template #step_3rd>
-  <div class="step__text">
-    In order to proceed with your setup you must confirm your email address.
-    Message has been sent to <span class="highlight">user@domain.com</span>,
-    please follow instructions from the email.
-  </div>
-  <div class="step__text" style="margin-top: 50px">
-    You can’t see the message? <span class="highlight">click here</span> to send it again.
-  </div>
+
+    <div class="genres">
+      <div class="genre"
+           [class.genre--chosen]="isChosen(genre)"
+           *ngFor="let genre of genres" (click)="onGenreClick(genre)">
+
+        <app-icon class="genre--icon" [icon]="'genres/' + genre[1]"></app-icon>
+        <span class="genre--title">{{genre[0]}}</span>
+
+      </div>
+    </div>
+
+
 </ng-template>
 

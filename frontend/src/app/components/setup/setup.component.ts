@@ -11,6 +11,7 @@ import { ThemeService } from "../../services/theme.service";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import { displayNameValidator } from "../../sites/signup-page/validators";
 import { image2base64 } from "../avatar-cropper/avatar-cropper.component";
+import { Genres } from "./genres";
 
 @Component({
   selector: 'app-setup',
@@ -23,8 +24,8 @@ export class SetupComponent implements AfterViewInit{
   @ViewChild('step_3rd') private step_3rd!: TemplateRef<HTMLElement>;
   @ViewChildren('option') private options!: QueryList<ElementRef<HTMLDivElement>>;
 
-  link = "https://i.imgur.com/Zka2JdL.jpg";
-  scale=1;
+  genres=Genres;
+  chosenGenres: string[] = [];
 
   form: FormGroup = this.fb.group({
     displayName: ['', [displayNameValidator()]],
@@ -125,5 +126,19 @@ export class SetupComponent implements AfterViewInit{
         this.modal = true;
       }, 100);
     });
+  }
+
+  onGenreClick(genre: string[]) {
+    const index = this.chosenGenres.findIndex(x => x === genre[0]);
+    if (index !== -1) {
+      this.chosenGenres.splice(index, 1);
+    } else {
+      this.chosenGenres.push(genre[0])
+    }
+  }
+
+  isChosen(genre: string[]) {
+    const index = this.chosenGenres.findIndex(x => x === genre[0]);
+    return index !== -1;
   }
 }

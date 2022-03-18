@@ -12,4 +12,8 @@ span {
   height: inherit;
   line-height: inherit;
   width: inherit;
+
+  svg {
+    fill: currentColor;
+  }
 }

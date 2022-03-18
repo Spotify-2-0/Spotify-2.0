@@ -39,7 +39,7 @@ html {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: var(--colorAccent);
+  background: var(--color-accent);
 }
 
 .w100 {
@@ -55,10 +55,10 @@ html {
     flex-flow: column;
   }
   &-center-y {
-    align-items: center;
+    justify-content: center;
   }
   &-center-x {
-    justify-content: center;
+    align-items: center;
   }
   &-center {
     align-items: center;
