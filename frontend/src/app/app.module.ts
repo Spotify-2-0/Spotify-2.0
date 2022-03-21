@@ -15,6 +15,9 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
 import { SigninPageComponent } from './sites/signin-page/signin-page.component';
+import { LoggedPageComponent } from './sites/logged-page/logged-page.component';
+import { SidebarComponent } from './sites/logged-page/sidebar/sidebar.component';
+import { PlayerComponent } from './sites/logged-page/player/player.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { SigninPageComponent } from './sites/signin-page/signin-page.component';
     SigninPageComponent,
     FormInputTextComponent,
     CheckboxComponent,
+    LoggedPageComponent,
+    SidebarComponent,
+    PlayerComponent,
   ],
   imports: [
     BrowserModule,

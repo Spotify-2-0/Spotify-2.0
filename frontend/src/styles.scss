@@ -17,15 +17,19 @@ html {
   --color-error-richer: #ed4337;
 
   --color-text-normal: #000000;
+  --color-text-grey: #3d3d3d;
   --color-accent: #BCB6FF;
   --color-accent-richer: #756ccc;
 
   --color-background: #FFFFFF;
+  --color-player-background: #DBE2FF;
 }
 
 [data-theme="dark"] {
   --color-text-normal: #FFFFFF;
+  --color-text-grey: #919191;
   --color-background: #10141D;
+  --color-player-background: #0C111C;
 }
 
 ::-webkit-scrollbar {

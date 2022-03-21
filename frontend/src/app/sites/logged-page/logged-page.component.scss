@@ -1,0 +1,32 @@
+* {
+    font-family: var(--defaultFont);
+}
+
+.main-app-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.player {
+    height: 115px;
+
+    @media (max-width: 1000px) {
+        height: 80px;
+    }
+}
+
+.content-container {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.sidebar {
+    flex-grow: 1;
+    max-width: 24rem;
+}
+
+.content-container {
+    flex-grow: 9;
+}
