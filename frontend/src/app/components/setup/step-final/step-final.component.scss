@@ -1,0 +1,15 @@
+.bar {
+  position: relative;
+  width: 80%;
+  height: 2rem;
+  background: var(--color-accent);
+  border-radius: 1rem;
+  &--progress {
+    left: 0;
+    top: 0;
+    position: absolute;
+    height: 2rem;  border-radius: 1rem;
+
+    background: var(--color-accent-richer);
+  }
+}

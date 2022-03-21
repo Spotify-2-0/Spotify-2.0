@@ -3,6 +3,27 @@ $medium: 4rem;
 $big: 8rem;
 $huge: 10rem;
 
+$text-size-small: 1.5rem;
+$text-size-medium: 2rem;
+$text-size-big: 4rem;
+$text-size-huge: 8rem;
+
+.text-default {
+  color: var(--color-text-normal);
+}
+
+.highlight {
+  font-weight: 600;
+  color: var(--color-accent-richer)
+}
+
+.u-text {
+  &-small  { font-size: $text-size-small  }
+  &-medium { font-size: $text-size-medium }
+  &-big    { font-size: $text-size-big    }
+  &-huge   { font-size: $text-size-huge   }
+}
+
 .u-center-text {
   text-align: center !important;
 }
@@ -31,5 +52,17 @@ $huge: 10rem;
     &-medium { margin-right: $medium !important }
     &-big    { margin-right: $big    !important }
     &-huge   { margin-right: $huge   !important }
+  }
+}
+
+.flex {
+  display: flex;
+  &-row { flex-flow: row; }
+  &-col { flex-flow: column; }
+  &-center-y { justify-content: center; }
+  &-center-x { align-items: center; }
+  &-center {
+    align-items: center;
+    justify-content: center;
   }
 }

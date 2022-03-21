@@ -1,0 +1,83 @@
+.steps {
+  position: relative;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-normal);
+  .step {
+    height: fit-content;
+    flex: 1 1 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-flow: row;
+    margin-right: 1rem;
+    &--index {
+      color: #000000;
+      width: 5rem;
+      height: 5rem;
+      min-width: 5rem;
+      min-height: 5rem;
+      border-radius: 50%;
+      background: var(--color-accent);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 3rem;
+      font-weight: 600;
+      margin-right: 1rem;
+
+      app-icon {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+
+    &--status {
+      font-weight: 600;
+      font-size: 2.4rem;
+    }
+
+    &--details {
+      font-size: 1.8rem;
+    }
+  }
+
+}
+
+
+.step-progress {
+  color: var(--color-text-normal);
+  height: 20%;
+  padding-bottom: 100px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  &__help {
+    font-size: 1.8rem;
+    margin-right: auto;
+  }
+
+  &--skip {
+    margin-top: 5px;
+    font-size: 1.5rem;
+  }
+  &--button {
+    font-size: 3rem;
+    width: 20rem;
+    height: 6rem;
+    outline: none;
+    border: none;
+    background: var(--color-accent-richer);
+    border-radius: 5px;
+    cursor: pointer;
+
+    &__icon {
+      width: 2.4rem;
+      height: 2.4rem;
+      margin-left: 1rem;
+    }
+  }
+}
