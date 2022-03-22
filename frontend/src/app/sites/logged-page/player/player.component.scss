@@ -38,15 +38,21 @@
     justify-content: flex-end;
     align-items: center;
     padding-right: 1rem;
+
+    @media (max-width: 1200px) {
+        min-width: 300px;
+    }
+    @media (max-width: 1000px) {
+        min-width: 200px;
+    }
 }
 
 .devices-button, .sound-button {
     width: 32px;
     height: 32px;
     margin-right: 15px;
+    cursor: pointer;
 }
-
-.devices-button {}
 
 .song-details {
     margin-left: 2rem;
@@ -120,6 +126,10 @@
     margin-top: 8px;
     display: flex;
     align-items: center;
+
+    @media (max-width: 1000px) {
+        margin-top: 4px;
+    }
 }
 
 .time-passed, .time-duration {
