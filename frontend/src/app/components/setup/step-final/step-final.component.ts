@@ -4,8 +4,7 @@ import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-step-final',
-  templateUrl: './step-final.component.html',
-  styleUrls: ['./step-final.component.scss']
+  templateUrl: './step-final.component.html'
 })
 export class StepFinalComponent implements OnInit {
 

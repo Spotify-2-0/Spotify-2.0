@@ -4,8 +4,7 @@ import { IconService } from "../../services/icon.service";
 
 @Component({
   selector: 'app-icon',
-  templateUrl: './icon.component.html',
-  styleUrls: ['./icon.component.scss']
+  templateUrl: './icon.component.html'
 })
 export class IconComponent implements OnInit, OnChanges {
 

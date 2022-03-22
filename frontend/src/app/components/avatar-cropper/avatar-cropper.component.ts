@@ -18,8 +18,7 @@ export interface CropResult {
 
 @Component({
   selector: 'app-avatar-cropper',
-  templateUrl: './avatar-cropper.component.html',
-  styleUrls: ['./avatar-cropper.component.scss']
+  templateUrl: './avatar-cropper.component.html'
 })
 export class AvatarCropperComponent implements OnChanges {
   isDragMouseDown: boolean = false;

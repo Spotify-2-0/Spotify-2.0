@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid--signin">
   <div class="navbar">
     <div class="logo--on-img" routerLink="/">Spotify 2.0</div>
     <div class="navbar__left">
@@ -10,10 +10,10 @@
     </div>
   </div>
 
-  <div class="left"></div>
+  <div class="left--signin"></div>
 
-  <div class="right">
-    <form class="form" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+  <div class="right--signin">
+    <form class="form--signin" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
       <div class="header">Sign in</div>
 
       <div style="display: flex; flex-flow: column">

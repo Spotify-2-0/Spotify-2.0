@@ -1,4 +1,4 @@
-<div class="grid">
+<div class="grid--signup">
   <div class="navbar">
     <div class="logo--on-img" routerLink="/">Spotify 2.0</div>
     <div class="navbar__left">
@@ -10,9 +10,9 @@
     </div>
   </div>
 
-  <div class="left"></div>
+  <div class="left--signup"></div>
 
-  <div class="right">
+  <div class="right--signup">
     <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
       <div class="header">Sign up</div>
 
@@ -54,11 +54,11 @@
         [formGroup]="form">
       </app-form-input-text>
 
-      <div class="checkbox">
+      <div class="checkbox--signup">
         <app-checkbox formName="tos" [form]="form">
-          <span class="checkbox-text"
-            >I accept our <span class="highlight">Terms of Service</span> and
-            <span class="highlight">Privacy Policy</span></span
+          <span class="checkbox--span"
+            >I accept our <span class="highlight--signup">Terms of Service</span> and
+            <span class="highlight--signup">Privacy Policy</span></span
           >
         </app-checkbox>
       </div>

@@ -7,8 +7,7 @@ import { CropResult } from "../../avatar-cropper/avatar-cropper.component";
 
 @Component({
   selector: 'app-step-user-profile',
-  templateUrl: './step-user-profile.component.html',
-  styleUrls: ['./step-user-profile.component.scss']
+  templateUrl: './step-user-profile.component.html'
 })
 export class StepUserProfileComponent implements Step {
 

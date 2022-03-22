@@ -13,27 +13,24 @@
   font-size: 0.8rem;
 }
 
-.label {
-  font-weight: 600;
-  padding-left: 5px;
-}
+.checkbox--signup {
+  margin-top: 3rem;
 
-.checkbox {
-  margin-top: 30px;
-
-  &-text {
-    margin-left: 5px;
+  &-text{
+    font-size: 1.2rem;
+    margin-top: 0.25rem;
     color: var(--color-text-normal);
-
-    .highlight {
-      color: var(--color-accent-richer);
-      font-weight: 600;
-      cursor: pointer;
-    }
   }
 }
 
-.grid {
+.highlight--signup {
+  color: var(--color-accent-richer);
+  font-weight: 600;
+  display: inline;
+  cursor: pointer;
+}
+
+.grid--signup {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -45,7 +42,7 @@
     height: unset;
   }
 
-  .left {
+  .left--signup {
     position: relative;
     width: 60%;
     height: 100%;
@@ -57,7 +54,7 @@
       width: 0;
     }
   }
-  .right {
+  .right--signup {
     overflow: hidden;
     width: 40%;
     height: 100%;
@@ -132,10 +129,10 @@
   }
 }
 
-.form {
+.form--signup {
   width: 400px;
   @media (max-width: 1000px) {
-    margin: 140px 15px 15px 15px;
-    width: auto;
+    padding: 140px 30px 30px 30px;
+    width: 100%;
   }
 }

@@ -1,0 +1,39 @@
+:host {
+  display: inline-block;
+}
+
+.icon-span {
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  font-size: 16px;
+  height: inherit;
+  line-height: inherit;
+  width: inherit;
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+.icon {
+
+  &--theme{
+    width: 3.6rem;
+    height: 3.6rem;
+    color: var(--color-text-normal);
+    cursor: pointer;
+    transition: color 0.1s;
+    user-select: none;
+
+    &:hover {
+      color: var(--color-accent-richer);
+    }
+  }
+
+  & > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

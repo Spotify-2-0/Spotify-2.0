@@ -12,8 +12,7 @@ import { Step } from "./step";
 
 @Component({
   selector: 'app-stepper',
-  templateUrl: './stepper.component.html',
-  styleUrls: ['./stepper.component.scss']
+  templateUrl: './stepper.component.html'
 })
 export class StepperComponent implements AfterViewInit {
   @ViewChild('container', { read: ViewContainerRef }) container!: ViewContainerRef;

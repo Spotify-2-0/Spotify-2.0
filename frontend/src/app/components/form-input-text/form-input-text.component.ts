@@ -3,8 +3,7 @@ import { FormGroup, ValidationErrors } from "@angular/forms";
 
 @Component({
   selector: 'app-form-input-text',
-  templateUrl: './form-input-text.component.html',
-  styleUrls: ['./form-input-text.component.scss']
+  templateUrl: './form-input-text.component.html'
 })
 export class FormInputTextComponent {
 

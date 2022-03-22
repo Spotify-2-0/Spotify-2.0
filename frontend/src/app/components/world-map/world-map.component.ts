@@ -6,7 +6,6 @@ import { Subscription, timer } from "rxjs";
 @Component({
   selector: 'app-world-map',
   templateUrl: './world-map.component.html',
-  styleUrls: ['./world-map.component.scss'],
   animations: [
     trigger('fadeIn', [
       transition('void => *', [

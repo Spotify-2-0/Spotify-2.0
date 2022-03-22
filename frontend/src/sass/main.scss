@@ -1,11 +1,29 @@
-@import "./abstracts/mixins";
+@import "abstracts/mixins.scss";
+@import "abstracts/variables.scss";
 
-@import "./base/animations";
-@import "./base/base";
-@import "./base/utilities";
+@import "base/animations";
+@import "base/base";
+@import "base/utilities";
 
-@import "./layout/header";
-@import "./layout/navbar";
-@import "./layout/logo";
+@import "components/app";
+@import "components/avatar-cropper";
+@import "components/checkbox";
+@import "components/form-input-text";
+@import "components/icon";
+@import "components/step-email";
+@import "components/step-final";
+@import "components/step-user-interests";
+@import "components/step-user-profile";
+@import "components/stepper";
+@import "components/world-map";
 
-@import "./themes/icon";
+@import "layout/header";
+@import "layout/navbar";
+@import "layout/logo";
+
+@import "pages/main";
+@import "pages/setup";
+@import "pages/signin";
+@import "pages/signup";
+
+@import "themes/icon";

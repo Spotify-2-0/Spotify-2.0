@@ -1,4 +1,4 @@
-.wrapme {
+.wrapme--avatar {
   position: relative;
   height: 600px;
   width: 600px;
@@ -8,12 +8,14 @@
   align-items: center;
   overflow: hidden;
 }
-img {
+
+.avatar-img {
   position: absolute;
   object-fit: contain;
   transform-origin: top left;
 
 }
+
 .contents {
   display: contents;
 }
@@ -74,13 +76,6 @@ img {
 .content {
   padding: 100px 100px 50px 100px;
   background: var(--color-background);
-}
-@mixin button {
-  padding: 5px 10px 5px 10px;
-  color: #FFFFFF;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 .buttons {
   width: 100%;

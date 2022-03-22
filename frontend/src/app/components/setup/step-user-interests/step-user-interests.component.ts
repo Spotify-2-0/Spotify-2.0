@@ -4,8 +4,7 @@ import { Step } from "../../stepper/step";
 
 @Component({
   selector: 'app-step-user-interests',
-  templateUrl: './step-user-interests.component.html',
-  styleUrls: ['./step-user-interests.component.scss']
+  templateUrl: './step-user-interests.component.html'
 })
 export class StepUserInterestsComponent implements Step {
   public genres = Genres;

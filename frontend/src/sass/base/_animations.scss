@@ -9,3 +9,12 @@
     transform: translate(0);
   }
 }
+
+@keyframes pulse {
+  50% {
+    r: 5;
+  }
+  100% {
+    r: 1.9
+  }
+}

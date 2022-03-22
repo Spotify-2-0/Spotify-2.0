@@ -15,19 +15,6 @@ html {
   background: var(--color-background);
 }
 
-:root {
-  --defaultFont: Roboto;
-
-  --color-error-normal: #e55d53;
-  --color-error-richer: #ed4337;
-
-  --color-text-normal: #000000;
-  --color-accent: #BCB6FF;
-  --color-accent-richer: #756ccc;
-
-  --color-background: #FFFFFF;
-}
-
 [data-theme="dark"] {
   --color-text-normal: #FFFFFF;
   --color-background: #10141D;

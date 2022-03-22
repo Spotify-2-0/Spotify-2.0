@@ -5,8 +5,7 @@ import { emailValidator, requiredValidator } from 'src/app/shared/validators';
 
 @Component({
   selector: 'app-signin-page',
-  templateUrl: './signin-page.component.html',
-  styleUrls: ['./signin-page.component.scss'],
+  templateUrl: './signin-page.component.html'
 })
 export class SigninPageComponent implements OnInit {
   signinForm!: FormGroup;
