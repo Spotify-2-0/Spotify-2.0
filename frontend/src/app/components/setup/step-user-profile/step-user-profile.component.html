@@ -1,0 +1,49 @@
+<div class="flex flex-row flex-center">
+  <div class="flex flex-col" style="width: 250px">
+    <div class="avatar--wrapper">
+      <div class="avatar" *ngIf="!cropped">
+        <div class="avatar__initials">{{getUserInitials()}}</div>
+      </div>
+      <img class="avatar" alt="" *ngIf="cropped" [src]="cropped.base64">
+      <label for="avatar">
+        <app-icon class="avatar__icon-change" icon="picture"></app-icon>
+      </label>
+    </div>
+    <div class="avatar__info" style="margin-top: 30px">
+      We recommend an image of at least <span class="highlight">600x600</span>.
+      You can upload a PNG or an JPG <span class="highlight">under 10 MB</span>.
+    </div>
+  </div>
+  <div style="margin-left: auto">
+    <app-form-input-text
+      [formGroup]="form"
+      formName="displayName"
+      label="Display name">
+    </app-form-input-text>
+  </div>
+
+</div>
+
+<ng-container class="modal" *ngIf="modalOpened">
+  <div class="modal--bg"></div>
+  <div class="modal--content">
+
+    <app-avatar-cropper
+      [width]="width"
+      [height]="height"
+      [dataURI]=dataUri
+      format="jpeg"
+      (finished)="cropped = $event; modalOpened = false"
+    >
+    </app-avatar-cropper>
+  </div>
+</ng-container>
+
+<input
+  style="display: none"
+  type="file"
+  accept="image/*"
+  id="avatar"
+  name="avatar"
+  (change)="selectFile($event)"
+/>
