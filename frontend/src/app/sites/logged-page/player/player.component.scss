@@ -1,0 +1,171 @@
+.player-container {
+    background-color: var(--color-player-background);
+    height: 100%;
+    padding: 1.5rem;
+    color: var(--color-text-normal);
+    display: flex;
+    @media (max-width: 1000px) {
+        padding: 1rem;
+    }
+}
+
+.icon {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.current-song {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    max-width: 400px;
+}
+
+
+.player-controls {
+    flex-grow: 8;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.sound-controls {
+    flex-grow: 1;
+    min-width: 400px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 1rem;
+
+    @media (max-width: 1200px) {
+        min-width: 300px;
+    }
+    @media (max-width: 1000px) {
+        min-width: 200px;
+    }
+}
+
+.devices-button, .sound-button {
+    width: 32px;
+    height: 32px;
+    margin-right: 15px;
+    cursor: pointer;
+}
+
+.song-details {
+    margin-left: 2rem;
+} 
+
+.player-controls-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.control-button {
+    width: 64px;
+    height: 64px;
+    cursor: pointer;
+    transition: color 0.3s;
+    user-select: none;
+    &:hover {
+      color: var(--color-accent-richer);
+    }
+
+    @media (max-width: 1000px) {
+      width: 48px;
+      height: 48px;
+    }
+}
+
+.play-button {
+    margin-left: 36px;
+    margin-right: 36px;
+    @media (max-width: 1000px) {
+        margin-left: 24px;
+        margin-right: 24px;
+    }
+}
+
+.loop-button {
+    margin-right: 28px;
+    @media (max-width: 1000px) {
+        margin-right: 18px;
+    }
+}
+
+.random-button {
+    margin-left: 28px;
+    @media (max-width: 1000px) {
+        margin-left: 18px;
+    }
+}
+
+.medium-button {
+    width: 36px;
+    height: 36px;
+
+    @media (max-width: 1000px) {
+      width: 24px;
+      height: 24px;
+    }
+}
+
+.small-button {
+    width: 24px;
+    height: 24px;
+
+    @media (max-width: 1000px) {
+      width: 18px;
+      height: 18px;
+    }
+}
+
+.playback-bar {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+
+    @media (max-width: 1000px) {
+        margin-top: 4px;
+    }
+}
+
+.time-passed, .time-duration {
+    font-size: 1.5rem;
+}
+
+.progressbar {
+    margin-left: 5px;
+    margin-right: 5px;
+    width: 600px;
+
+    @media (max-width: 1500px) {
+        width: 400px;
+    }
+    @media (max-width: 1200px) {
+        width: 300px;
+    }
+}
+
+.current-song img {
+    width: 72px;
+    height: 72px;
+    border-radius: 5px;
+
+    @media (max-width: 1000px) {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+.song-details .title{
+    font-size: 2rem;
+    font-weight: normal;
+} 
+
+.song-details .author{
+    margin-top: 1rem;
+    font-size: 1.6rem;
+} 

@@ -1,0 +1,43 @@
+<div class="sidebar-container">
+    <div class="logo">Spotify 2.0</div>
+    <div class="options-list">
+        <ul>
+            <li>
+                <app-icon class="icon" icon="home"></app-icon>
+                <span>Home</span>
+            </li>
+            <li>
+                <app-icon class="icon" icon="follows"></app-icon>
+                <span>Follows</span>
+            </li>
+            <li>
+                <app-icon class="icon" icon="favourites"></app-icon>
+                <span>Favourites</span>
+            </li>
+            <li>
+                <app-icon class="icon" icon="collections"></app-icon>
+                <span>Collections</span>
+            </li>
+            <li>
+                <app-icon class="icon" icon="history"></app-icon>
+                <span>History</span>
+            </li>
+            <li>
+                <app-icon class="icon" icon="settings"></app-icon>
+                <span>Settings</span>
+            </li>
+        </ul>
+    </div>
+    <hr class="separation">
+    <div class="collections-list">
+        <button class="add-collection">
+            <app-icon class="icon" icon="plus"></app-icon>
+            <span>Add </span>
+        </button>
+        <ul>
+            <li *ngFor="let collection of collections">
+                <span> {{ collection }}</span>
+            </li>
+        </ul>
+    </div>
+</div>

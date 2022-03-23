@@ -16,6 +16,9 @@ import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
 import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
 import { AvatarCropperComponent } from './components/avatar-cropper/avatar-cropper.component';
 import { SigninPageComponent } from './sites/signin-page/signin-page.component';
+import { LoggedPageComponent } from './sites/logged-page/logged-page.component';
+import { SidebarComponent } from './sites/logged-page/sidebar/sidebar.component';
+import { PlayerComponent } from './sites/logged-page/player/player.component';
 import { StepperComponent } from './components/stepper/stepper.component';
 import { StepEmailValidationComponent } from './components/setup/step-email-validation/step-email-validation.component';
 import { StepUserProfileComponent } from './components/setup/step-user-profile/step-user-profile.component';
@@ -33,6 +36,9 @@ import { StepFinalComponent } from './components/setup/step-final/step-final.com
     SigninPageComponent,
     FormInputTextComponent,
     CheckboxComponent,
+    LoggedPageComponent,
+    SidebarComponent,
+    PlayerComponent,
     AvatarCropperComponent,
     StepperComponent,
     StepEmailValidationComponent,

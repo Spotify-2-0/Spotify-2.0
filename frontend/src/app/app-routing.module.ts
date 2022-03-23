@@ -1,5 +1,6 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LoggedPageComponent } from './sites/logged-page/logged-page.component';
 import { MainComponent } from "./sites/main/main.component";
 import { SigninPageComponent } from './sites/signin-page/signin-page.component';
 import { SignupPageComponent } from "./sites/signup-page/signup-page.component";
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'signin',
     component: SigninPageComponent
+  },
+  {
+    path: 'logged',
+    component: LoggedPageComponent
   }
 ]
 

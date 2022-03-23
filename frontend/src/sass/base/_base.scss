@@ -26,11 +26,13 @@ html {
   --color-accent-richer: #756ccc;
 
   --color-background: #FFFFFF;
+  --color-player-background: #DBE2FF;
 }
 
 [data-theme="dark"] {
   --color-text-normal: #FFFFFF;
   --color-background: #10141D;
+  --color-player-background: #0C111C;
 }
 
 ::-webkit-scrollbar {
