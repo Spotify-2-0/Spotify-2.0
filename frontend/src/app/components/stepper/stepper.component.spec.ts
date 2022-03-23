@@ -16,7 +16,12 @@ describe('StepperComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(StepperComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+
+    const testStep = {
+      name: "test step",
+      component: jasmine.createSpyObj("component", {canProceed: () => true})
+    }
+    component.steps.push(testStep);
   });
 
   it('should create', () => {
