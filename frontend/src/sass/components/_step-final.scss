@@ -2,7 +2,7 @@
   position: relative;
   width: 80%;
   height: 2rem;
-  background: var(--color-accent);
+  background: var(--color-violet-light);
   border-radius: 1rem;
   &--progress {
     left: 0;
@@ -10,6 +10,6 @@
     position: absolute;
     height: 2rem;  border-radius: 1rem;
 
-    background: var(--color-accent-richer);
+    background: var(--color-violet-dark);
   }
 }

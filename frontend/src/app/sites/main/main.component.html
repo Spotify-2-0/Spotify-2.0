@@ -1,4 +1,4 @@
-<div class="grid--main">
+<!-- <div class="grid--main">
     <div class="navbar">
     <div class="logo">Spotify 2.0</div>
     <div class="navbar__left">
@@ -26,7 +26,7 @@
   <div class="right--main">
     <div class="pattern__wrapper">
       <div class="pattern">
-        <app-world-map class="pattern__img"></app-world-map>
+        <div class="pattern__img"></div>
       </div>
     </div>
     <div class="artists">
@@ -38,4 +38,59 @@
       <div class="artist"></div>
     </div>
   </div>
-</div>
+</div> -->
+
+<section class="home">
+  <app-navigation></app-navigation>
+
+  <div class="container">
+    <div class="container__info u-margin-left-huge">
+      <h1 class="heading-2">
+        Your music <span class="heading--darkviolet">anywhere</span>.
+      </h1>
+      <span class="container__text container__text--small u-margin-top-small">
+        Listen your favourite music artists from any place you wish.
+      </span>
+      <span class="container__btn u-margin-top-medium">
+        <a
+          routerLink="/signup"
+          class="btn btn--violetdark btn--animated-bg btn--animated-pulsate"
+          >sign up</a
+        >
+      </span>
+    </div>
+    <!--     <div class="container__info container__info--2 u-margin-right-huge">
+      <h1 class="heading-1">
+        Or create your <span class="heading--darkviolet">own</span>.
+      </h1>
+      <span class="container__text container__text--small u-margin-top-small">
+        Create and upload your music to share your talent.
+      </span>
+    </div> -->
+    <div class="container__pattern">
+      <div class="container__pattern-bg"></div>
+      <div class="container__artists">
+        <div class="artists"></div>
+        <div class="artists"></div>
+        <div class="artists"></div>
+        <div class="artists"></div>
+        <div class="artists"></div>
+        <div class="artists"></div>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="video-container">
+    <video class="home__video home__video--1" autoplay muted loop>
+      <source src="assets/images/video-woman.mp4" type="video/mp4" />
+      Your browser is not supported!
+    </video>
+    <video class="home__video home__video--2" autoplay muted loop>
+      <source src="assets/images/video-man.mp4" type="video/mp4" />
+      Your browser is not supported!
+    </video>
+    <video class="home__video home__video--3" autoplay muted loop>
+      <source src="assets/images/video-guitar.mp4" type="video/mp4" />
+      Your browser is not supported!
+    </video>
+  </div> -->
+</section>

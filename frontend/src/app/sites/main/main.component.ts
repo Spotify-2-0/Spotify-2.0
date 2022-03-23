@@ -1,6 +1,5 @@
 import { Component, ViewEncapsulation } from '@angular/core';
-import { ThemeService } from "../../services/theme.service";
-import { animate, style, transition, trigger } from "@angular/animations";
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'app-main',
@@ -12,16 +11,10 @@ import { animate, style, transition, trigger } from "@angular/animations";
           opacity: 0,
         }),
         animate('2s'),
-      ])
+      ]),
     ]),
-  ]
+  ],
 })
 export class MainComponent {
-
-  constructor(private readonly themeService: ThemeService) { }
-
-  toggleTheme() {
-    this.themeService.toggleTheme();
-  }
-
+  constructor() {}
 }

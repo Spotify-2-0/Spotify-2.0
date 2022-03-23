@@ -1,5 +1,5 @@
 .grid {
-  font-family: var(--defaultFont);
+  font-family: var(--font-family-default);
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -15,7 +15,7 @@
     position: relative;
     width: 50%;
     height: 100%;
-    background: var(--color-accent-richer);
+    background: var(--color-violet-dark);
     flex-direction: column;
     background-size: contain;
     background: url("/assets/images/bg_signup.webp") 30% 50%;
@@ -45,7 +45,7 @@
 
 .step {
   height: 60%;
-  color: var(--color-text-normal);
+  color: var(--color-black);
   display: flex;
   flex-flow: column;
   &__wrapper {

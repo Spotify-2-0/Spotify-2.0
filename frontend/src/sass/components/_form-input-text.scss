@@ -10,8 +10,8 @@
 .form-input {
   background: inherit;
   border: 0;
-  border-bottom: 1px solid var(--color-accent-richer);
-  color: var(--color-text-normal);
+  border-bottom: 1px solid var(--color-violet-dark);
+  color: var(--color-black);
   width: 100%;
   outline: none;
   font-size: 1.5rem;
@@ -27,8 +27,8 @@
   }
 }
 .input-error {
-  border-bottom: 0.5px solid var(--color-error-richer);
-  box-shadow: 0 4px 2px -2px var(--color-error-richer);
+  border-bottom: 0.5px solid var(--color-red-dark);
+  box-shadow: 0 4px 2px -2px var(--color-red-dark);
 }
 
 .bold {
@@ -38,7 +38,7 @@
 .error {
   margin-top: 10px;
   margin-bottom: 5px;
-  color: var(--color-error-normal);
+  color: var(--color-red-light);
   display: flex;
   height: auto;
   min-height: 0.8rem;
@@ -54,7 +54,7 @@
 .error__icon {
   position: absolute;
   right: 10px;
-  color: var(--color-error-richer);
+  color: var(--color-red-dark);
   width: 18px;
   height: 18px;
   padding: inherit;
@@ -73,7 +73,7 @@
   font-weight: 600;
   padding-left: 5px;
   font-size: 1.3rem;
-  color: var(--color-text-normal)
+  color: var(--color-black)
 }
 
 span {

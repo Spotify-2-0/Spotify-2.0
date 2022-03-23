@@ -22,6 +22,7 @@ import { StepUserProfileComponent } from './components/setup/step-user-profile/s
 import { StepUserInterestsComponent } from './components/setup/step-user-interests/step-user-interests.component';
 import { SetupPageComponent } from './sites/setup-page/setup-page.component';
 import { StepFinalComponent } from './components/setup/step-final/step-final.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { StepFinalComponent } from './components/setup/step-final/step-final.com
     StepUserInterestsComponent,
     SetupPageComponent,
     StepFinalComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

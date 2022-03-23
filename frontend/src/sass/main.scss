@@ -3,6 +3,7 @@
 
 @import "base/animations";
 @import "base/base";
+@import "base/typography";
 @import "base/utilities";
 
 @import "components/app";
@@ -18,7 +19,7 @@
 @import "components/world-map";
 
 @import "layout/header";
-@import "layout/navbar";
+@import "layout/navigation";
 @import "layout/logo";
 
 @import "pages/main";

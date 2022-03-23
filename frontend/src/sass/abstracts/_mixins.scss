@@ -1,6 +1,6 @@
 @mixin sign {
   font-size: 2.4rem;
-  font-family: var(--defaultFont);
+  font-family: var(--font-family-default);
   cursor: pointer;
   transition: 0.3s;
 
@@ -9,7 +9,7 @@
   }
 
   &:hover {
-    color: var(--color-accent);
+    color: var(--color-violet-light);
   }
 }
 
@@ -24,14 +24,14 @@
 @mixin logo-default {
   font-size: 4rem;
   font-weight: 600;
-  font-family: var(--defaultFont);
+  font-family: var(--font-family-default);
   margin-left: 2rem;
   user-select: none;
   cursor: pointer;
 
   @media (max-width: 1000px) {
     font-size: 2.5rem;
-    color: var(--color-text-normal);
+    color: var(--color-black);
   }
 }
 

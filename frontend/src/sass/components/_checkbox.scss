@@ -12,17 +12,17 @@
     height: 18px;
     border-radius: 3px;
     //border: 1px solid var(--textColor);
-    background: var(--color-accent);
+    background: var(--color-violet-light);
     display: inline-block;
     transition: 0.3s;
     cursor: pointer;
 
     &__checked {
-      background: var(--color-accent-richer);
+      background: var(--color-violet-dark);
     }
 
     &__error {
-      border: 1px solid var(--color-error-richer);
+      border: 1px solid var(--color-red-dark);
     }
 
     &-bg {
@@ -35,7 +35,7 @@
       transform: translate(-50%, -50%);
 
       &:hover {
-        background: var(--color-accent-richer);
+        background: var(--color-violet-dark);
       }
 
 

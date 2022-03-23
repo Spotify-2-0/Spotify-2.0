@@ -1,12 +1,26 @@
 :root {
-  --defaultFont: Roboto;
+  ////////////////////////////////////
+  ///// COLORS
+  --color-background: #F6F6F6;
 
-  --color-error-normal: #e55d53;
-  --color-error-richer: #ed4337;
+  --color-black: #000000;
+  --color-white: #F6F6F6;
 
-  --color-text-normal: #000000;
-  --color-accent: #BCB6FF;
-  --color-accent-richer: #756ccc;
+  --color-violet-dark: #756ccc;
+  --color-violet-light: #BCB6FF;
 
-  --color-background: #FFFFFF;
+  --color-red-dark: #ed4337;
+  --color-red-light: #e55d53;
+
+  ////////////////////////////////////
+  ///// FONT
+  --font-family-default: Roboto;
+
+  --font-size-default: 1.6rem;
+
+  --font-size-small: 1rem;
+  --font-size-medium: 1.8rem;
+  --font-size-big: 3rem;
+  --font-size-huge: 4.2rem;
+  --font-size-megahuge: 6rem;
 }

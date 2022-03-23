@@ -6,7 +6,7 @@
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    background: var(--color-accent-richer);
+    background: var(--color-violet-dark);
     position: relative;
   }
   &__icon-change {
@@ -27,7 +27,7 @@
       display: inline-block;
       width: 50px;
       height: 50px;
-      background: #C4C4C4;
+      background: #c4c4c4;
       border-radius: 50%;
     }
   }
@@ -42,7 +42,7 @@
     color: #000000;
   }
   &__info {
-    color: var(--color-text-normal);
+    color: var(--color-black);
     font-size: 16px;
     .highlight {
       font-weight: 600;
@@ -53,7 +53,6 @@
 }
 
 .modal {
-
   &--bg {
     width: 100vw;
     height: 100vh;
@@ -69,6 +68,6 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
   }
 }

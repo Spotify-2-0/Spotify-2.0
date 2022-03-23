@@ -10,13 +10,14 @@
 
 html {
   font-size: 62.5%; //1rem = 10px 10px/16px = 62.5%
+  font-family: var(--font-family-default);
   box-sizing: border-box;
 
   background: var(--color-background);
 }
 
 [data-theme="dark"] {
-  --color-text-normal: #FFFFFF;
+  --color-black: #F6F6F6;
   --color-background: #10141D;
 }
 
@@ -31,5 +32,5 @@ html {
 
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background: var(--color-accent);
+  background: var(--color-violet-light);
 }

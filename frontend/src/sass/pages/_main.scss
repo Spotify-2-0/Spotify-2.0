@@ -1,7 +1,7 @@
 .info {
   opacity: 1;
   padding: 5rem;
-  color: var(--color-text-normal);
+  color: var(--color-black);
   text-align: left;
 
   &__wrapper {
@@ -11,7 +11,7 @@
     justify-content: center;
     align-items: center;
     flex-flow: column;
-    font-family: var(--defaultFont);
+    font-family: var(--font-family-default);
   }
 
   &__header {
@@ -19,7 +19,7 @@
     font-weight: 600;
 
     &--accent {
-      color: var(--color-accent-richer);
+      color: var(--color-violet-dark);
     }
   }
 
@@ -31,8 +31,8 @@
   .button {
     text-align: center;
     margin-top: 50px;
-    background: var(--color-accent-richer);
-    color: var(--color-text-normal);
+    background: var(--color-violet-dark);
+    color: var(--color-black);
     outline: none;
     border: none;
     border-radius: 50px;
@@ -43,81 +43,81 @@
 
     &:hover {
       cursor: pointer;
-      background: var(--color-accent);
+      background: var(--color-violet-light);
     }
   }
 }
 
-.artists {
-  position: relative;
-  height: 100%;
-  border-radius: 50px;
-  background: transparent;
-  margin-top: 7rem;
+// .artists {
+//   position: relative;
+//   height: 100%;
+//   border-radius: 50px;
+//   background: transparent;
+//   margin-top: 7rem;
 
-  @media (max-width: 1000px) {
-    display: none;
-  }
+//   @media (max-width: 1000px) {
+//     display: none;
+//   }
 
-  .artist:nth-child(1) {
-    width: 20vw;
-    height: 25vh;
-    left: 65%;
-    top: 30%;
-    background: url("/assets/images/img_1.webp");
-    @include singer;
-  }
+//   .artist:nth-child(1) {
+//     width: 20vw;
+//     height: 25vh;
+//     left: 65%;
+//     top: 30%;
+//     background: url("/assets/images/img_1.webp");
+//     @include singer;
+//   }
 
-  .artist:nth-child(2) {
-    width: 18vw;
-    height: 17vh;
-    left: 40%;
-    top: 50%;
-    background: url("/assets/images/img_2.webp");
-    @include singer;
-  }
+//   .artist:nth-child(2) {
+//     width: 18vw;
+//     height: 17vh;
+//     left: 40%;
+//     top: 50%;
+//     background: url("/assets/images/img_2.webp");
+//     @include singer;
+//   }
 
-  .artist:nth-child(3) {
-    min-width: 150px;
-    width: 13vw;
-    height: 30vh;
-    left: 50%;
-    top: 90%;
-    background: url("/assets/images/img_3.webp");
-    @include singer;
-  }
+//   .artist:nth-child(3) {
+//     min-width: 150px;
+//     width: 13vw;
+//     height: 30vh;
+//     left: 50%;
+//     top: 90%;
+//     background: url("/assets/images/img_3.webp");
+//     @include singer;
+//   }
 
-  .artist:nth-child(4) {
-    min-width: 100px;
-    width: 9vw;
-    height: 20vh;
-    left: 74%;
-    top: 75%;
-    background: url("/assets/images/img_4.webp");
-    @include singer;
-  }
+//   .artist:nth-child(4) {
+//     min-width: 100px;
+//     width: 9vw;
+//     height: 20vh;
+//     left: 74%;
+//     top: 75%;
+//     background: url("/assets/images/img_4.webp");
+//     @include singer;
+//   }
 
-  .artist:nth-child(5) {
-    min-width: 100px;
-    width: 7vw;
-    height: 18vh;
-    left: 90%;
-    top: 70%;
-    background: url("/assets/images/img_5.webp");
-    @include singer;
-  }
+//   .artist:nth-child(5) {
+//     min-width: 100px;
+//     width: 7vw;
+//     height: 18vh;
+//     left: 90%;
+//     top: 70%;
+//     background: url("/assets/images/img_5.webp");
+//     @include singer;
+//   }
 
-  .artist:nth-child(6) {
-    min-width: 120px;
-    width: 10vw;
-    height: 35vh;
-    left: 90%;
-    top: 45%;
-    background: url("/assets/images/img_6.webp") 45% 30%;
-    background-size: cover;
-    @include singer;
-  }
-}
+//   .artist:nth-child(6) {
+//     min-width: 120px;
+//     width: 10vw;
+//     height: 35vh;
+//     left: 90%;
+//     top: 45%;
+//     background: url("/assets/images/img_6.webp") 45% 30%;
+//     background-size: cover;
+//     @include singer;
+//   }
+// }
 
 .pattern {
   &__wrapper {
@@ -143,12 +143,14 @@
   &__img {
     top: 50%;
     right: 0;
-    transform: translate(-5%, -50%) scale(1.1);
+    transform: translate(0, -50%);
 
     position: absolute;
     width: 100%;
+    height: 100%;
 
     filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+    background: url("/assets/images/pattern.png") 50% 50%;
     background-size: unset;
     background-position: center;
     background-repeat: no-repeat;
@@ -158,7 +160,7 @@
 .divider {
   width: 2px;
   height: 36px;
-  background: var(--color-text-normal);
+  background: var(--color-black);
   margin-left: 1rem;
   margin-right: 1rem;
   transition: 0.3s;
@@ -168,12 +170,12 @@
 }
 
 .sign-up {
-  color: var(--color-accent-richer);
+  color: var(--color-violet-dark);
   @include sign;
 }
 
 .sign-in {
-  color: var(--color-text-normal);
+  color: var(--color-black);
   @include sign;
 }
 
@@ -182,12 +184,12 @@
   margin-right: 25px;
   width: 36px;
   height: 36px;
-  color: var(--color-text-normal);
+  color: var(--color-black);
   cursor: pointer;
   transition: color 0.3s;
   user-select: none;
   &:hover {
-    color: var(--color-accent-richer);
+    color: var(--color-violet-dark);
   }
 
   @media (max-width: 1000px) {
@@ -252,3 +254,184 @@
     }
   }
 }
+
+
+ .home {
+  height: 94vh;
+  position: relative;
+
+  .container {
+    height: 100%;
+    display: flex;
+    color: var(--color-black);
+    align-items: center;
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+
+      &--2 {
+        align-items: flex-end;
+      }
+    }
+
+    &__text {
+      &--small{
+        font-size: var(--font-size-default);
+      }
+    }
+
+    &__btn {
+      display: flex;
+    }
+
+    &--animate {
+      animation: moveFromRight 1.5s ease-out 0.5s;
+    }
+
+    &__pattern {
+      position: relative;
+      width: 75%;
+      height: 100%;
+
+    }
+
+    &__pattern-bg {
+      mask-image: radial-gradient(
+        50% 50% at 50% 50%,
+        #FFFFFF 0%,
+        #FFFFFF 0%,
+        rgba(0, 0, 0, 1) 50%,
+        rgba(0, 0, 0, 0) 100%
+      );
+      opacity: 0.8;
+
+
+      top: 50%;
+      right: 0;
+      transform: translate(0, -50%);
+
+      position: absolute;
+      width: 100%;
+      height: 100%;
+
+      background: url("/assets/images/pattern.png") 50% 50%;
+      background-size: unset;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    &__artists {
+      border-radius: 50px;
+      background: transparent;
+      margin-top: 7rem;
+      width: 100%;
+      height: 100%;
+
+      @media (max-width: 1000px) {
+        display: none;
+      }
+
+      .artists:nth-child(1) {
+        width: 20vw;
+        height: 25vh;
+        left: 65%;
+        top: 30%;
+        background: url("/assets/images/img_1.webp");
+        @include singer;
+      }
+
+      .artists:nth-child(2) {
+        width: 18vw;
+        height: 17vh;
+        left: 40%;
+        top: 50%;
+        background: url("/assets/images/img_2.webp");
+        @include singer;
+      }
+
+      .artists:nth-child(3) {
+        min-width: 150px;
+        width: 13vw;
+        height: 30vh;
+        left: 50%;
+        top: 90%;
+        background: url("/assets/images/img_3.webp");
+        @include singer;
+      }
+
+      .artists:nth-child(4) {
+        min-width: 100px;
+        width: 9vw;
+        height: 20vh;
+        left: 74%;
+        top: 75%;
+        background: url("/assets/images/img_4.webp");
+        @include singer;
+      }
+
+      .artists:nth-child(5) {
+        min-width: 100px;
+        width: 7vw;
+        height: 18vh;
+        left: 90%;
+        top: 70%;
+        background: url("/assets/images/img_5.webp");
+        @include singer;
+      }
+
+      .artists:nth-child(6) {
+        min-width: 120px;
+        width: 10vw;
+        height: 35vh;
+        left: 90%;
+        top: 45%;
+        background: url("/assets/images/img_6.webp") 45% 30%;
+        background-size: cover;
+        @include singer;
+      }
+    }
+  }
+
+  .video-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    opacity: .45;
+    overflow: hidden;
+  }
+
+  &__video {
+    height: 65rem;
+    object-fit: cover;
+    position: absolute;
+
+
+    &--1 {
+      top: 10%;
+      clip-path: polygon(0 10%, 90% 0, 80% 100%);
+    }
+
+    &--2 {
+      top: 60%;
+      clip-path: polygon(0 0, 90% 100%, 20% 100%);
+    }
+
+    &--3 {
+      top: 10%;
+      right: 0;
+      clip-path: polygon(10% 0,100% 0, 0 100%);
+    }
+
+    &--4 {
+      top: 60%;
+      right: 0;
+      clip-path: polygon(100% 0, 90% 100%, 0% 100%);
+    }
+  }
+ }
+
