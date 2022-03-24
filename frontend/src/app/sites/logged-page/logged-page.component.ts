@@ -5,11 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './logged-page.component.html',
   styleUrls: ['./logged-page.component.scss']
 })
-export class LoggedPageComponent implements OnInit {
+export class LoggedPageComponent {
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
-
 }
