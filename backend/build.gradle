@@ -28,6 +28,6 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-test {
+jar {
     archiveFileName = "backend.jar"
 }
