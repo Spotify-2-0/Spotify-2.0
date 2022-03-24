@@ -29,5 +29,5 @@ dependencies {
 }
 
 test {
-    useJUnitPlatform()
+    archiveFileName = "backend.jar"
 }
