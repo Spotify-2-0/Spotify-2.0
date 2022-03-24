@@ -15,12 +15,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: |
           chmod +x bump-version.sh
-          ./bump-version.sh
+          ./bump-version.sh git
           git config user.email "CI@noreply.com"
           git config user.name "CI"
           git add frontend/package.json
           git commit -m "[CI] bump version to $VERSION [ci skip]"
           git push -u origin
+          ./bump-version.sh build
 
   build-frontend:
     runs-on: self-hosted
