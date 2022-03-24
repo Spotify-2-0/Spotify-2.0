@@ -1,12 +1,15 @@
-import { Component } from "@angular/core";
-import { ThemeService } from "src/app/services/theme.service";
+import { Component, Input } from '@angular/core';
+import { ThemeService } from 'src/app/services/theme.service';
 
 @Component({
   selector: 'app-navigation',
-  templateUrl: './navigation.component.html'
+  templateUrl: './navigation.component.html',
 })
 export class NavigationComponent {
-  constructor(private readonly themeService: ThemeService) { }
+  @Input() isOnHomePage: boolean = false;
+  @Input() isAlwaysWhite: boolean = false;
+
+  constructor(private readonly themeService: ThemeService) {}
 
   toggleTheme() {
     this.themeService.toggleTheme();

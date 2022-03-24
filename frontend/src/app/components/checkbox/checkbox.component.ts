@@ -1,17 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from "@angular/forms";
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-checkbox',
-  templateUrl: './checkbox.component.html'
+  templateUrl: './checkbox.component.html',
 })
 export class CheckboxComponent {
-
   @Input() form!: FormGroup;
   @Input() formName!: string;
   public isChecked = false;
 
-  constructor() { }
+  constructor() {}
 
   public isError(): boolean {
     const control = this.form.controls[this.formName];
@@ -19,6 +18,6 @@ export class CheckboxComponent {
   }
 
   public onClick(): void {
-    this.isChecked = !this.isChecked
+    this.isChecked = !this.isChecked;
   }
 }

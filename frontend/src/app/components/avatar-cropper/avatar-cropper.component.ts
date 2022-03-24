@@ -6,19 +6,19 @@ import {
   OnChanges,
   Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
 } from '@angular/core';
-import { fromEvent, Subscription } from "rxjs";
-import { b64toBlob } from "../../shared/functions";
+import { fromEvent, Subscription } from 'rxjs';
+import { b64toBlob } from '../../shared/functions';
 
 export interface CropResult {
-  blob: Blob,
-  base64: string
+  blob: Blob;
+  base64: string;
 }
 
 @Component({
   selector: 'app-avatar-cropper',
-  templateUrl: './avatar-cropper.component.html'
+  templateUrl: './avatar-cropper.component.html',
 })
 export class AvatarCropperComponent implements OnChanges {
   isDragMouseDown: boolean = false;
@@ -32,12 +32,11 @@ export class AvatarCropperComponent implements OnChanges {
 
   drag = {
     startX: 0,
-    startY: 0
+    startY: 0,
   };
   scale = 1;
 
-
-  bigger:string = '';
+  bigger: string = '';
   resizer: any = {};
   subscriptions: Subscription[] = [];
 
@@ -47,9 +46,7 @@ export class AvatarCropperComponent implements OnChanges {
   @Input() dataURI!: any;
   @Input() format: 'png' | 'jpeg' | 'bmp' | 'webp' | 'ico' = 'png';
 
-
   @Output() finished: EventEmitter<CropResult | null> = new EventEmitter();
-
 
   @ViewChild('parentSource', { static: true }) parentSource!: ElementRef;
   @ViewChild('imageSource', { static: true }) imageSource!: ElementRef;
@@ -63,13 +60,12 @@ export class AvatarCropperComponent implements OnChanges {
   }
 
   public changeScale($event: Event): void {
-    this.scale = Number(($event.target as HTMLInputElement).value)
+    this.scale = Number(($event.target as HTMLInputElement).value);
   }
 
   private getFormat() {
     return 'image/' + this.format;
   }
-
 
   init() {
     this.parent = this.parentSource.nativeElement;
@@ -78,19 +74,24 @@ export class AvatarCropperComponent implements OnChanges {
     this.bigger = this.getBigger();
 
     this.subscriptions.push(
-      fromEvent<MouseEvent>(window, 'mousedown').subscribe((event) => this.onMouseDown(event)),
-      fromEvent<MouseEvent>(window, 'mousemove').subscribe((event) => this.onMouseMove(event)),
-      fromEvent<MouseEvent>(window, 'mouseup').subscribe((event) => this.onMouseUp(event)),
+      fromEvent<MouseEvent>(window, 'mousedown').subscribe((event) =>
+        this.onMouseDown(event)
+      ),
+      fromEvent<MouseEvent>(window, 'mousemove').subscribe((event) =>
+        this.onMouseMove(event)
+      ),
+      fromEvent<MouseEvent>(window, 'mouseup').subscribe((event) =>
+        this.onMouseUp(event)
+      )
     );
 
     this.canvas = document.createElement('canvas');
     this.context = this.canvas.getContext('2d')!;
     const bb = this.parentSource?.nativeElement?.getBoundingClientRect();
-    const a =  bb.width > bb.height ? bb.height : bb.width
+    const a = bb.width > bb.height ? bb.height : bb.width;
     this.canvas.width = a;
     this.canvas.height = a;
   }
-
 
   /* Crop */
 
@@ -111,30 +112,41 @@ export class AvatarCropperComponent implements OnChanges {
     let scaleH = ch.height * ratY;
 
     this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    this.context.drawImage(image, startX, startY, scaleW, scaleH, 0, 0, this.canvas.width, this.canvas.height);
+    this.context.drawImage(
+      image,
+      startX,
+      startY,
+      scaleW,
+      scaleH,
+      0,
+      0,
+      this.canvas.width,
+      this.canvas.height
+    );
 
     let format = this.getFormat();
 
     let result = this.canvas.toDataURL(format, 100);
 
-    return { blob: b64toBlob(result, format), base64: result }
+    return { blob: b64toBlob(result, format), base64: result };
   }
 
   private getBigger() {
     const bb = this.parentSource?.nativeElement?.getBoundingClientRect();
     if (!bb) return '';
-    const a =  bb.width > bb.height ? bb.height : bb.width
+    const a = bb.width > bb.height ? bb.height : bb.width;
     return a + 'px';
   }
 
-  getCursorPos(e:any) {
-    e = (e.touches && e.touches[0] ? e.touches[0] : e);
+  getCursorPos(e: any) {
+    e = e.touches && e.touches[0] ? e.touches[0] : e;
     return { x: e.pageX, y: e.pageY };
   }
 
   private onMouseDown(event: MouseEvent) {
-    const clickedOnImage = !!event.composedPath()
-      .find(x => this.wrapper === (x as HTMLElement))
+    const clickedOnImage = !!event
+      .composedPath()
+      .find((x) => this.wrapper === (x as HTMLElement));
 
     if (clickedOnImage) {
       event.preventDefault();
@@ -143,8 +155,8 @@ export class AvatarCropperComponent implements OnChanges {
       const ch = this.parent.getBoundingClientRect();
       this.drag = {
         startX: pos.x - ch.x,
-        startY: pos.y - ch.y
-      }
+        startY: pos.y - ch.y,
+      };
     }
   }
 
@@ -164,11 +176,15 @@ export class AvatarCropperComponent implements OnChanges {
 
     let x = pos.x - this.drag.startX;
     let y = pos.y - this.drag.startY;
-    x = (x <= snapBB.x && x + imgBB.width >= snapBB.x + snapBB.width) ? x : imgBB.x;
-    y = (y <= snapBB.y && y + imgBB.height >= snapBB.y + snapBB.height) ? y : imgBB.y;
+    x =
+      x <= snapBB.x && x + imgBB.width >= snapBB.x + snapBB.width ? x : imgBB.x;
+    y =
+      y <= snapBB.y && y + imgBB.height >= snapBB.y + snapBB.height
+        ? y
+        : imgBB.y;
 
-    this.parent.style.left = x - relative.x + "px";
-    this.parent.style.top  = y - relative.y + "px";
+    this.parent.style.left = x - relative.x + 'px';
+    this.parent.style.top = y - relative.y + 'px';
   }
 
   onApply() {

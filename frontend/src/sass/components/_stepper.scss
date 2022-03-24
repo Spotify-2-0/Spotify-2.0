@@ -42,9 +42,7 @@
       font-size: 1.8rem;
     }
   }
-
 }
-
 
 .step-progress {
   color: var(--color-black);
@@ -64,20 +62,22 @@
     margin-top: 5px;
     font-size: 1.5rem;
   }
-  &--button {
+  &__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-size: 3rem;
     width: 20rem;
-    height: 6rem;
+    height: 5rem;
     outline: none;
     border: none;
     background: var(--color-violet-dark);
     border-radius: 5px;
     cursor: pointer;
-
-    &__icon {
-      width: 2.4rem;
-      height: 2.4rem;
-      margin-left: 1rem;
-    }
+  }
+  &__icon {
+    width: 2.4rem;
+    height: 2.4rem;
+    margin-left: 1rem;
   }
 }

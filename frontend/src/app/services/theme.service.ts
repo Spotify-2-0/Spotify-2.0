@@ -1,22 +1,25 @@
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ThemeService {
-
   constructor() {
-    window.addEventListener('storage', (event) => {
-      if (event.storageArea === localStorage) {
-        if (event.key == 'user_theme' && event.newValue) {
-          document.documentElement.setAttribute('data-theme', event.newValue);
+    window.addEventListener(
+      'storage',
+      (event) => {
+        if (event.storageArea === localStorage) {
+          if (event.key == 'user_theme' && event.newValue) {
+            document.documentElement.setAttribute('data-theme', event.newValue);
+          }
         }
-      }
-    }, false);
+      },
+      false
+    );
   }
 
   public toggleTheme(): void {
-    const theme = localStorage.getItem('user_theme')
+    const theme = localStorage.getItem('user_theme');
     let newTheme = theme === 'light' ? 'dark' : 'light';
     localStorage.setItem('user_theme', newTheme);
     document.documentElement.setAttribute('data-theme', newTheme);

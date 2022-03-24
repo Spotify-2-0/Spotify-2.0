@@ -26,7 +26,6 @@
 .btn {
   position: relative;
 
-
   &,
   &:link,
   &:visited {
@@ -36,7 +35,7 @@
     border-radius: 10rem;
     color: var(--color-black);
     font-size: var(--font-size-default);
-    transition: background .5s ease;
+    transition: background 0.5s ease;
     overflow: hidden;
     -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
@@ -45,7 +44,7 @@
     outline: none;
 
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       width: 20px;
       height: 100px;
@@ -54,7 +53,7 @@
       left: 0;
       border: 2px solid var(--color-black);
       transform: translateX(-50px) rotate(45deg);
-      transition: transform .5s ease;
+      transition: transform 0.5s ease;
     }
 
     &:hover {

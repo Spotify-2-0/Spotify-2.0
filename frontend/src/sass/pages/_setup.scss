@@ -1,30 +1,32 @@
-.grid {
+.setup {
   font-family: var(--font-family-default);
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
+  color: var(--color-black);
 
   @media (max-width: 1000px) {
     width: unset;
     height: unset;
   }
 
-  .left {
+  &__image {
     position: relative;
     width: 50%;
     height: 100%;
     background: var(--color-violet-dark);
     flex-direction: column;
-    background-size: contain;
     background: url("/assets/images/bg_signup.webp") 30% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
     @media (max-width: 1000px) {
       width: 0;
     }
   }
 
-  .right {
+  &__steps {
     overflow: hidden;
     width: 50%;
     height: 100%;

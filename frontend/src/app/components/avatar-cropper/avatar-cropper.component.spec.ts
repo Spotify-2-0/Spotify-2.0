@@ -8,9 +8,8 @@ describe('AvatarCropperComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AvatarCropperComponent ]
-    })
-    .compileComponents();
+      declarations: [AvatarCropperComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

@@ -1,18 +1,7 @@
-.error {
-  margin-top: 10px;
-  color: var(--color-red-light);
-  display: flex;
-  align-items: center;
-}
-
-.error__text {
-  font-size: 0.8rem;
-}
-
 .checkbox--signup {
   margin-top: 3rem;
 
-  &-text{
+  &-text {
     font-size: 1.2rem;
     margin-top: 0.25rem;
     color: var(--color-black);
@@ -26,7 +15,7 @@
   cursor: pointer;
 }
 
-.grid--signup {
+.signup {
   width: 100vw;
   height: 100vh;
   display: flex;
@@ -38,19 +27,21 @@
     height: unset;
   }
 
-  .left--signup {
+  &__image {
     position: relative;
     width: 60%;
     height: 100%;
     background: var(--color-violet-dark);
     flex-direction: column;
-    background-size: contain;
     background: url("/assets/images/bg_signup.webp") 30% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
     @media (max-width: 1000px) {
       width: 0;
     }
   }
-  .right--signup {
+
+  .signup__form {
     overflow: hidden;
     width: 40%;
     height: 100%;
@@ -60,6 +51,7 @@
     flex-flow: column;
     flex-direction: column;
     background: var(--color-background);
+    color: var(--color-black);
     @media (max-width: 1000px) {
       width: 100%;
       height: unset;
@@ -78,19 +70,6 @@
   margin-left: 1rem;
   margin-right: 1rem;
   transition: 0.3s;
-}
-
-.sign-up__button {
-  margin-top: 30px;
-  width: 12rem;
-  height: 4rem;
-  border: 0;
-  outline: 0;
-  border-radius: 10px;
-  background: var(--color-violet-light);
-  cursor: pointer;
-
-  font-size: 1.5rem;
 }
 
 .or {

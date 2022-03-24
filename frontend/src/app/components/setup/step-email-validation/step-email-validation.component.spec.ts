@@ -8,9 +8,8 @@ describe('StepEmailValidationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ StepEmailValidationComponent ]
-    })
-    .compileComponents();
+      declarations: [StepEmailValidationComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {

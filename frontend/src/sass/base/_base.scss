@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 
 *,
 *::after,
@@ -17,8 +17,8 @@ html {
 }
 
 [data-theme="dark"] {
-  --color-black: #F6F6F6;
-  --color-background: #10141D;
+  --color-black: #f6f6f6;
+  --color-background: #10141d;
 }
 
 ::-webkit-scrollbar {

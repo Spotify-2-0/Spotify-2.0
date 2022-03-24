@@ -1,18 +1,9 @@
-<div class="grid--signin">
-  <div class="navbar">
-    <div class="logo--on-img" routerLink="/">Spotify 2.0</div>
-    <div class="navbar__left">
-      <app-icon
-        class="icon-theme"
-        icon="theme"
-        (click)="toggleTheme()"
-      ></app-icon>
-    </div>
-  </div>
+<section class="signin">
+  <app-navigation [isAlwaysWhite]="true"></app-navigation>
 
-  <div class="left--signin"></div>
+  <div class="signin__image"></div>
 
-  <div class="right--signin">
+  <div class="signin__form">
     <form class="form--signin" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
       <div class="header">Sign in</div>
 
@@ -35,7 +26,12 @@
       <div
         style="display: flex; justify-content: center; align-content: center"
       >
-        <button class="sign-up__button" type="submit">Sign in</button>
+        <button
+          class="btn btn--violetdark btn--animated-bg btn--animated-pulsate u-margin-top-medium"
+          type="submit"
+        >
+          Sign in
+        </button>
       </div>
     </form>
 
@@ -46,4 +42,4 @@
       <span class="google__text">Continue with google</span>
     </button>
   </div>
-</div>
+</section>

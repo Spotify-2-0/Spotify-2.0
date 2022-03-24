@@ -2,6 +2,7 @@ $small: 1.5rem;
 $medium: 4rem;
 $big: 8rem;
 $huge: 10rem;
+$megahuge: 12rem;
 
 $text-size-small: 1.5rem;
 $text-size-medium: 2rem;
@@ -14,14 +15,22 @@ $text-size-huge: 8rem;
 
 .highlight {
   font-weight: 600;
-  color: var(--color-violet-dark)
+  color: var(--color-violet-dark);
 }
 
 .u-text {
-  &-small  { font-size: $text-size-small  }
-  &-medium { font-size: $text-size-medium }
-  &-big    { font-size: $text-size-big    }
-  &-huge   { font-size: $text-size-huge   }
+  &-small {
+    font-size: $text-size-small;
+  }
+  &-medium {
+    font-size: $text-size-medium;
+  }
+  &-big {
+    font-size: $text-size-big;
+  }
+  &-huge {
+    font-size: $text-size-huge;
+  }
 }
 
 .u-center-text {
@@ -30,37 +39,89 @@ $text-size-huge: 8rem;
 
 .u-margin {
   &-bottom {
-    &-small  { margin-bottom: $small  !important }
-    &-medium { margin-bottom: $medium !important }
-    &-big    { margin-bottom: $big    !important }
-    &-huge   { margin-bottom: $huge   !important }
+    &-small {
+      margin-bottom: $small !important;
+    }
+    &-medium {
+      margin-bottom: $medium !important;
+    }
+    &-big {
+      margin-bottom: $big !important;
+    }
+    &-huge {
+      margin-bottom: $huge !important;
+    }
+    &-megahuge {
+      margin-bottom: $megahuge !important;
+    }
   }
   &-top {
-    &-small  { margin-top: $small  !important }
-    &-medium { margin-top: $medium !important }
-    &-big    { margin-top: $big    !important }
-    &-huge   { margin-top: $huge   !important }
+    &-small {
+      margin-top: $small !important;
+    }
+    &-medium {
+      margin-top: $medium !important;
+    }
+    &-big {
+      margin-top: $big !important;
+    }
+    &-huge {
+      margin-top: $huge !important;
+    }
+    &-megahuge {
+      margin-top: $megahuge !important;
+    }
   }
   &-left {
-    &-small  { margin-left: $small  !important }
-    &-medium { margin-left: $medium !important }
-    &-big    { margin-left: $big    !important }
-    &-huge   { margin-left: $huge   !important }
+    &-small {
+      margin-left: $small !important;
+    }
+    &-medium {
+      margin-left: $medium !important;
+    }
+    &-big {
+      margin-left: $big !important;
+    }
+    &-huge {
+      margin-left: $huge !important;
+    }
+    &-megahuge {
+      margin-left: $megahuge !important;
+    }
   }
   &-right {
-    &-small  { margin-right: $small  !important }
-    &-medium { margin-right: $medium !important }
-    &-big    { margin-right: $big    !important }
-    &-huge   { margin-right: $huge   !important }
+    &-small {
+      margin-right: $small !important;
+    }
+    &-medium {
+      margin-right: $medium !important;
+    }
+    &-big {
+      margin-right: $big !important;
+    }
+    &-huge {
+      margin-right: $huge !important;
+    }
+    &-megahuge {
+      margin-right: $megahuge !important;
+    }
   }
 }
 
 .flex {
   display: flex;
-  &-row { flex-flow: row; }
-  &-col { flex-flow: column; }
-  &-center-y { justify-content: center; }
-  &-center-x { align-items: center; }
+  &-row {
+    flex-flow: row;
+  }
+  &-col {
+    flex-flow: column;
+  }
+  &-center-y {
+    justify-content: center;
+  }
+  &-center-x {
+    align-items: center;
+  }
   &-center {
     align-items: center;
     justify-content: center;

@@ -4,16 +4,16 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { MainComponent } from './sites/main/main.component';
 import { IconComponent } from './components/icon/icon.component';
-import { HttpClientModule } from "@angular/common/http";
-import { AppComponent } from "./app.component";
+import { HttpClientModule } from '@angular/common/http';
+import { AppComponent } from './app.component';
 import { WorldMapComponent } from './components/world-map/world-map.component';
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupPageComponent } from './sites/signup-page/signup-page.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
-import { FormInputTextComponent } from "./components/form-input-text/form-input-text.component";
-import { ReactiveFormsModule } from "@angular/forms";
-import { LoadingBarRouterModule } from "@ngx-loading-bar/router";
-import { LoadingBarHttpClientModule } from "@ngx-loading-bar/http-client";
+import { FormInputTextComponent } from './components/form-input-text/form-input-text.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
+import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { AvatarCropperComponent } from './components/avatar-cropper/avatar-cropper.component';
 import { SigninPageComponent } from './sites/signin-page/signin-page.component';
 import { StepperComponent } from './components/stepper/stepper.component';
@@ -41,7 +41,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     StepUserInterestsComponent,
     SetupPageComponent,
     StepFinalComponent,
-    NavigationComponent
+    NavigationComponent,
   ],
   imports: [
     BrowserModule,
@@ -53,6 +53,6 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     LoadingBarHttpClientModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

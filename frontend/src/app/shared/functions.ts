@@ -1,6 +1,6 @@
 export const image2base64 = (file: any, callback: any) => {
   if (!/image\/(png|jpg|jpeg|bmp|gif|tiff|webp)/.test(file.type))
-    throw ("Not Valid Image");
+    throw 'Not Valid Image';
 
   const reader = new FileReader();
   reader.onload = (file) => {
@@ -13,9 +13,9 @@ export const image2base64 = (file: any, callback: any) => {
     image.src = file.target?.result as string;
   };
   reader.readAsDataURL(file);
-}
+};
 
-export const b64toBlob = (dataURI:any, type:any) => {
+export const b64toBlob = (dataURI: any, type: any) => {
   let byteString = atob(dataURI.split(',').pop());
   let ab = new ArrayBuffer(byteString.length);
   let ia = new Uint8Array(ab);
@@ -23,4 +23,4 @@ export const b64toBlob = (dataURI:any, type:any) => {
     ia[i] = byteString.charCodeAt(i);
   }
   return new Blob([ab], { type });
-}
+};

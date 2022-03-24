@@ -1,22 +1,41 @@
 <nav class="navigation">
   <div class="navigation__logo">
-    Spotify 2.0
+    <a
+      routerLink="/"
+      class="navigation__link"
+      [ngClass]="{ 'navigation__link--white': isAlwaysWhite === true }"
+      >Spotify 2.0</a
+    >
   </div>
   <ul class="navigation__list">
-    <li class="navigation__item">
-      <a routerLink="/signup" class="navigation__link navigation__link--violet">Sign Up</a>
-    </li>
+    <ng-container *ngIf="isOnHomePage">
+      <li class="navigation__item">
+        <a
+          routerLink="/signup"
+          class="navigation__link navigation__link--violet navigation__link--highlighted"
+          >Sign Up</a
+        >
+      </li>
+
+      <li class="navigation__item">
+        <div class="divider">&nbsp;</div>
+      </li>
+
+      <li class="navigation__item">
+        <a
+          routerLink="/signin"
+          class="navigation__link navigation__link--highlighted"
+          >Sign In</a
+        >
+      </li>
+    </ng-container>
 
     <li class="navigation__item">
-      <div class="divider">&nbsp;</div>
-    </li>
-
-    <li class="navigation__item">
-      <a routerLink="/signin" class="navigation__link">Sign In</a>
-    </li>
-
-    <li class="navigation__item">
-      <app-icon class="icon--theme" icon="theme" (click)="toggleTheme()"></app-icon>
+      <app-icon
+        class="icon--theme"
+        icon="theme"
+        (click)="toggleTheme()"
+      ></app-icon>
     </li>
   </ul>
 </nav>

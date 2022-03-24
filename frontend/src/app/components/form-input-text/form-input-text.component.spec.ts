@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormInputTextComponent } from './form-input-text.component';
-import { FormControl, FormGroup } from "@angular/forms";
+import { FormControl, FormGroup } from '@angular/forms';
 
 describe('FormInputTextComponent', () => {
   let component: FormInputTextComponent;
@@ -9,9 +9,8 @@ describe('FormInputTextComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ FormInputTextComponent ]
-    })
-    .compileComponents();
+      declarations: [FormInputTextComponent],
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -20,7 +19,7 @@ describe('FormInputTextComponent', () => {
     component.formGroup = new FormGroup({
       input: new FormControl(true),
     });
-    component.formName = 'input'
+    component.formName = 'input';
     fixture.detectChanges();
   });
 

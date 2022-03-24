@@ -1,5 +1,4 @@
 .checkbox--custom {
-
   display: flex;
   flex-flow: column;
 
@@ -37,21 +36,19 @@
       &:hover {
         background: var(--color-violet-dark);
       }
-
-
     }
   }
   .checkbox--span {
     margin-left: 5px;
     display: flex;
-    column-gap: .25rem;
+    column-gap: 0.25rem;
     align-items: center;
     font-weight: 500;
   }
 }
 
 .check--custom {
-  color: #FFFFFF;
+  color: #ffffff;
   position: absolute;
   width: 14px;
   height: 14px;

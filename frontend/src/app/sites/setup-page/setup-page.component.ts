@@ -7,7 +7,7 @@ import { StepFinalComponent } from '../../components/setup/step-final/step-final
 
 @Component({
   selector: 'app-setup-page',
-  templateUrl: './setup-page.component.html'
+  templateUrl: './setup-page.component.html',
 })
 export class SetupPageComponent {
   public finalView = StepFinalComponent;

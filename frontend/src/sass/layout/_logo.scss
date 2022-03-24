@@ -3,7 +3,6 @@
   color: var(--color-black);
   &--on-img {
     @include logo-default;
-    color: #FFFFFF;
+    color: #ffffff;
   }
-
 }
