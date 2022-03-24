@@ -1,42 +1,54 @@
-<div class="grid">
-  <div class="navbar">
-    <div class="logo">Spotify 2.0</div>
-    <div class="navbar__left">
-      <div class="sign-up" routerLink="/signup">Sign Up</div>
-      <div class="divider"></div>
-      <div class="sign-in" routerLink="/signin">Sign In</div>
-      <app-icon class="icon-theme" icon="theme" (click)="toggleTheme()"></app-icon>
-    </div>
-  </div>
+<section class="home">
+  <app-navigation [isOnHomePage]="true"></app-navigation>
 
-  <div [@ani] class="left">
-    <div class="info__wrapper">
-      <div class="info">
-        <div class="info__header">
-          Your music <span class="info__header--accent">anywhere</span>.
-        </div>
-        <div class="info__text">
-          Listen to your favourite music artists from any place you wish.
-        </div>
-        <button class="button" routerLink="/signup">Sign Up</button>
+  <div class="container">
+    <div class="container__info u-margin-left-huge">
+      <h1 class="heading-2">
+        Your music <span class="heading--darkviolet">anywhere</span>.
+      </h1>
+      <span class="container__text container__text--small u-margin-top-small">
+        Listen your favourite music artists from any place you wish.
+      </span>
+      <span class="container__btn u-margin-top-medium">
+        <a
+          routerLink="/signup"
+          class="btn btn--violetdark btn--animated-bg btn--animated-pulsate"
+          >sign up</a
+        >
+      </span>
+    </div>
+    <!--     <div class="container__info container__info--2 u-margin-right-huge">
+      <h1 class="heading-1">
+        Or create your <span class="heading--darkviolet">own</span>.
+      </h1>
+      <span class="container__text container__text--small u-margin-top-small">
+        Create and upload your music to share your talent.
+      </span>
+    </div> -->
+    <div class="container__pattern u-margin-top-megahuge">
+      <div class="container__pattern-bg"></div>
+      <div class="container__artists">
+        <div class="artists"></div>
+        <div class="artists"></div>
+        <div class="artists"></div>
+        <div class="artists"></div>
+        <div class="artists"></div>
+        <div class="artists"></div>
       </div>
     </div>
   </div>
-
-  <div class="right">
-    <div class="pattern__wrapper">
-      <div class="pattern">
-        <!--<div class="pattern__img"></div>-->
-        <app-world-map class="pattern__img"></app-world-map>
-      </div>
-    </div>
-    <div class="artists">
-      <div class="artist"></div>
-      <div class="artist"></div>
-      <div class="artist"></div>
-      <div class="artist"></div>
-      <div class="artist"></div>
-      <div class="artist"></div>
-    </div>
-  </div>
-</div>
+  <!-- <div class="video-container">
+    <video class="home__video home__video--1" autoplay muted loop>
+      <source src="assets/images/video-woman.mp4" type="video/mp4" />
+      Your browser is not supported!
+    </video>
+    <video class="home__video home__video--2" autoplay muted loop>
+      <source src="assets/images/video-man.mp4" type="video/mp4" />
+      Your browser is not supported!
+    </video>
+    <video class="home__video home__video--3" autoplay muted loop>
+      <source src="assets/images/video-guitar.mp4" type="video/mp4" />
+      Your browser is not supported!
+    </video>
+  </div> -->
+</section>

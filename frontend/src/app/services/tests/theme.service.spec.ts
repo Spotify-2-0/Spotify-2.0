@@ -16,18 +16,17 @@ describe('ThemeService', () => {
 
   it('should change theme', () => {
     service.setTheme('dark');
-    expect(service.getTheme()).toBe('dark')
+    expect(service.getTheme()).toBe('dark');
   });
 
   it('should toggle theme', () => {
     service.setTheme('light');
     service.toggleTheme();
-    expect(service.getTheme()).toBe('dark')
+    expect(service.getTheme()).toBe('dark');
   });
 
   it('should return valid theme', () => {
     service.setTheme('light');
-    expect(service.getTheme()).toBe('light')
+    expect(service.getTheme()).toBe('light');
   });
-
 });

@@ -2,9 +2,9 @@
   <div class="flex flex-col" style="width: 250px">
     <div class="avatar--wrapper">
       <div class="avatar" *ngIf="!cropped">
-        <div class="avatar__initials">{{getUserInitials()}}</div>
+        <div class="avatar__initials">{{ getUserInitials() }}</div>
       </div>
-      <img class="avatar" alt="" *ngIf="cropped" [src]="cropped.base64">
+      <img class="avatar" alt="" *ngIf="cropped" [src]="cropped.base64" />
       <label for="avatar">
         <app-icon class="avatar__icon-change" icon="picture"></app-icon>
       </label>
@@ -18,20 +18,19 @@
     <app-form-input-text
       [formGroup]="form"
       formName="displayName"
-      label="Display name">
+      label="Display name"
+    >
     </app-form-input-text>
   </div>
-
 </div>
 
 <ng-container class="modal" *ngIf="modalOpened">
   <div class="modal--bg"></div>
   <div class="modal--content">
-
     <app-avatar-cropper
       [width]="width"
       [height]="height"
-      [dataURI]=dataUri
+      [dataURI]="dataUri"
       format="jpeg"
       (finished)="cropped = $event; modalOpened = false"
     >

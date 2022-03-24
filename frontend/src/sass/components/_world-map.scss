@@ -1,0 +1,9 @@
+circle {
+  opacity: 1;
+  fill: var(--color-violet-dark);
+}
+
+.pulse {
+  transition: all 2s ease;
+  animation: pulse 1.25s infinite cubic-bezier(0.66, 0, 0, 1);
+}

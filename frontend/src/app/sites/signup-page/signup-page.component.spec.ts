@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SignupPageComponent } from './signup-page.component';
-import { FormBuilder, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 describe('SignupPageComponent', () => {
   let component: SignupPageComponent;
@@ -9,10 +9,9 @@ describe('SignupPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SignupPageComponent ],
-      imports: [ ReactiveFormsModule ]
-    })
-    .compileComponents();
+      declarations: [SignupPageComponent],
+      imports: [ReactiveFormsModule],
+    }).compileComponents();
   });
 
   beforeEach(() => {

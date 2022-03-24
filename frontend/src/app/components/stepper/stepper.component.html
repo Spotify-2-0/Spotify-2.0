@@ -11,9 +11,12 @@
   </div>
 </div>
 
-
-<div class="u-text-big u-margin-bottom-medium text-default"
-     *ngIf="stepIndex < steps.length">{{ currentStepName() }}</div>
+<div
+  class="u-text-big u-margin-bottom-medium text-default"
+  *ngIf="stepIndex < steps.length"
+>
+  {{ currentStepName() }}
+</div>
 <div style="height: 60%; display: block; overflow: hidden">
   <ng-container #container></ng-container>
 </div>
@@ -23,10 +26,12 @@
     Having troubles? <span class="highlight">Get Help</span>
   </div>
 
-  <div class="flex flex-col flex-center-x">
-    <button class="step-progress--button" (click)="nextStep()">
-      Next <app-icon class="step-progress--button__icon" icon="arrow-right"></app-icon>
-    </button>
+  <div class="step-progress">
+    <a
+      class="step-progress__button btn btn--animated-bg btn--animated-pulsate"
+      (click)="nextStep()"
+    >
+      Next <app-icon class="step-progress__icon" icon="arrow-right"></app-icon>
+    </a>
   </div>
 </div>
-

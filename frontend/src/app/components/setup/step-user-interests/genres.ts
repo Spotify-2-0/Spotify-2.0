@@ -14,4 +14,4 @@ export const Genres = [
   ['Pop', 'pop'],
   ['Punk', 'punk'],
   ['Metal', 'metal'],
-]
+];

@@ -6,36 +6,36 @@ import {
   Input,
   Type,
   ViewChild,
-  ViewContainerRef
+  ViewContainerRef,
 } from '@angular/core';
-import { Step } from "./step";
+import { Step } from './step';
 
 @Component({
   selector: 'app-stepper',
   templateUrl: './stepper.component.html',
-  styleUrls: ['./stepper.component.scss']
 })
 export class StepperComponent implements AfterViewInit {
-  @ViewChild('container', { read: ViewContainerRef }) container!: ViewContainerRef;
+  @ViewChild('container', { read: ViewContainerRef })
+  container!: ViewContainerRef;
 
   @Input() public finalView!: Type<any>;
   @Input() public steps: {
-    name: string,
-    component: Type<Step>
+    name: string;
+    component: Type<Step>;
   }[] = [];
   public stepIndex = 0;
   private currentRef!: ComponentRef<Step>;
 
-  constructor(
-    private readonly resolver: ComponentFactoryResolver,
-  ) { }
+  constructor(private readonly resolver: ComponentFactoryResolver) {}
 
   public ngAfterViewInit(): void {
     this.currentRef = this.getStepComponent(0);
   }
 
   public getStepComponent(index: number): ComponentRef<Step> {
-    const factory = this.resolver.resolveComponentFactory<Step>(this.steps[index].component);
+    const factory = this.resolver.resolveComponentFactory<Step>(
+      this.steps[index].component
+    );
     return this.container.createComponent(factory);
   }
 
@@ -46,7 +46,6 @@ export class StepperComponent implements AfterViewInit {
   }
 
   public nextStep(): void {
-
     if (this.currentRef.instance.canProceed()) {
       this.stepIndex++;
       this.currentRef.destroy();

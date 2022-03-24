@@ -1,0 +1,51 @@
+:host {
+  display: inline-block;
+}
+
+.icon-span {
+  background-repeat: no-repeat;
+  display: inline-block;
+  fill: currentColor;
+  font-size: 16px;
+  height: inherit;
+  line-height: inherit;
+  width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    fill: currentColor;
+  }
+}
+
+.icon {
+  &--theme {
+    width: 3.6rem;
+    height: 3.6rem;
+
+    margin-left: 6rem;
+
+    user-select: none;
+    color: var(--color-black);
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: var(--color-violet-dark);
+    }
+
+    @media (max-width: 1000px) {
+      width: 24px;
+      height: 24px;
+      margin-left: 25px;
+      margin-right: 12px;
+    }
+  }
+
+  & > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

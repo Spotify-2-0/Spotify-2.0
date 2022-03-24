@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { ThemeService } from 'src/app/services/theme.service';
 import { emailValidator, requiredValidator } from 'src/app/shared/validators';
 
 @Component({
   selector: 'app-signin-page',
   templateUrl: './signin-page.component.html',
-  styleUrls: ['./signin-page.component.scss'],
 })
 export class SigninPageComponent implements OnInit {
   signinForm!: FormGroup;
@@ -14,7 +18,7 @@ export class SigninPageComponent implements OnInit {
   ngOnInit(): void {
     this.signinForm = this.fb.group({
       email: ['', [emailValidator()]],
-      password: ['', [requiredValidator()]]
+      password: ['', [requiredValidator()]],
     });
   }
 

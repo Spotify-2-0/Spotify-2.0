@@ -1,0 +1,57 @@
+.setup {
+  font-family: var(--font-family-default);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+  color: var(--color-black);
+
+  @media (max-width: 1000px) {
+    width: unset;
+    height: unset;
+  }
+
+  &__image {
+    position: relative;
+    width: 50%;
+    height: 100%;
+    background: var(--color-violet-dark);
+    flex-direction: column;
+    background: url("/assets/images/bg_signup.webp") 30% 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    @media (max-width: 1000px) {
+      width: 0;
+    }
+  }
+
+  &__steps {
+    overflow: hidden;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--color-background);
+    @media (max-width: 1000px) {
+      width: 100%;
+      height: unset;
+    }
+    @media (max-height: 700px) {
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+  }
+}
+
+.step {
+  height: 60%;
+  color: var(--color-black);
+  display: flex;
+  flex-flow: column;
+  &__wrapper {
+    width: 80%;
+    height: 100%;
+  }
+}
