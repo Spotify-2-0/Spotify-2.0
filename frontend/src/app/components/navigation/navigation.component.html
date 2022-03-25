@@ -1,4 +1,9 @@
-<nav class="navigation">
+<nav class="navigation"
+     [ngStyle]="{
+        'position': fixed ? 'fixed' : 'absolute',
+        'background-color': background && isScrolled ? background : 'transparent'
+      }"
+>
   <div class="navigation__logo">
     <a
       routerLink="/"
@@ -18,11 +23,12 @@
       </li>
 
       <li class="navigation__item">
-        <div class="divider">&nbsp;</div>
+        <div class="divider" [style.background]="isOnHomePage ? 'white' : null">&nbsp;</div>
       </li>
 
       <li class="navigation__item">
         <a
+          [style.color]="isOnHomePage ? 'white' : null"
           routerLink="/signin"
           class="navigation__link navigation__link--highlighted"
           >Sign In</a
@@ -30,7 +36,7 @@
       </li>
     </ng-container>
 
-    <li class="navigation__item">
+    <li class="navigation__item" *ngIf="!isOnHomePage">
       <app-icon
         class="icon--theme"
         icon="theme"

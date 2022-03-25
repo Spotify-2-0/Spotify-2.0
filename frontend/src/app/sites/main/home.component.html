@@ -1,0 +1,31 @@
+<app-navigation
+  [isOnHomePage]="true"
+  [isAlwaysWhite]="true"
+  [fixed]="true"
+  background="#000000">
+</app-navigation>
+
+<div class="home">
+  <div class="video-container">
+
+    <video class="home__video" oncanplay="this.play()" onloadedmetadata="this.muted = true" autoplay muted loop>
+      <source src="../../../assets/medias/bg_home.webm" type="video/webm" />
+      Your browser is not supported!
+    </video>
+    <div class="info__wrapper">
+      <div class="info__header">
+        Enjoy your music <br/>
+        <span class="info__header--accent">anywhere</span>. <br/>
+      </div>
+      <span class="container__btn u-margin-top-medium">
+        <a routerLink="/signup" class="btn btn--violetdarker btn--text-white btn--animated-bg">
+          sign up
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+
+<app-footer>
+
+</app-footer>

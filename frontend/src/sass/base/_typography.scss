@@ -76,4 +76,16 @@
   &--violetdark {
     background-color: var(--color-violet-dark);
   }
+
+  &--violetdarker {
+    background-color: var(--color-violet-darker);
+  }
+
+  &--text-white {
+    &,
+    &:link,
+    &:visited {
+      color: white;
+    }
+  }
 }

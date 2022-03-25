@@ -12,8 +12,7 @@ html {
   font-size: 62.5%; //1rem = 10px 10px/16px = 62.5%
   font-family: var(--font-family-default);
   box-sizing: border-box;
-
-  background: var(--color-background);
+  overflow-y: overlay;
 }
 
 [data-theme="dark"] {
@@ -22,12 +21,13 @@ html {
 }
 
 ::-webkit-scrollbar {
+  position: absolute;
   width: 5px;
 }
 
 ::-webkit-scrollbar-track {
   border-radius: 10px;
-  background-color: transparent;
+
 }
 
 ::-webkit-scrollbar-thumb {

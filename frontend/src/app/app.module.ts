@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
-import { MainComponent } from './sites/main/main.component';
+import { HomeComponent } from './sites/main/home.component';
 import { IconComponent } from './components/icon/icon.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -26,11 +26,12 @@ import { StepUserInterestsComponent } from './components/setup/step-user-interes
 import { SetupPageComponent } from './sites/setup-page/setup-page.component';
 import { StepFinalComponent } from './components/setup/step-final/step-final.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
+import { FooterComponent } from './components/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
+    HomeComponent,
     IconComponent,
     WorldMapComponent,
     SignupPageComponent,
@@ -48,6 +49,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
     SetupPageComponent,
     StepFinalComponent,
     NavigationComponent,
+    FooterComponent,
   ],
   imports: [
     BrowserModule,
