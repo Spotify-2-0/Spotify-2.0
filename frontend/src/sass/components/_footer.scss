@@ -59,7 +59,8 @@
       }
     }
     &--left {
-
+      display: flex;
+      flex-wrap: wrap;
     }
     &--right {
       display: inline-block;
