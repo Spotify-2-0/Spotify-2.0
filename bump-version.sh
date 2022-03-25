@@ -19,7 +19,7 @@ if [ "$1" == "git" ]; then
 elif [ "$1" == "build" ]; then
     oldVersion=$(jq -r '.["version"]' frontend/package.json)
     commit=$(git rev-parse --short HEAD)
-    date=$(date +'%Y%m%d%H%M%S')
+    date=$(TZ="Europe/Warsaw" date +'%Y%m%d%H%M%S')
     export OLD_VERSION=$oldVersion
     export NEW_VERSION="$oldVersion-$date-$commit"
     perl -p -i -e 's/$ENV{OLD_VERSION}/$ENV{NEW_VERSION}/' frontend/package.json
