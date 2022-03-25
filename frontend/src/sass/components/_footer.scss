@@ -1,0 +1,113 @@
+.footer {
+  width: 100vw;
+  max-width: 100%;
+  height: auto;
+  background: #000000;
+  @include padding(bottom, medium);
+
+  &--container {
+    height: 100%;
+
+    color: #FFFFFF;
+
+    display: flex;
+    gap: 7%;
+    margin: 0 15% 0 8%;
+    flex-wrap: wrap;
+    @media (max-width: 1300px) {
+      margin: 0 0 0 2rem;
+    }
+    @media (max-width: 1000px) {
+      margin: 0 10% 0 8%;
+    }
+    @media (max-width: 810px) {
+      flex-flow: column;
+    }
+  }
+  &--row {
+    display: flex;
+    flex-flow: row;
+    flex-basis: 100%;
+    white-space: nowrap;
+    gap: 8%;
+    @include margin(top, big);
+    @media (max-width: 640px) {
+      flex-flow: column-reverse;
+    }
+  }
+
+  &__bottom {
+    &--item {
+      font-size: 1.6rem;
+      color: #949494;
+      margin-right: 30px;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-violet-dark);
+      }
+    }
+    &--icon {
+      width: 2.4rem;
+      height: 2.4rem;
+      margin-right: 3.2rem;
+      display: inline-block;
+      cursor: pointer;
+
+      &:hover {
+        color: var(--color-violet-dark);
+      }
+    }
+    &--left {
+      display: flex;
+      flex-wrap: wrap;
+    }
+    &--right {
+      display: inline-block;
+      margin-left: auto;
+      margin-right: 50px;
+
+      @media (max-width: 640px) {
+        margin-left: unset;
+        margin-bottom: 25px;
+      }
+    }
+  }
+
+  &__logo {
+    @include margin(top, medium);
+    @include logo-default;
+    @include typography(big);
+    &--wrapper {
+      @media (max-width: 1000px) {
+        width: 100%;
+      }
+    }
+
+  }
+
+  &__menu {
+    @include margin(top, big);
+
+    &--item {
+      margin-top: 27px;
+      @include typography(small);
+      cursor: pointer;
+      white-space: nowrap;
+      &:hover {
+        color: var(--color-violet-dark);
+      }
+
+      &--vm-smaller {
+        margin-top: 14px;
+        @include typography(small);
+      }
+
+      &--header {
+        color: #949494;
+        white-space: nowrap;
+        @include typography(medium);
+      }
+    }
+  }
+}

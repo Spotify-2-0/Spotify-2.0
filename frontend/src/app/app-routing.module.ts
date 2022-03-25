@@ -1,7 +1,7 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoggedPageComponent } from './sites/logged-page/logged-page.component';
-import { MainComponent } from "./sites/main/main.component";
+import { HomeComponent } from "./sites/main/home.component";
 import { SigninPageComponent } from './sites/signin-page/signin-page.component';
 import { SignupPageComponent } from './sites/signup-page/signup-page.component';
 import { SetupPageComponent } from './sites/setup-page/setup-page.component';
@@ -27,7 +27,7 @@ const initializer = (): (() => Promise<void>) => {
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent,
+    component: HomeComponent,
   },
   {
     path: 'signup',

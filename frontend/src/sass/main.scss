@@ -1,5 +1,6 @@
 @import "abstracts/mixins.scss";
 @import "abstracts/variables.scss";
+@import "abstracts/functions.scss";
 
 @import "base/animations";
 @import "base/base";
@@ -18,12 +19,13 @@
 @import "components/step-user-profile";
 @import "components/stepper";
 @import "components/world-map";
+@import "components/footer";
 
 @import "layout/header";
 @import "layout/navigation";
 @import "layout/logo";
 
-@import "pages/main";
+@import "pages/home";
 @import "pages/setup";
 @import "pages/signin";
 @import "pages/signup";
