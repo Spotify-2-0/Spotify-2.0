@@ -51,7 +51,7 @@
     background: var(--color-background);
     @media (max-width: 1000px) {
       width: 100%;
-      height: unset;
+      height: 100vh;
     }
     @media (max-height: 700px) {
       overflow-y: auto;
@@ -102,9 +102,9 @@
 }
 
 .form--signin {
-  width: 400px;
+  min-width: 60%;
   @media (max-width: 1000px) {
     margin: 140px 15px 15px 15px;
-    width: auto;
+
   }
 }

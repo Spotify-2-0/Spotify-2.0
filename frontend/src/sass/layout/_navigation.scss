@@ -6,12 +6,22 @@
   z-index: 9999999;
   transition: background-color 0.25s;
 
+  @media (max-width: 500px) {
+    @include padding(left, small);
+    @include padding(right, small);
+  }
+
   &__logo {
     flex-grow: 1;
     @include padding(left, medium);
     @include logo-default;
     .navigation__link, .navigation__link:visited {
       font-weight: 600 !important;
+    }
+
+    @media (max-width: 500px) {
+      padding: 0;
+      margin: 0;
     }
   }
 
@@ -23,6 +33,10 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    @media (max-width: 500px) {
+      padding: 0;
+      margin: 0;
+    }
   }
 
   &__item {

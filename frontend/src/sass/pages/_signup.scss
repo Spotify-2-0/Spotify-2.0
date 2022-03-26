@@ -54,11 +54,15 @@
     color: var(--color-black);
     @media (max-width: 1000px) {
       width: 100%;
-      height: unset;
+      height: 100vh;
+      @include padding(top, megahuge)
     }
     @media (max-height: 700px) {
       overflow-y: auto;
       overflow-x: hidden;
+    }
+    @media (max-width: 420px) {
+      padding: 25rem 30px 30px 30px;
     }
   }
 }

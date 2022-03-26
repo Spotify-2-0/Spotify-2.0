@@ -62,12 +62,23 @@
         font-family: var(--font-family-default);
         position: absolute;
         text-align: right;
+        @media (max-width: 500px) {
+          @include padding(right, small);
+          align-items: center;
+          justify-content: center;
+          text-align: center;
+        }
       }
 
       &__header {
         font-size: 5rem;
         font-weight: 600;
         color: #FFFFFF;
+
+        @media (max-width: 500px) {
+          font-size: 4rem;
+          text-align: center;
+        }
 
         &--accent {
           color: var(--color-violet-dark);
@@ -244,5 +255,13 @@
     //height: 65rem;
     object-fit: cover;
     //position: absolute;
+
+    @media (max-width: 850px) {
+      object-position: -300px 0;
+    }
+
+    @media (max-width: 500px) {
+      object-position: -200px 0;
+    }
   }
 }

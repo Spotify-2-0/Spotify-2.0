@@ -35,8 +35,9 @@
     align-items: center;
     background: var(--color-background);
     @media (max-width: 1000px) {
+      @include padding(top, huge);
       width: 100%;
-      height: unset;
+      height: 100vh;
     }
     @media (max-height: 700px) {
       overflow-y: auto;
