@@ -11,6 +11,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
   @Input() isAlwaysWhite: boolean = false;
   @Input() fixed: boolean = false;
   @Input() background?: string;
+  @Input() backgroundAfterScroll: boolean = true
+  @Input() iconThemeColor?: string;
   isScrolled = false;
   private subscription?: Subscription;
 

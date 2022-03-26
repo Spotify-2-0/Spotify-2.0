@@ -1,7 +1,8 @@
 <nav class="navigation"
      [ngStyle]="{
         'position': fixed ? 'fixed' : 'absolute',
-        'background-color': background && isScrolled ? background : 'transparent'
+        'background-color':
+          background ? backgroundAfterScroll ? isScrolled ? background : 'transparent' : background : null
       }"
 >
   <div class="navigation__logo">
@@ -38,6 +39,7 @@
 
     <li class="navigation__item" *ngIf="!isOnHomePage">
       <app-icon
+        [style.color]="iconThemeColor ? iconThemeColor : null"
         class="icon--theme"
         icon="theme"
         (click)="toggleTheme()"

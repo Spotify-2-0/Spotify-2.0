@@ -29,6 +29,7 @@
   &,
   &:link,
   &:visited {
+    white-space: nowrap;
     text-transform: capitalize;
     text-decoration: none;
     padding: 1rem 6rem;

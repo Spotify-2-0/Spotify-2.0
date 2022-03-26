@@ -5,6 +5,7 @@ import { HomeComponent } from "./sites/main/home.component";
 import { SigninPageComponent } from './sites/signin-page/signin-page.component';
 import { SignupPageComponent } from './sites/signup-page/signup-page.component';
 import { SetupPageComponent } from './sites/setup-page/setup-page.component';
+import { NotFoundComponent } from "./sites/not-found/not-found.component";
 
 const initializer = (): (() => Promise<void>) => {
   let theme = localStorage.getItem('user_theme');
@@ -44,6 +45,11 @@ const routes: Routes = [
   {
     path: 'logged',
     component: LoggedPageComponent
+  },
+  {
+    path: '**',
+    pathMatch: 'full',
+    component: NotFoundComponent
   }
 ]
 
