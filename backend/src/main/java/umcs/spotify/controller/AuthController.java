@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +24,7 @@ import javax.validation.Valid;
 import java.security.Principal;
 
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -43,10 +45,14 @@ public class AuthController {
     @Autowired
     private RoleRepository roleRepository;
 
-    @PostMapping("/auth")
+    @PostMapping("/signin")
     public ResponseEntity<?> generateToken(@RequestBody AuthenticationCredentials credentials) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(credentials.getUsername(), credentials.getPassword()));
+        } catch (BadCredentialsException e) {
+            return ResponseEntity.badRequest().body("Bad credentials");
+        }
 
         var userDetails = userDetailsService.loadUserByUsername(credentials.getUsername());
         var token = jwtUtils.generateToken(userDetails);
