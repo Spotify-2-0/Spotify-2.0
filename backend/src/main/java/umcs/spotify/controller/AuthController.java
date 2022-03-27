@@ -2,12 +2,9 @@ package umcs.spotify.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.access.prepost.PreFilter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.AuthenticationCredentials;
@@ -21,7 +18,6 @@ import umcs.spotify.security.JwtUtils;
 import umcs.spotify.services.UserDetailsServiceImpl;
 
 import javax.validation.Valid;
-import java.security.Principal;
 
 @RestController
 @RequestMapping("/auth")
@@ -61,9 +57,13 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity registerUser(@Valid @RequestBody RegisterUserRequest userData) {
+    public ResponseEntity<?> registerUser(@Valid @RequestBody RegisterUserRequest userData) {
         if (userRepository.existsByUsername((userData.getUsername()))) {
             return ResponseEntity.badRequest().body("Username is already taken");
+        }
+
+        if (!userData.getPassword().equals(userData.getConfirmPassword())) {
+            return ResponseEntity.badRequest().body("Passwords do not match");
         }
 
         var user = new User(
@@ -72,6 +72,10 @@ public class AuthController {
                 passwordEncoder.encode(userData.getPassword()));
         var userRole = roleRepository.findByName(RoleType.USER).get();
         user.addRole(userRole);
+
+        user.setFirstName(userData.getFirstName());
+        user.setLastName(userData.getLastName());
+        user.setBirthdate(userData.getBirthdate());
 
         userRepository.save(user);
 
