@@ -2,12 +2,20 @@
   width: 250px;
   height: 250px;
   border-radius: 50%;
+  @media (max-width: 420px) {
+    width: 160px;
+    height: 160px;
+  }
   &--wrapper {
     width: 250px;
     height: 250px;
     border-radius: 50%;
     background: var(--color-violet-dark);
     position: relative;
+    @media (max-width: 420px) {
+      width: 160px;
+      height: 160px;
+    }
   }
   &__icon-change {
     color: #000000;
@@ -18,6 +26,13 @@
     top: 20px;
     z-index: 1;
     cursor: pointer;
+
+    @media (max-width: 420px) {
+      right: 0;
+      width: 15px;
+      height: 15px;
+    }
+
     &:after {
       position: absolute;
       z-index: -1;
@@ -29,6 +44,11 @@
       height: 50px;
       background: #c4c4c4;
       border-radius: 50%;
+
+      @media (max-width: 420px) {
+        width: 30px;
+        height: 30px;
+      }
     }
   }
   &__initials {
@@ -40,6 +60,9 @@
     justify-content: center;
     align-items: center;
     color: #000000;
+    @media (max-width: 420px) {
+      font-size: 60px;
+    }
   }
   &__info {
     color: var(--color-black);
