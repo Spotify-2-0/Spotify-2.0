@@ -6,7 +6,6 @@ import { HomeComponent } from './sites/main/home.component';
 import { IconComponent } from './components/icon/icon.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { WorldMapComponent } from './components/world-map/world-map.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupPageComponent } from './sites/signup-page/signup-page.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
@@ -27,13 +26,13 @@ import { SetupPageComponent } from './sites/setup-page/setup-page.component';
 import { StepFinalComponent } from './components/setup/step-final/step-final.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { NotFoundComponent } from './sites/not-found/not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     IconComponent,
-    WorldMapComponent,
     SignupPageComponent,
     SigninPageComponent,
     FormInputTextComponent,
@@ -50,6 +49,7 @@ import { FooterComponent } from './components/footer/footer.component';
     StepFinalComponent,
     NavigationComponent,
     FooterComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

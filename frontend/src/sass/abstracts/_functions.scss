@@ -10,6 +10,7 @@
 
 @function getTypography($size) {
   @return map-get((
+    smaller: 1rem,
     small : 1.5rem,
     medium : 2rem,
     big : 4rem,
