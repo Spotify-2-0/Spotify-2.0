@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { Step } from '../../stepper/step';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { displayNameValidator } from '../../../shared/validators';
 import { image2base64 } from '../../../shared/functions';
 import { CropResult } from '../../avatar-cropper/avatar-cropper.component';
 
@@ -15,11 +13,8 @@ export class StepUserProfileComponent implements Step {
   public width!: number;
   public height!: number;
   public cropped: CropResult | null = null;
-  public form: FormGroup = this.fb.group({
-    displayName: ['', [displayNameValidator()]],
-  });
 
-  constructor(private readonly fb: FormBuilder) {}
+  constructor() {}
 
   public selectFile($event: Event): void {
     const input = $event.target as HTMLInputElement;
@@ -39,12 +34,6 @@ export class StepUserProfileComponent implements Step {
   }
 
   public canProceed(): boolean {
-    this.form.markAllAsTouched();
-    return !this.hasAnyError();
-  }
-
-  private hasAnyError(): boolean {
-    const control = this.form.controls['displayName'];
-    return control.touched && control.invalid;
+    return true;
   }
 }

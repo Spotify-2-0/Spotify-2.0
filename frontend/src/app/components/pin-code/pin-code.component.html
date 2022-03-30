@@ -1,0 +1,10 @@
+<div>
+  <input #inputs
+         class="pin-code--input"
+         *ngFor="let value of [].constructor(numOfDigits); let i = index"
+         [maxLength]="1"
+         (paste)="onPaste($event)"
+         (keydown)="check(i, $event)"
+         (focusin)="onFocusIn(i, $event)"
+  >
+</div>

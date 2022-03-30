@@ -1,4 +1,4 @@
-package umcs.spotify.security;
+package umcs.spotify.helper;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

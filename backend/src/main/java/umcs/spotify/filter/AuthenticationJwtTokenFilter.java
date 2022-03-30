@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import umcs.spotify.security.JwtUtils;
+import umcs.spotify.helper.JwtUtils;
 import umcs.spotify.services.UserDetailsServiceImpl;
 
 import javax.servlet.FilterChain;

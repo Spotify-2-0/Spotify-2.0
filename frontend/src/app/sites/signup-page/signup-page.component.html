@@ -26,8 +26,17 @@
 
       <app-form-input-text
         class="u-margin-top-small"
+        label="How should we call you?"
+        formName="displayName"
+        [formGroup]="form"
+      >
+      </app-form-input-text>
+
+      <app-form-input-text
+        class="u-margin-top-small"
         formName="email"
         label="Email address"
+        [triggerValidationOnLostFocus]="true"
         [formGroup]="form"
       >
       </app-form-input-text>
@@ -36,15 +45,6 @@
         class="u-margin-top-small"
         formName="password"
         label="Password"
-        [hideInput]="true"
-        [formGroup]="form"
-      >
-      </app-form-input-text>
-
-      <app-form-input-text
-        class="u-margin-top-small"
-        label="Re-enter password"
-        formName="rePassword"
         [hideInput]="true"
         [formGroup]="form"
       >

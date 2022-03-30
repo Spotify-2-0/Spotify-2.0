@@ -21,11 +21,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     private UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        var user = userRepository.findByUsername(username)
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        var user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
 
-        return User.withUsername(username)
+        return User.withUsername(email)
                 .password(user.getPassword())
                 .authorities(getAuthorities(user))
                 .accountExpired(false)

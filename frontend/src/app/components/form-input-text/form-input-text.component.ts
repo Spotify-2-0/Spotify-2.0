@@ -10,6 +10,7 @@ export class FormInputTextComponent {
   @Input() public formName!: string;
   @Input() public label?: string;
   @Input() public hideInput: boolean = false;
+  @Input() public triggerValidationOnLostFocus?: boolean = false;
 
   public value: string = '';
 
@@ -23,6 +24,14 @@ export class FormInputTextComponent {
   public getErrorMessage(): string {
     const control = this.formGroup.controls[this.formName];
     const errors: ValidationErrors = control.errors!;
+    console.log(errors)
     return errors[Object.keys(errors)[0]];
+  }
+
+  onFocusOut() {
+    if (this.triggerValidationOnLostFocus) {
+      console.log("validating")
+      this.formGroup.controls[this.formName].updateValueAndValidity();
+    }
   }
 }

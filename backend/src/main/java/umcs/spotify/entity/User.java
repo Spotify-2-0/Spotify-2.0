@@ -20,9 +20,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    private String displayName;
 
     private String email;
+
+    private String emailConfirmationCode;
+
+    private boolean emailConfirmed;
 
     private String password;
 
@@ -30,19 +34,11 @@ public class User {
 
     private String lastName;
 
-    private LocalDate birthdate;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(	name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
-
-    public User(String username, String email, String password) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-    }
 
     public void addRole(Role role) {
         roles.add(role);

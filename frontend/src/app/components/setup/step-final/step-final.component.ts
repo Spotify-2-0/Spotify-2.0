@@ -15,7 +15,7 @@ export class StepFinalComponent implements OnInit {
     this.sub = timer(30, 30).subscribe((_) => {
       this.progress++;
       if (this.progress >= 100) {
-        this.router.navigate(['/']);
+        this.router.navigate(['/app']);
         this.sub.unsubscribe();
       }
     });

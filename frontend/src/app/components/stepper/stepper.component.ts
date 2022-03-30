@@ -9,6 +9,7 @@ import {
   ViewContainerRef,
 } from '@angular/core';
 import { Step } from './step';
+import { isObservable } from "rxjs";
 
 @Component({
   selector: 'app-stepper',
@@ -46,15 +47,25 @@ export class StepperComponent implements AfterViewInit {
   }
 
   public nextStep(): void {
-    if (this.currentRef.instance.canProceed()) {
-      this.stepIndex++;
-      this.currentRef.destroy();
-      if (this.stepIndex < this.steps.length)
-        this.currentRef = this.getStepComponent(this.stepIndex);
-      else {
-        const factory = this.resolver.resolveComponentFactory(this.finalView);
-        this.currentRef = this.container.createComponent(factory);
-      }
+    const can = this.currentRef.instance.canProceed();
+    if (isObservable(can)) {
+      can.subscribe(x => {
+        if (x) this.step()
+      })
+    }
+    else if (can) {
+      this.step();
+    }
+  }
+
+  private step() {
+    this.stepIndex++;
+    this.currentRef.destroy();
+    if (this.stepIndex < this.steps.length)
+      this.currentRef = this.getStepComponent(this.stepIndex);
+    else {
+      const factory = this.resolver.resolveComponentFactory(this.finalView);
+      this.currentRef = this.container.createComponent(factory);
     }
   }
 

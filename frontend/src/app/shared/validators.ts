@@ -1,9 +1,10 @@
 import {
-  AbstractControl,
+  AbstractControl, AsyncValidatorFn,
   FormGroup,
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { Observable, of } from "rxjs";
 
 export const requiredValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -32,22 +33,6 @@ export const firstNameValidator = (): ValidatorFn => {
   };
 };
 
-export const displayNameValidator = (): ValidatorFn => {
-  return (control: AbstractControl): ValidationErrors | null => {
-    if (control.value.length === 0) {
-      return {
-        required: 'Display name cannot be empty',
-      };
-    }
-    if (control.value.length > 16) {
-      return {
-        required: 'Display name cannot be longer than 16 characters',
-      };
-    }
-    return null;
-  };
-};
-
 export const lastNameValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
     if (control.value.length === 0) {
@@ -64,6 +49,23 @@ export const lastNameValidator = (): ValidatorFn => {
   };
 };
 
+export const displayNameValidator = (): ValidatorFn => {
+  return (control: AbstractControl): ValidationErrors | null => {
+    if (control.value.length === 0) {
+      return {
+        required: 'Display name cannot be empty',
+      };
+    }
+    if (control.value.length > 16) {
+      return {
+        required: 'Display name cannot be longer than 16 characters',
+      };
+    }
+    return null;
+  };
+};
+
+
 export const emailValidator = (): ValidatorFn => {
   return (control: AbstractControl): ValidationErrors | null => {
     const validEmailRegex = new RegExp(
@@ -74,6 +76,8 @@ export const emailValidator = (): ValidatorFn => {
         password: 'Email must be in format user.name@domain.com',
       };
     }
+
+
     return null;
   };
 };
@@ -84,13 +88,16 @@ export const passwordValidator = (): ValidatorFn => {
       Minimum eight characters, at least one uppercase letter,
       one lowercase letter, one number and one special character
     */
+    //const validPasswordRegex = new RegExp(
+    //  '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
+    //);
     const validPasswordRegex = new RegExp(
-      '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
+      '^(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#&()–{}:;\',?/*~$^+=<>]).{8,}$'
     );
     if (!validPasswordRegex.test(control.value)) {
       return {
         password:
-          'Password must be at least 8 characters long, contain uppercase letter, lowercase letter, number, and special character',
+          'Password must be between 8 to 255 characters long, contain uppercase letter, lowercase letter, number, and special character',
       };
     }
     return null;

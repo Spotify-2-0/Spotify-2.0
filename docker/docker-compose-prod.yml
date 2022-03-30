@@ -18,3 +18,33 @@ services:
       - 80:80
     expose:
       - 80
+
+  postgres:
+    image: "postgres"
+    container_name: "postgres"
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=spotify
+
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-backend-prod
+    container_name: "backend"
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+    environment:
+      - DB_DATABASE=spotify
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=root
+      - DB_PASS=root
+    expose:
+      - 8080
+
