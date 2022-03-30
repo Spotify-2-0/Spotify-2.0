@@ -10,7 +10,7 @@ import { Observable, pipe } from "rxjs";
 })
 export class StepEmailValidationComponent implements Step, OnInit {
 
-  user!: User;
+  user?: User;
   pin: string | null = null;
 
   constructor(private userService: UserService) {}
