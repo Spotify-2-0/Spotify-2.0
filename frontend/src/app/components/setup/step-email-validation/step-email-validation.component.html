@@ -1,9 +1,18 @@
 <div class="u-text-medium">
   In order to proceed with your setup you must confirm your email address.
-  Message has been sent to <span class="highlight">user@domain.com</span>,
-  please follow instructions from the email.
+  Message has been sent to <span class="highlight">{{ user?.email }}</span>,
+  please copy the code from email and paste it below.
 </div>
+
+<div style="width: 100%;display: flex;justify-content: center;margin-top: 3rem;margin-bottom: 6rem;">
+  <app-pin-code
+    [numOfDigits]="5"
+    (pinCodeComplete)="pinCodeCompleted($event)"
+  >
+  </app-pin-code>
+</div>
+
 <div class="u-text-small u-margin-top-medium">
-  You can’t see the message? <span class="highlight">click here</span> to send
+  You can’t see the message? <span class="highlight" (click)="sendEmail()">click here</span> to send
   it again.
 </div>

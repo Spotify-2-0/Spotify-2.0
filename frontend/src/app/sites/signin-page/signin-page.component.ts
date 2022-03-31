@@ -7,6 +7,8 @@ import {
 } from '@angular/forms';
 import { ThemeService } from 'src/app/services/theme.service';
 import { emailValidator, requiredValidator } from 'src/app/shared/validators';
+import { UserService } from "../../services/user.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-signin-page',
@@ -24,12 +26,20 @@ export class SigninPageComponent implements OnInit {
 
   public constructor(
     private readonly themeService: ThemeService,
+    private readonly userService: UserService,
+    private readonly router: Router,
     private readonly fb: FormBuilder
   ) {}
 
   onSubmit(): void {
     this.signinForm.markAllAsTouched();
-    //TODO: send request to server
+    if (this.signinForm.valid) {
+      this.userService.signIn({
+        email: this.signinForm.controls['email'].value,
+        password: this.signinForm.controls['password'].value,
+      })
+      .subscribe(_ => this.router.navigate(['/app']));
+    }
   }
 
   public toggleTheme(): void {

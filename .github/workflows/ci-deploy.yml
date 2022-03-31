@@ -39,7 +39,7 @@ jobs:
           cd frontend
           cat package.json
           npm install
-          npm run build
+          npm run build:prod
           npm run gulp
           rm -rf ~/app
           mkdir -p ~/app

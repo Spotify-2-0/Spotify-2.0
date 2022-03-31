@@ -2,13 +2,17 @@ import { Component } from '@angular/core';
 import { ThemeService } from '../../services/theme.service';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
-  ConfirmedValidator,
-  emailValidator,
+  displayNameValidator,
   firstNameValidator,
   lastNameValidator,
   passwordValidator,
   tosValidator,
 } from '../../shared/validators';
+import { UserService } from "../../services/user.service";
+import { ValidationService } from "../../services/validation.service";
+import { pipe } from "rxjs";
+import { catchError } from "rxjs/operators";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-signup-page',
@@ -21,18 +25,18 @@ export class SignupPageComponent {
     {
       firstName: ['', [firstNameValidator()]],
       lastName: ['', [lastNameValidator()]],
-      email: ['', [emailValidator()]],
+      displayName: ['', [displayNameValidator()]],
+      email: ['', [], [this.validationService.emailValidatorAsync()]],
       password: ['', [passwordValidator()]],
-      rePassword: ['', []],
       tos: [false, [tosValidator()]],
-    },
-    {
-      validator: ConfirmedValidator('password', 'rePassword'),
     }
   );
 
   constructor(
+    private readonly validationService: ValidationService,
     private readonly themeService: ThemeService,
+    private readonly userService: UserService,
+    private readonly router: Router,
     private readonly fb: FormBuilder
   ) {}
 
@@ -42,5 +46,14 @@ export class SignupPageComponent {
 
   public onSubmit(): void {
     this.form.markAllAsTouched();
+    if (this.form.valid) {
+      this.userService.signUp({
+        firstName: this.form.controls['firstName'].value,
+        lastName: this.form.controls['lastName'].value,
+        displayName: this.form.controls['displayName'].value,
+        email: this.form.controls['email'].value,
+        password: this.form.controls['password'].value,
+      }).subscribe(_ => this.router.navigate(['/setup']));
+    }
   }
 }

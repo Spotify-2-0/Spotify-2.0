@@ -2,10 +2,10 @@
   <div class="label--form-input">{{ label }}</div>
   <div class="input--form-input">
     <input
+      (focusout)="onFocusOut()"
       [formControlName]="formName"
       [class.input-error]="isError()"
       [type]="hideInput ? 'password' : 'text'"
-      [value]="value"
       class="form-input"
     />
     <app-icon *ngIf="isError()" class="error__icon" icon="invalid"></app-icon>

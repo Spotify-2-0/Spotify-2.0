@@ -1,9 +1,14 @@
 package umcs.spotify.contract;
 
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Value;
 
-@Data
+@Value
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class AuthenticationCredentials {
-    private String username;
-    private String password;
+    String email;
+    String password;
 }

@@ -1,13 +1,16 @@
 package umcs.spotify.contract;
 
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Value;
+import umcs.spotify.dto.UserDto;
 
 @Value
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class AuthenticationResponse {
-    private String token;
-    private String type = "Bearer";
-
-    public AuthenticationResponse(String token) {
-        this.token = token;
-    }
+    String type = "Bearer";
+    String token;
+    UserDto user;
 }

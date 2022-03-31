@@ -1,33 +1,35 @@
 package umcs.spotify.contract;
 
-import lombok.Data;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.Value;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.time.LocalDate;
+import javax.validation.constraints.*;
 
-@Data
+@Value
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class RegisterUserRequest {
-    @Size(min = 5, max = 20)
-    private String username;
 
-    @Email
-    private String email;
+    @Size(min = 3, max = 16,
+        message = "Display name length must be between 3 and 16 characters")
+    String displayName;
 
-    @Size(min = 6, max = 40)
-    private String password;
+    @Email(message = "Email must be in format username@domain.com")
+    String email;
 
-    @Size(min = 6, max = 40)
-    private String confirmPassword;
+    @Pattern(
+        regexp = "^(?=.*[a-z])(?=.*[0-9])(?=.*[A-Z])(?=.*[!@#&()–{}:;',?/*~$^+=<>]).{8,255}$",
+        message = "Password must be between 8 to 255 characters long, contain uppercase letter, lowercase letter, number, and special character"
+    )
+    String password;
 
-    @NotBlank
-    private String firstName;
+    @Size(min = 1, max = 16,
+            message = "First name must be between 1 and 16 characters")
+    String firstName;
 
-    @NotBlank
-    private String lastName;
-
-    @NotNull
-    private LocalDate birthdate;
+    @Size(min = 1, max = 16,
+            message = "Last name must be between 1 and 16 characters")
+    String lastName;
 }

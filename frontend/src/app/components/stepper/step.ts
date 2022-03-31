@@ -1,3 +1,5 @@
+import { Observable } from "rxjs";
+
 export interface Step {
-  canProceed: () => boolean;
+  canProceed: () => boolean | Observable<boolean>;
 }

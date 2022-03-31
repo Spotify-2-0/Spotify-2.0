@@ -27,6 +27,7 @@ import { StepFinalComponent } from './components/setup/step-final/step-final.com
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { NotFoundComponent } from './sites/not-found/not-found.component';
+import { PinCodeComponent } from './components/pin-code/pin-code.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { NotFoundComponent } from './sites/not-found/not-found.component';
     NavigationComponent,
     FooterComponent,
     NotFoundComponent,
+    PinCodeComponent,
   ],
   imports: [
     BrowserModule,
