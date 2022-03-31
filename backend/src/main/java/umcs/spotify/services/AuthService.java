@@ -1,6 +1,7 @@
 package umcs.spotify.services;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -13,12 +14,13 @@ import umcs.spotify.contract.RegisterUserRequest;
 import umcs.spotify.dto.UserDto;
 import umcs.spotify.entity.RoleType;
 import umcs.spotify.entity.User;
-import umcs.spotify.exception.EmailAlreadyTakenException;
-import umcs.spotify.exception.InvalidCredentialsException;
+import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.FormValidatorHelper;
 import umcs.spotify.repository.RoleRepository;
 import umcs.spotify.repository.UserRepository;
 import umcs.spotify.helper.JwtUtils;
+
+import static org.springframework.http.HttpStatus.*;
 
 @Service
 public class AuthService {
@@ -58,7 +60,7 @@ public class AuthService {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword()));
         } catch (BadCredentialsException e) {
-            throw new InvalidCredentialsException("Bad credentials");
+            throw new RestException(FORBIDDEN, "Bad credentials");
         }
 
         var userDetails = userDetailsService.loadUserByUsername(credentials.getEmail());
@@ -69,11 +71,11 @@ public class AuthService {
 
     public AuthenticationResponse signUp(RegisterUserRequest request, Errors errors) {
         if (errors.hasFieldErrors()) {
-            throw new InvalidCredentialsException(FormValidatorHelper.returnFormattedErrors(errors));
+            throw new RestException(BAD_REQUEST, FormValidatorHelper.returnFormattedErrors(errors));
         }
 
         if (userRepository.existsByEmail(request.getEmail())) {
-            throw new EmailAlreadyTakenException("Email {} is already taken", request.getEmail());
+            throw new RestException(CONFLICT, "Email {} is already taken", request.getEmail());
         }
 
         var user = new User();

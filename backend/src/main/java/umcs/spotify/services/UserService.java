@@ -4,10 +4,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import umcs.spotify.dto.UserDto;
 import umcs.spotify.entity.User;
-import umcs.spotify.exception.UserNotFoundException;
+import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.ContextUserAccessor;
 import umcs.spotify.helper.PinCodeHelper;
 import umcs.spotify.repository.UserRepository;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 public class UserService {
@@ -33,7 +35,7 @@ public class UserService {
 
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException("user with email {} not found", email));
+                .orElseThrow(() -> new RestException(NOT_FOUND, "user with email {} not found", email));
     }
 
     public UserDto getCurrentUser() {
