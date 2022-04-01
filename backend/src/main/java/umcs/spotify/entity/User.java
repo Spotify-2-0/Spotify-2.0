@@ -29,9 +29,6 @@ public class User {
 
     private boolean emailConfirmed;
 
-    private String passwordResetKey;
-    private LocalDateTime passwordResetKeyValidTo;
-
     private String password;
 
     private String firstName;

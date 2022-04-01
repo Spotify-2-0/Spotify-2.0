@@ -26,8 +26,14 @@ import static org.springframework.http.HttpStatus.*;
 @Service
 public class UserService {
 
-    private final static Map<String, String> PASSWORD_RESET_CODE_CACHE = ExpiringMap.builder()
+    private static final Map<String, String> PASSWORD_RESET_PIN_CODE_CACHE = ExpiringMap
+            .builder()
             .expiration(2, TimeUnit.MINUTES)
+            .build();
+
+    private static final Map<String, String> PASSWORD_RESET_KEY_CODE_CACHE = ExpiringMap
+            .builder()
+            .expiration(5, TimeUnit.MINUTES)
             .build();
 
 
@@ -78,7 +84,7 @@ public class UserService {
         var maybeUser = userRepository.findByEmail(email);
         maybeUser.ifPresent((user) -> {
             var pin = PinCodeHelper.generateRandomPin(5);
-            PASSWORD_RESET_CODE_CACHE.put(user.getEmail(), pin);
+            PASSWORD_RESET_PIN_CODE_CACHE.put(user.getEmail(), pin);
             userRepository.save(user);
             emailService.sendPasswordResetEmail(user, pin);
         });
@@ -96,19 +102,17 @@ public class UserService {
     }
 
     public String getPasswordChangeKeyFromPinCode(PasswordResetPinToKeyRequest request) {
-        var pin = PASSWORD_RESET_CODE_CACHE.get(request.getEmail());
+        var pin = PASSWORD_RESET_PIN_CODE_CACHE.get(request.getEmail());
         if (pin == null) {
             throw new RestException(UNAUTHORIZED, "Pin has expired");
         }
         if (!pin.equals(request.getPin())) {
             throw new RestException(UNAUTHORIZED, "Pin is invalid");
         }
-        PASSWORD_RESET_CODE_CACHE.remove(request.getEmail());
+        PASSWORD_RESET_PIN_CODE_CACHE.remove(request.getEmail());
         var user = findUserByEmail(request.getEmail());
         var resetKey = UUID.randomUUID().toString().replace("-", "");
-        user.setPasswordResetKey(resetKey);
-        user.setPasswordResetKeyValidTo(LocalDateTime.now().plus(Duration.ofMinutes(2)));
-        userRepository.save(user);
+        PASSWORD_RESET_KEY_CODE_CACHE.put(user.getEmail(), resetKey);
         return resetKey;
     }
 
@@ -117,12 +121,13 @@ public class UserService {
             throw new RestException(BAD_REQUEST, FormValidatorHelper.returnFormattedErrors(errors));
         }
 
-       var user = userRepository.findByPasswordResetKey(request.getKey())
+        var user = userRepository.findByPasswordResetKey(request.getKey())
                .orElseThrow(() -> new RestException(NOT_FOUND, "Invalid password reset key"));
 
-       if (LocalDateTime.now().isAfter(user.getPasswordResetKeyValidTo())) {
-           throw new RestException(UNAUTHORIZED, "Password reset key has expired");
-       }
+        var resetKey = PASSWORD_RESET_KEY_CODE_CACHE.get(user.getEmail());
+        if (resetKey == null) {
+            throw new RestException(UNAUTHORIZED, "Password reset key has expired");
+        }
 
        user.setPassword(passwordEncoder.encode(request.getPassword()));
        userRepository.save(user);
