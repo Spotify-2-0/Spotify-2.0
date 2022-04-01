@@ -14,6 +14,8 @@ import { EmailConfirmedGuard } from "./guards/email-confirmed.guard";
 import { JwtService } from "./services/jwt.service";
 import { NegateAuthGuard } from "./guards/negate-auth.guard";
 import { NegateEmailConfirmedGuard } from "./guards/negate-email-confirmed.guard";
+import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/Account-settings.component';
+import { SettingsComponent } from './sites/logged-page/settings/Settings.component';
 
 const initializer = (): (() => Promise<void>) => {
   let theme = localStorage.getItem('user_theme');
@@ -81,12 +83,33 @@ const routes: Routes = [
   },
   {
     path: 'app',
-    canActivate: [AuthGuard, EmailConfirmedGuard],
+/*     canActivate: [AuthGuard, EmailConfirmedGuard],
     data: {
       authRouteTo: '/app',
       emailRouteTo: '/setup',
-    },
+    }, */
     component: LoggedPageComponent
+  },
+  {
+    path: 'settings',
+    /*     canActivate: [AuthGuard, EmailConfirmedGuard],
+    data: {
+      authRouteTo: '/app',
+      emailRouteTo: '/setup',
+    }, */
+    component: SettingsComponent,
+    children: [
+      {
+        path: 'account-settings',
+    /*     canActivate: [AuthGuard, EmailConfirmedGuard],
+        data: {
+          authRouteTo: '/app',
+          emailRouteTo: '/setup',
+        }, */
+        component: AccountSettingsComponent
+      },
+      //TODO: Password change etc.
+    ]
   },
   {
     path: '**',

@@ -1,0 +1,21 @@
+<section class="account-settings">
+  <form class="form" [formGroup]="accountSettingsForm" (ngSubmit)="onSubmit()">
+    <div class="form__group">
+      <input type="text" id="first-name" [value]="firstName"/>
+      <label formControlName="firstName" for="first-name">First name</label>
+    </div>
+    <div class="form__group">
+      <input formControlName="lastName" type="text" id="last-name" [value]="lastName"/>
+      <label for="last-name">Last name</label>
+    </div>
+    <div class="form__group">
+      <input formControlName="dispalyName" type="text" id="dispaly-name" [value]="displayName"/>
+      <label for="dispaly-name">Display name</label>
+    </div>
+    <div class="form__group">
+      <input formControlName="email" type="text" id="email" [value]="email"/>
+      <label for="email">E-mail</label>
+    </div>
+    <button type="submit" class="form__button">Save</button>
+  </form>
+</section>

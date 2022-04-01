@@ -88,4 +88,24 @@ export class UserService {
         map(response => response.success))
   }
 
+  public updateFirstName(newFirstName: string) {
+    //TODO: connect to backend
+    this.http.patch(`${environment.serverURL}/user/<template>`, { firstName: newFirstName }).subscribe();
+  }
+
+  public updateLastName(newLastName: string) {
+    //TODO: connect to backend
+    this.http.patch(`${environment.serverURL}/user/<template>`, { lastName: newLastName }).subscribe();
+  }
+
+  public updateDispalyName(newDisplayName: string) {
+    //TODO: connect to backend
+    this.http.patch(`${environment.serverURL}/user/<template>`, { displayName: newDisplayName }).subscribe();
+  }
+
+  public updateEmail(newEmail: string) {
+    //TODO: connect to backend
+    this.http.patch(`${environment.serverURL}/user/<template>`, { email: newEmail }).subscribe();
+  }
+
 }

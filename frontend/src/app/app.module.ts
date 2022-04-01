@@ -28,6 +28,8 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { FooterComponent } from './components/footer/footer.component';
 import { NotFoundComponent } from './sites/not-found/not-found.component';
 import { PinCodeComponent } from './components/pin-code/pin-code.component';
+import { SettingsComponent } from './sites/logged-page/settings/Settings.component';
+import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/Account-settings.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { PinCodeComponent } from './components/pin-code/pin-code.component';
     FooterComponent,
     NotFoundComponent,
     PinCodeComponent,
+    SettingsComponent,
+    AccountSettingsComponent
   ],
   imports: [
     BrowserModule,

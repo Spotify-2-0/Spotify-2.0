@@ -15,7 +15,8 @@
     flex-grow: 1;
     @include padding(left, medium);
     @include logo-default;
-    .navigation__link, .navigation__link:visited {
+    .navigation__link,
+    .navigation__link:visited {
       font-weight: 600 !important;
     }
 
@@ -68,6 +69,52 @@
 
     &--violet {
       color: var(--color-violet-darker);
+    }
+  }
+
+  &--settings {
+    margin-bottom: 5rem;
+
+    &__list {
+      display: flex;
+      list-style: none;
+    }
+
+    &__item {
+      font-size: var(--font-size-default);
+      text-transform: capitalize;
+
+      &:first-child a {
+        padding: 1rem 0 0.5rem 0;
+      }
+
+      &:nth-child(2) a {
+        padding: 1rem 2.5rem 0.5rem 5rem;
+      }
+
+      &:nth-child(3) a {
+        padding: 1rem 5rem 0.5rem 2.5rem;
+      }
+
+      &:last-child a {
+        padding: 1rem 0 0.5rem 0;
+      }
+    }
+
+    &__link {
+      border-bottom: 0.3rem solid var(--color-black);
+      cursor: pointer;
+      &,
+      &:link,
+      &:visited {
+        text-decoration: none;
+
+        color: var(--color-background);
+      }
+
+      &--active {
+        border-bottom: 0.3rem solid var(--color-background);
+      }
     }
   }
 }
