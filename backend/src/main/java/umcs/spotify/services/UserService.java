@@ -128,6 +128,7 @@ public class UserService {
         if (resetKey == null) {
             throw new RestException(UNAUTHORIZED, "Password reset key has expired");
         }
+        PASSWORD_RESET_KEY_CODE_CACHE.remove(user.getEmail());
 
        user.setPassword(passwordEncoder.encode(request.getPassword()));
        userRepository.save(user);
