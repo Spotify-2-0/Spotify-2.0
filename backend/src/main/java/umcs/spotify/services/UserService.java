@@ -27,7 +27,7 @@ import static org.springframework.http.HttpStatus.*;
 public class UserService {
 
     private final static Map<String, String> PASSWORD_RESET_CODE_CACHE = ExpiringMap.builder()
-            .expiration(2, TimeUnit.SECONDS)
+            .expiration(2, TimeUnit.MINUTES)
             .build();
 
 
