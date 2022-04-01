@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -27,6 +28,9 @@ public class User {
     private String emailConfirmationCode;
 
     private boolean emailConfirmed;
+
+    private String passwordResetKey;
+    private LocalDateTime passwordResetKeyValidTo;
 
     private String password;
 
