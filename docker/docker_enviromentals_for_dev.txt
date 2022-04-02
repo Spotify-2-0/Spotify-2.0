@@ -1,0 +1,1 @@
+DB_HOST=localhost;DB_PORT=5432;DB_DATABASE=spotify;DB_USER=root;DB_PASS=root;MONGO_USER=rootuser;MONGO_PASS=rootpass;MONGO_HOST=localhost;MONGO_PORT=27017

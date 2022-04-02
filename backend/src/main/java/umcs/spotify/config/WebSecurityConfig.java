@@ -43,8 +43,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable()
                 .formLogin().disable()
                 .authorizeRequests()
-                .antMatchers("/auth/**").permitAll()
-                .antMatchers("/user/existsBy*").permitAll()
+                .antMatchers(
+                    "/auth/**",
+                    "/user/existsBy*",
+                    "/user/profile/**/avatar",
+                    "/user/sendEmailConfirmationCode",
+                    "/user/sendEmailPasswordReset",
+                    "/user/passwordResetKeyFromPinCode",
+                    "/user/resetPassword"
+                ).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
     }

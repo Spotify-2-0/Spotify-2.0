@@ -28,6 +28,7 @@ import { NavigationComponent } from './components/navigation/navigation.componen
 import { FooterComponent } from './components/footer/footer.component';
 import { NotFoundComponent } from './sites/not-found/not-found.component';
 import { PinCodeComponent } from './components/pin-code/pin-code.component';
+import { PasswordResetComponent } from './sites/password-reset/password-reset.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { PinCodeComponent } from './components/pin-code/pin-code.component';
     FooterComponent,
     NotFoundComponent,
     PinCodeComponent,
+    PasswordResetComponent,
   ],
   imports: [
     BrowserModule,

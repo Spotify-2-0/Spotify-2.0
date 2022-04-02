@@ -7,6 +7,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.Errors;
 import umcs.spotify.contract.UserActivityRequest;
+import umcs.spotify.dto.UserActivityEntryDto;
 import umcs.spotify.entity.User;
 import umcs.spotify.entity.UserActivityEntry;
 import umcs.spotify.exception.RestException;
@@ -42,7 +43,7 @@ public class UserActivityService {
         this.mapper = mapper;
     }
 
-    public Page<UserActivityEntry> getUserActivity(UserActivityRequest request, Errors errors) {
+    public Page<UserActivityEntryDto> getUserActivity(UserActivityRequest request, Errors errors) {
         if (errors.hasFieldErrors()) {
             throw new RestException(BAD_REQUEST, FormValidatorHelper.returnFormattedErrors(errors));
         }
@@ -50,7 +51,7 @@ public class UserActivityService {
         var email = ContextUserAccessor.getCurrentUserEmail();
         var page = PageRequest.of(request.getPage(), request.getPageSize());
         var activities = activityRepository.findByUserEmail(email, page);
-        return mapper.mapEntityPageIntoDtoPage(activities, UserActivityEntry.class);
+        return mapper.mapEntityPageIntoDtoPage(activities, UserActivityEntryDto.class);
     }
 
     @Async

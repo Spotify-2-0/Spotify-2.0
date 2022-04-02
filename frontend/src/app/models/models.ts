@@ -29,6 +29,16 @@ export interface ConfirmEmailResponse {
   success: boolean;
 }
 
+export interface PasswordResetPinToKeyResponse {
+  key: string;
+}
+
+export interface ApiError {
+  statusCode: number,
+  timestamp: number,
+  message: string
+}
+
 export interface User {
   id: number,
   firstName: string

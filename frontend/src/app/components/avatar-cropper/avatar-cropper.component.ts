@@ -44,7 +44,7 @@ export class AvatarCropperComponent implements OnChanges {
   @Input() height!: number;
   @Input() quality: number = 77;
   @Input() dataURI!: any;
-  @Input() format: 'png' | 'jpeg' | 'bmp' | 'webp' | 'ico' = 'png';
+  private format = 'jpeg';
 
   @Output() finished: EventEmitter<CropResult | null> = new EventEmitter();
 

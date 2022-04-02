@@ -1,19 +1,18 @@
 package umcs.spotify.controller;
 
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import umcs.spotify.contract.EmailConfirmRequest;
-import umcs.spotify.contract.UserActivityRequest;
-import umcs.spotify.contract.UserExistsByEmail;
+import org.springframework.web.multipart.MultipartFile;
+import umcs.spotify.contract.*;
 import umcs.spotify.dto.UserActivityEntryDto;
 import umcs.spotify.dto.UserDto;
-import umcs.spotify.entity.User;
-import umcs.spotify.entity.UserActivityEntry;
 import umcs.spotify.services.UserActivityService;
 import umcs.spotify.services.UserService;
 
-import java.awt.print.Pageable;
 import java.util.Collections;
 import java.util.Map;
 
@@ -56,4 +55,30 @@ public class UserController {
     public Page<UserActivityEntryDto> getUserActivity(UserActivityRequest request, Errors errors) {
         return userActivityService.getUserActivity(request, errors);
     }
+
+    @PostMapping("/uploadAvatar")
+    public void uploadUserAvatar(@RequestParam("image") MultipartFile multipartFile) {
+        userService.uploadAvatar(multipartFile);
+    }
+
+    @GetMapping("/profile/{id}/avatar")
+    public ResponseEntity<InputStreamResource> getUserAvatar(@PathVariable long id) {
+        return userService.getUserAvatar(id);
+    }
+
+    @PostMapping("/sendEmailPasswordReset")
+    public void sendEmailPasswordReset(@RequestBody SendEmailPasswordResetRequest request) {
+        userService.sendEmailPasswordReset(request.getEmail());
+    }
+
+    @PostMapping("/passwordResetKeyFromPinCode")
+    public Map<String, String> getPasswordChangeKeyFromPinCode(@RequestBody PasswordResetPinToKeyRequest request) {
+        return Collections.singletonMap("key", userService.getPasswordChangeKeyFromPinCode(request));
+    }
+
+    @PostMapping("/resetPassword")
+    public void resetPassword(@Validated @RequestBody PasswordResetRequest request, Errors errors) {
+        userService.resetPassword(request, errors);
+    }
+
 }

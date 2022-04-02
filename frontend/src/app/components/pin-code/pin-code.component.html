@@ -1,5 +1,6 @@
-<div>
+<div class="pin-code--wrapper" (focusout)="onFocusOut()">
   <input #inputs
+         [class.pin-code--input__error]="hasErrors"
          class="pin-code--input"
          *ngFor="let value of [].constructor(numOfDigits); let i = index"
          [maxLength]="1"
@@ -7,4 +8,7 @@
          (keydown)="check(i, $event)"
          (focusin)="onFocusIn(i, $event)"
   >
+  <div class="error">
+    <span *ngIf="hasErrors" class="error__text"> {{ errorMessage }} </span>
+  </div>
 </div>
