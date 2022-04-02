@@ -1,6 +1,7 @@
 package umcs.spotify.services;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import umcs.spotify.dto.UserDto;
 import umcs.spotify.entity.User;
@@ -8,6 +9,8 @@ import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.ContextUserAccessor;
 import umcs.spotify.helper.PinCodeHelper;
 import umcs.spotify.repository.UserRepository;
+
+import java.awt.print.Pageable;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
@@ -65,4 +68,5 @@ public class UserService {
         }
         return false;
     }
+
 }
