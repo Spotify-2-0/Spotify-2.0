@@ -36,6 +36,11 @@
   font-weight: 600;
 }
 
+.href {
+  cursor: pointer;
+  color: var(--color-black);
+}
+
 .error {
   margin-top: 10px;
   margin-bottom: 5px;

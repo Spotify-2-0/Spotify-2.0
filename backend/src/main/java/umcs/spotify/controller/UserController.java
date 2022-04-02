@@ -4,10 +4,10 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import umcs.spotify.contract.EmailConfirmRequest;
-import umcs.spotify.contract.UserExistsByEmail;
+import umcs.spotify.contract.*;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import umcs.spotify.dto.UserDto;
-import umcs.spotify.entity.User;
 import umcs.spotify.services.UserService;
 
 import java.util.Collections;
@@ -51,6 +51,21 @@ public class UserController {
     @GetMapping("/profile/{id}/avatar")
     public ResponseEntity<InputStreamResource> getUserAvatar(@PathVariable long id) {
         return userService.getUserAvatar(id);
+    }
+
+    @PostMapping("/sendEmailPasswordReset")
+    public void sendEmailPasswordReset(@RequestBody SendEmailPasswordResetRequest request) {
+        userService.sendEmailPasswordReset(request.getEmail());
+    }
+
+    @PostMapping("/passwordResetKeyFromPinCode")
+    public Map<String, String> getPasswordChangeKeyFromPinCode(@RequestBody PasswordResetPinToKeyRequest request) {
+        return Collections.singletonMap("key", userService.getPasswordChangeKeyFromPinCode(request));
+    }
+
+    @PostMapping("/resetPassword")
+    public void resetPassword(@Validated @RequestBody PasswordResetRequest request, Errors errors) {
+        userService.resetPassword(request, errors);
     }
 
 }

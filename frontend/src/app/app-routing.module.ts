@@ -14,6 +14,7 @@ import { EmailConfirmedGuard } from "./guards/email-confirmed.guard";
 import { JwtService } from "./services/jwt.service";
 import { NegateAuthGuard } from "./guards/negate-auth.guard";
 import { NegateEmailConfirmedGuard } from "./guards/negate-email-confirmed.guard";
+import { PasswordResetComponent } from "./sites/password-reset/password-reset.component";
 
 const initializer = (): (() => Promise<void>) => {
   let theme = localStorage.getItem('user_theme');
@@ -78,6 +79,14 @@ const routes: Routes = [
       emailRouteTo: '/app',
     },
     component: SetupPageComponent,
+  },
+  {
+    path: 'password-reset',
+    canActivate: [NegateAuthGuard],
+    data: {
+      authRouteTo: '/app',
+    },
+    component: PasswordResetComponent,
   },
   {
     path: 'app',

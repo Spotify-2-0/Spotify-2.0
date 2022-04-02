@@ -46,7 +46,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                     "/auth/**",
                     "/user/existsBy*",
-                    "/user/profile/**/avatar"
+                    "/user/profile/**/avatar",
+                    "/user/sendEmailConfirmationCode",
+                    "/user/sendEmailPasswordReset",
+                    "/user/passwordResetKeyFromPinCode",
+                    "/user/resetPassword"
                 ).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
