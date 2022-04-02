@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {
-  ConfirmEmailResponse, SignInRequest, SignResponse,
+  ConfirmEmailResponse, PasswordResetPinToKeyResponse, SignInRequest, SignResponse,
   SignUpRequest,
   User,
   UserExistsByResponse
@@ -86,6 +86,26 @@ export class UserService {
       .pipe(
         tap(response => this._userSubject.next({...this.currentUser()!, emailConfirmed: response.success})),
         map(response => response.success))
+  }
+
+  public sendEmailPasswordReset = (email: string): Observable<void> => {
+    return this.http.post<void>(`${environment.serverURL}/user/sendEmailPasswordReset`, {
+      email: email
+    });
+  }
+
+  public getPasswordChangeKeyFromPinCode = (email: string, pin: string): Observable<string> => {
+    return this.http.post<PasswordResetPinToKeyResponse>(`${environment.serverURL}/user/passwordResetKeyFromPinCode`, {
+      email: email,
+      pin: pin
+    }).pipe(map(response => response.key))
+  }
+
+  public passwordResetKeyFromPinCode = (resetKey: string, password: string): Observable<void> => {
+    return this.http.post<void>(`${environment.serverURL}/user/resetPassword`, {
+      key: resetKey,
+      password: password,
+    })
   }
 
 }

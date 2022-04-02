@@ -12,14 +12,17 @@
     text-align: center;
     margin-left: 5px;
 
+    &__error {
+      border-bottom: 0.5px solid var(--color-red-dark);
+      box-shadow: 0 4px 2px -2px var(--color-red-dark);
+    }
+
     &:focus,
     .input-error:focus {
       box-shadow: 0 4px 2px -2px rgba(81, 203, 238, 1);
       border-bottom: 1px solid rgba(81, 203, 238, 1);
     }
   }
-  .input-error {
-    border-bottom: 0.5px solid var(--color-red-dark);
-    box-shadow: 0 4px 2px -2px var(--color-red-dark);
-  }
+
+
 }
