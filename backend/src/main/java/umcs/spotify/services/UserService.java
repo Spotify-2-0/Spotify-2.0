@@ -194,7 +194,8 @@ public class UserService {
             throw new RestException(BAD_REQUEST, FormValidatorHelper.returnFormattedErrors(errors));
         }
 
-        var user = userRepository.findByEmail(request.getKey())
+        var email = PASSWORD_RESET_KEY_CODE_CACHE.get(request.getKey());
+        var user = userRepository.findByEmail(email)
                .orElseThrow(() -> new RestException(NOT_FOUND, "Invalid or expired password reset key"));
 
         PASSWORD_RESET_KEY_CODE_CACHE.remove(request.getKey());
