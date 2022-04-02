@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {
-  ConfirmEmailResponse, PasswordResetPinToKeyResponse, SignInRequest, SignResponse,
+  ConfirmEmailResponse,
+  PasswordResetPinToKeyResponse,
+  SignInRequest,
+  SignResponse,
   SignUpRequest,
   User,
   UserExistsByResponse
@@ -86,6 +89,16 @@ export class UserService {
       .pipe(
         tap(response => this._userSubject.next({...this.currentUser()!, emailConfirmed: response.success})),
         map(response => response.success))
+  }
+
+  public getUserProfileUrl = (userId: number) => {
+    return `${environment.serverURL}/user/profile/${userId}/avatar`
+  }
+
+  public uploadAvatar = (avatar: Blob): Observable<void> => {
+    const form = new FormData();
+    form.append('image', avatar);
+    return this.http.post<void>(`${environment.serverURL}/user/uploadAvatar`, form);
   }
 
   public sendEmailPasswordReset = (email: string): Observable<void> => {
