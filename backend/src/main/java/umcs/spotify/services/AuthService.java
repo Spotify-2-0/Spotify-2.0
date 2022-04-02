@@ -87,7 +87,7 @@ public class AuthService {
         user.addRole(userRole);
         user.setFirstName(request.getFirstName());
         user.setLastName(request.getLastName());
-
+        userService.assignDefaultAvatar(user);
         userRepository.save(user);
         userService.sendEmailConfirmationCode(user);
 

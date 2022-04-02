@@ -33,11 +33,13 @@
     text-transform: capitalize;
     text-decoration: none;
     padding: 1rem 6rem;
-    border-radius: 10rem;
+    border-radius: 0.5rem;
     color: var(--color-black);
     font-size: var(--font-size-default);
     transition: background 0.5s ease;
     overflow: hidden;
+    border: none;
+    cursor: pointer;
     -webkit-mask-image: -webkit-radial-gradient(white, black);
   }
 
@@ -52,7 +54,7 @@
       background: var(--color-black);
       bottom: -25px;
       left: 0;
-      border: 2px solid var(--color-black);
+      //border: 2px solid var(--color-black);
       transform: translateX(-50px) rotate(45deg);
       transition: transform 0.5s ease;
     }

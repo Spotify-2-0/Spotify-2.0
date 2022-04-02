@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {
-  ConfirmEmailResponse, SignInRequest, SignResponse,
+  ConfirmEmailResponse,
+  PasswordResetPinToKeyResponse,
+  SignInRequest,
+  SignResponse,
   SignUpRequest,
   User,
   UserExistsByResponse
@@ -88,24 +91,34 @@ export class UserService {
         map(response => response.success))
   }
 
-  public updateFirstName(newFirstName: string) {
-    //TODO: connect to backend
-    this.http.patch(`${environment.serverURL}/user/<template>`, { firstName: newFirstName }).subscribe();
+  public getUserProfileUrl = (userId: number) => {
+    return `${environment.serverURL}/user/profile/${userId}/avatar`
   }
 
-  public updateLastName(newLastName: string) {
-    //TODO: connect to backend
-    this.http.patch(`${environment.serverURL}/user/<template>`, { lastName: newLastName }).subscribe();
+  public uploadAvatar = (avatar: Blob): Observable<void> => {
+    const form = new FormData();
+    form.append('image', avatar);
+    return this.http.post<void>(`${environment.serverURL}/user/uploadAvatar`, form);
   }
 
-  public updateDispalyName(newDisplayName: string) {
-    //TODO: connect to backend
-    this.http.patch(`${environment.serverURL}/user/<template>`, { displayName: newDisplayName }).subscribe();
+  public sendEmailPasswordReset = (email: string): Observable<void> => {
+    return this.http.post<void>(`${environment.serverURL}/user/sendEmailPasswordReset`, {
+      email: email
+    });
   }
 
-  public updateEmail(newEmail: string) {
-    //TODO: connect to backend
-    this.http.patch(`${environment.serverURL}/user/<template>`, { email: newEmail }).subscribe();
+  public getPasswordChangeKeyFromPinCode = (email: string, pin: string): Observable<string> => {
+    return this.http.post<PasswordResetPinToKeyResponse>(`${environment.serverURL}/user/passwordResetKeyFromPinCode`, {
+      email: email,
+      pin: pin
+    }).pipe(map(response => response.key))
+  }
+
+  public passwordResetKeyFromPinCode = (resetKey: string, password: string): Observable<void> => {
+    return this.http.post<void>(`${environment.serverURL}/user/resetPassword`, {
+      key: resetKey,
+      password: password,
+    })
   }
 
 }
