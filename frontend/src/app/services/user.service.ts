@@ -88,4 +88,14 @@ export class UserService {
         map(response => response.success))
   }
 
+
+  public getUserProfileUrl = (userId: number) => {
+    return `${environment.serverURL}/user/profile/${userId}/avatar`
+  }
+
+  public uploadAvatar = (avatar: Blob): Observable<void> => {
+    const form = new FormData();
+    form.append('image', avatar);
+    return this.http.post<void>(`${environment.serverURL}/user/uploadAvatar`, form);
+  }
 }

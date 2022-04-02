@@ -1,9 +1,10 @@
 <div class="flex flex-row flex-center">
   <div class="flex flex-col" style="width: 250px">
     <div class="avatar--wrapper">
-      <div class="avatar" *ngIf="!cropped">
-        <div class="avatar__initials">{{ getUserInitials() }}</div>
-      </div>
+      <img
+        alt=""
+        [src]="getUserProfileUrl()"
+        class="avatar" *ngIf="!cropped" />
       <img class="avatar" alt="" *ngIf="cropped" [src]="cropped.base64" />
       <label for="avatar">
         <app-icon class="avatar__icon-change" icon="picture"></app-icon>

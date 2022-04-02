@@ -1,6 +1,9 @@
 package umcs.spotify.controller;
 
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.contract.EmailConfirmRequest;
 import umcs.spotify.contract.UserExistsByEmail;
 import umcs.spotify.dto.UserDto;
@@ -38,6 +41,16 @@ public class UserController {
     @PostMapping("/sendEmailConfirmationCode")
     public void sendEmailConfirmationCode() {
         userService.sendEmailConfirmationCodeForCurrentUser();
+    }
+
+    @PostMapping("/uploadAvatar")
+    public void uploadUserAvatar(@RequestParam("image") MultipartFile multipartFile) {
+        userService.uploadAvatar(multipartFile);
+    }
+
+    @GetMapping("/profile/{id}/avatar")
+    public ResponseEntity<InputStreamResource> getUserAvatar(@PathVariable long id) {
+        return userService.getUserAvatar(id);
     }
 
 }
