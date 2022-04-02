@@ -43,7 +43,7 @@ public class UserController {
 
     @PostMapping("/updatePreferences")
     public void updatePreferences(@RequestBody ChangeUserPreferencesRequest request) {
-        userService.changePreferences(request.getEmail(), request.getFirstName(), request.getLastName());
+        userService.changePreferences(request.getDisplayName(), request.getFirstName(), request.getLastName());
     }
 
     @GetMapping("/getPreferences")

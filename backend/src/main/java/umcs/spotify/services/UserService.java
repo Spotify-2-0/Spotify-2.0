@@ -67,9 +67,9 @@ public class UserService {
         return false;
     }
 
-    public void changePreferences(String email, String firstName, String lastName) {
+    public void changePreferences(String displayName, String firstName, String lastName) {
         var currentUser = findUserByEmail(ContextUserAccessor.getCurrentUserEmail());
-        currentUser.setEmail(email);
+        currentUser.setDisplayName(displayName);
         currentUser.setFirstName(firstName);
         currentUser.setLastName(lastName);
         userRepository.save(currentUser);
