@@ -12,10 +12,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class ChangeUserPreferencesRequest {
-
-    @Email(message = "Email must be in format username@domain.com")
-    String email;
-
+    
     @Size(min = 1, max = 16,
             message = "First name must be between 1 and 16 characters")
     String firstName;
