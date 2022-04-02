@@ -7,6 +7,7 @@ import umcs.spotify.dto.UserDto;
 import umcs.spotify.entity.User;
 import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.ContextUserAccessor;
+import umcs.spotify.helper.Mapper;
 import umcs.spotify.helper.PinCodeHelper;
 import umcs.spotify.repository.UserRepository;
 
@@ -20,12 +21,12 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final EmailService emailService;
-    private final ModelMapper mapper;
+    private final Mapper mapper;
 
     public UserService(
             UserRepository userRepository,
             EmailService emailService,
-            ModelMapper mapper
+            Mapper mapper
     ) {
         this.userRepository = userRepository;
         this.emailService = emailService;

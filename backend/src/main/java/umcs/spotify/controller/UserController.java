@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.EmailConfirmRequest;
 import umcs.spotify.contract.UserActivityRequest;
 import umcs.spotify.contract.UserExistsByEmail;
+import umcs.spotify.dto.UserActivityEntryDto;
 import umcs.spotify.dto.UserDto;
 import umcs.spotify.entity.User;
 import umcs.spotify.entity.UserActivityEntry;
@@ -52,7 +53,7 @@ public class UserController {
     }
 
     @GetMapping("/activity")
-    public Page<UserActivityEntry> getUserActivity(UserActivityRequest request, Errors errors) {
+    public Page<UserActivityEntryDto> getUserActivity(UserActivityRequest request, Errors errors) {
         return userActivityService.getUserActivity(request, errors);
     }
 }

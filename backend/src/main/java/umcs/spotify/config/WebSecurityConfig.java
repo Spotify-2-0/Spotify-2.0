@@ -60,8 +60,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    @Bean
-    public ModelMapper mapper() {
-        return Mapper.mapper();
-    }
 }

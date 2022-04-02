@@ -21,6 +21,7 @@ import umcs.spotify.entity.UserActivityEntry;
 import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.ContextUserAccessor;
 import umcs.spotify.helper.FormValidatorHelper;
+import umcs.spotify.helper.Mapper;
 import umcs.spotify.repository.RoleRepository;
 import umcs.spotify.repository.UserRepository;
 import umcs.spotify.helper.JwtUtils;
@@ -40,7 +41,7 @@ public class AuthService {
     private final RoleRepository roleRepository;
     private final UserService userService;
     private final JwtUtils jwtUtils;
-    private final ModelMapper mapper;
+    private final Mapper mapper;
 
     public AuthService(
         AuthenticationManager authenticationManager,
@@ -51,7 +52,7 @@ public class AuthService {
         RoleRepository roleRepository,
         UserService userService,
         JwtUtils jwtUtils,
-        ModelMapper mapper
+        Mapper mapper
     ) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;

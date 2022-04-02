@@ -1,5 +1,6 @@
 package umcs.spotify.services;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Async;
@@ -11,6 +12,7 @@ import umcs.spotify.entity.UserActivityEntry;
 import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.ContextUserAccessor;
 import umcs.spotify.helper.FormValidatorHelper;
+import umcs.spotify.helper.Mapper;
 import umcs.spotify.repository.UserActivityRepository;
 
 import java.awt.print.Pageable;
@@ -26,15 +28,18 @@ public class UserActivityService {
     private final UserActivityRepository activityRepository;
     private final UserService userService;
     private final GeoService geoService;
+    private final Mapper mapper;
 
     public UserActivityService(
         UserActivityRepository activityRepository,
         UserService userService,
-        GeoService geoService
+        GeoService geoService,
+        Mapper mapper
     ) {
         this.activityRepository = activityRepository;
         this.userService = userService;
         this.geoService = geoService;
+        this.mapper = mapper;
     }
 
     public Page<UserActivityEntry> getUserActivity(UserActivityRequest request, Errors errors) {
@@ -44,7 +49,8 @@ public class UserActivityService {
 
         var email = ContextUserAccessor.getCurrentUserEmail();
         var page = PageRequest.of(request.getPage(), request.getPageSize());
-        return activityRepository.findByUserEmail(email, page);
+        var activities = activityRepository.findByUserEmail(email, page);
+        return mapper.mapEntityPageIntoDtoPage(activities, UserActivityEntry.class);
     }
 
     @Async
