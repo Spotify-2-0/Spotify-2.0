@@ -3,6 +3,7 @@ package umcs.spotify.services;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import umcs.spotify.dto.UserDto;
+import umcs.spotify.dto.UserPreferencesDto;
 import umcs.spotify.entity.User;
 import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.ContextUserAccessor;
@@ -64,5 +65,19 @@ public class UserService {
             return true;
         }
         return false;
+    }
+
+    public void changePreferences(String email, String firstName, String lastName) {
+        var currentUser = findUserByEmail(ContextUserAccessor.getCurrentUserEmail());
+        currentUser.setEmail(email);
+        currentUser.setFirstName(firstName);
+        currentUser.setLastName(lastName);
+        userRepository.save(currentUser);
+    }
+
+    public UserPreferencesDto getPreferences() {
+        var email = ContextUserAccessor.getCurrentUserEmail();
+        var currentUser = findUserByEmail(email);
+        return mapper.map(currentUser, UserPreferencesDto.class);
     }
 }

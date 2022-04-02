@@ -1,10 +1,11 @@
 package umcs.spotify.controller;
 
 import org.springframework.web.bind.annotation.*;
+import umcs.spotify.contract.ChangeUserPreferencesRequest;
 import umcs.spotify.contract.EmailConfirmRequest;
 import umcs.spotify.contract.UserExistsByEmail;
+import umcs.spotify.dto.UserPreferencesDto;
 import umcs.spotify.dto.UserDto;
-import umcs.spotify.entity.User;
 import umcs.spotify.services.UserService;
 
 import java.util.Collections;
@@ -40,4 +41,13 @@ public class UserController {
         userService.sendEmailConfirmationCodeForCurrentUser();
     }
 
+    @PostMapping("/updatePreferences")
+    public void updatePreferences(@RequestBody ChangeUserPreferencesRequest request) {
+        userService.changePreferences(request.getEmail(), request.getFirstName(), request.getLastName());
+    }
+
+    @GetMapping("/getPreferences")
+    public UserPreferencesDto getPreferences() {
+        return userService.getPreferences();
+    }
 }
