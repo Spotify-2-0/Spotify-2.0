@@ -6,6 +6,7 @@ import {
   SignInRequest,
   SignResponse,
   SignUpRequest,
+  UpdateRequest,
   User,
   UserExistsByResponse
 } from "../models/models";
@@ -91,6 +92,10 @@ export class UserService {
         map(response => response.success))
   }
 
+  public updateUserDetails = (toUpdate: UpdateRequest) => {
+    this.http.put(`${environment.serverURL}/user/updateDetails`, toUpdate);
+  }
+
   public getUserProfileUrl = (userId: number) => {
     return `${environment.serverURL}/user/profile/${userId}/avatar`
   }
@@ -120,5 +125,4 @@ export class UserService {
       password: password,
     })
   }
-
 }

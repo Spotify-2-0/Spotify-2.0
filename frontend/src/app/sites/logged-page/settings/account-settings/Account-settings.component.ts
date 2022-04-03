@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
-import { User } from "src/app/models/models";
+import { UpdateRequest, User } from "src/app/models/models";
 import { EmailValidator, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { displayNameValidator, emailValidator, firstNameValidator, lastNameValidator } from "src/app/shared/validators";
 
@@ -16,6 +16,7 @@ export class AccountSettingsComponent implements OnInit {
   email!: string;
   originalUser!: User;
   accountSettingsForm!: FormGroup;
+  updateRequest!: UpdateRequest;
 
   constructor(private readonly userService: UserService,
     private readonly fb: FormBuilder) {
@@ -51,30 +52,25 @@ export class AccountSettingsComponent implements OnInit {
     this.updateFirstNameIfNew();
     this.updateLastNameIfNew();
     this.updateDisplayNameIfNew();
-    this.updateEmailIfNew();
+
+    this.userService.updateUserDetails(this.updateRequest);
   }
 
   updateFirstNameIfNew(){
     if(this.firstName != this.originalUser.firstName){
-      this.userService.updateFirstName(this.firstName);
+      this.updateRequest.firstName = this.firstName;
     }
   }
 
   updateLastNameIfNew(){
     if(this.lastName != this.originalUser.lastName){
-      this.userService.updateLastName(this.lastName);
+      this.updateRequest.lastName = this.lastName;
     }
   }
 
   updateDisplayNameIfNew(){
     if(this.displayName != this.originalUser.displayName){
-      this.userService.updateDispalyName(this.displayName);
-    }
-  }
-
-  updateEmailIfNew(){
-    if(this.email != this.originalUser.email){
-      this.userService.updateEmail(this.email);
+      this.updateRequest.displayName = this.displayName;
     }
   }
 }

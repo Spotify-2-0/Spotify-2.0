@@ -1,9 +1,41 @@
 .account-settings {
 
   .form {
+    display: flex;
+    flex-direction: column;
+    width: 27.5rem;
+    font-size: var(--font-size-default);
+
+    :not(:first-child){
+      margin-top: 2rem;
+    }
+
     &__group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__label {
+      margin-bottom: -1rem;
+    }
+
+    &__input {
+      padding: 1rem;
+      border: 1px solid var(--color-background);
+      border-radius: 1rem;
+      font-size: var(--font-size-default);
 
     }
-    
+
+    &__wrapper {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    &__button {
+      margin-top: 2rem;
+      padding: .5rem 4rem;
+    }
+
   }
 }
