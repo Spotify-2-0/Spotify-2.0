@@ -1,6 +1,6 @@
 .logo {
   @include logo-default;
-  color: var(--color-black);
+  color: var(--color-text);
   &--on-img {
     @include logo-default;
     color: #ffffff;

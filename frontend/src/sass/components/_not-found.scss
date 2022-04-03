@@ -20,7 +20,7 @@
     height: 100%;
     max-width: 800px;
     max-height: 600px;
-    color: var(--color-black);
+    color: var(--color-text);
     &--wrapper {
       display: flex;
       justify-content: center;
@@ -38,7 +38,7 @@
     width: 40%;
     display: flex;
     flex-flow: column;
-    color: var(--color-black);
+    color: var(--color-text);
     user-select: none;
     @include padding(right, big);
     @media (max-width: 800px) {

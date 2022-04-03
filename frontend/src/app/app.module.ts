@@ -55,9 +55,9 @@ import { SettingsComponent } from './sites/logged-page/settings/Settings.compone
     FooterComponent,
     NotFoundComponent,
     PinCodeComponent,
+    PasswordResetComponent,
     SettingsComponent,
-    AccountSettingsComponent,
-    PasswordResetComponent
+    AccountSettingsComponent
   ],
   imports: [
     BrowserModule,

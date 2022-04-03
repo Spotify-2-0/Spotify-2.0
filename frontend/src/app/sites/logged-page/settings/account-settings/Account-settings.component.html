@@ -1,23 +1,56 @@
 <section class="account-settings">
   <form class="form" [formGroup]="accountSettingsForm" (ngSubmit)="onSubmit()">
-    <div class="form__group">
-      <label class="form__label" formControlName="firstName" for="first-name">First name</label>
-      <input class="form__input" type="text" id="first-name" [value]="firstName"/>
+    <div class="form__group form__group--inline">
+      <app-form-input-text
+        class="form__input"
+        formName="firstName"
+        label="First name"
+        [formGroup]="accountSettingsForm"
+      >
+      </app-form-input-text>
+      <app-form-input-text
+        class="form__input"
+        formName="lastName"
+        label="Last name"
+        [formGroup]="accountSettingsForm"
+      >
+      </app-form-input-text>
     </div>
     <div class="form__group">
-      <label class="form__label" for="last-name">Last name</label>
-      <input class="form__input" formControlName="lastName" type="text" id="last-name" [value]="lastName"/>
+      <app-form-input-text
+        class="form__input"
+        formName="displayName"
+        label="Display name"
+        [formGroup]="accountSettingsForm"
+      >
+      </app-form-input-text>
     </div>
     <div class="form__group">
-      <label class="form__label" for="dispaly-name">Display name</label>
-      <input class="form__input" formControlName="dispalyName" type="text" id="dispaly-name" [value]="displayName"/>
-    </div>
-    <div class="form__group">
-      <label class="form__label" for="email">E-mail</label>
-      <input class="form__input" formControlName="email" type="text" id="email" [value]="email"/>
+      <app-form-input-text
+        class="form__input"
+        formName="email"
+        label="E-mail"
+        [formGroup]="accountSettingsForm"
+        [disable]="true"
+      >
+      </app-form-input-text>
     </div>
     <div class="form__wrapper">
-      <button type="submit" class="form__button btn btn--violetdark btn--animated-bg">Save</button>
+      <button
+        type="submit"
+        class="form__button btn btn--violetdark btn--animated-bg"
+      >
+        Save
+      </button>
     </div>
   </form>
+  <div class="account-settings__avatar">
+    <app-step-user-profile></app-step-user-profile>
+    <button
+    type="button"
+    class="form__button btn btn--redlight btn--animated-bg"
+  >
+    Delete
+  </button>
+  </div>
 </section>

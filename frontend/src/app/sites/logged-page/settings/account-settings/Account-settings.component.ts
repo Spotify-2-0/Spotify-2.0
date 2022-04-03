@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { AfterViewInit, Component, OnInit } from "@angular/core";
 import { UserService } from "src/app/services/user.service";
 import { UpdateRequest, User } from "src/app/models/models";
 import { EmailValidator, FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
@@ -24,7 +24,7 @@ export class AccountSettingsComponent implements OnInit {
         firstName: ['', [firstNameValidator()]],
         lastName: ['', [lastNameValidator()]],
         displayName: ['', [displayNameValidator()]],
-        email: ['', [emailValidator()]]
+        email: ['']
       })
 
     }
@@ -36,6 +36,13 @@ export class AccountSettingsComponent implements OnInit {
       this.lastName = user.lastName;
       this.displayName = user.displayName;
       this.email = user.email;
+
+      this.accountSettingsForm.setValue({
+        firstName: this.firstName,
+        lastName: this.lastName,
+        displayName: this.displayName,
+        email: this.email
+      });
     });
   }
 
