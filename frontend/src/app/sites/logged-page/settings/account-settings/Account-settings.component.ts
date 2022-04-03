@@ -55,6 +55,10 @@ export class AccountSettingsComponent implements OnInit {
     this.sendData();
   }
 
+  onDeleteImg() {
+
+  }
+
   sendData(){
     this.updateFirstNameIfNew();
     this.updateLastNameIfNew();
