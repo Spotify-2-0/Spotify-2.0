@@ -25,7 +25,7 @@
       [height]="height"
       [dataURI]="dataUri"
       format="jpeg"
-      (finished)="cropped = $event; modalOpened = false"
+      (finished)="cropped = $event; modalOpened = false; emitImageApplied()"
     >
     </app-avatar-cropper>
   </div>

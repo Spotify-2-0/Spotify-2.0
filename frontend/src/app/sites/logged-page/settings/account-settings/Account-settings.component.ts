@@ -10,6 +10,7 @@ import {
   firstNameValidator,
   lastNameValidator,
 } from 'src/app/shared/validators';
+import { CropResult } from 'src/app/components/avatar-cropper/avatar-cropper.component';
 
 @Component({
   selector: 'app-account-settings',
@@ -23,6 +24,7 @@ export class AccountSettingsComponent implements OnInit {
   originalUser!: User;
   accountSettingsForm!: FormGroup;
   updateRequest: UpdateRequest = {};
+  imgBlob: Blob | null = null;
 
   constructor(
     private readonly userService: UserService,
@@ -71,6 +73,10 @@ export class AccountSettingsComponent implements OnInit {
 
     if (this.updateRequest) {
       this.userService.updateUserDetails(this.updateRequest).subscribe();
+    }
+
+    if (this.imgBlob != null) {
+      this.userService.uploadAvatar(this.imgBlob).subscribe();
     }
   }
 

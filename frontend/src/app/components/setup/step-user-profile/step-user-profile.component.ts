@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Step } from '../../stepper/step';
 import { image2base64 } from '../../../shared/functions';
 import { CropResult } from '../../avatar-cropper/avatar-cropper.component';
 import { User } from "../../../models/models";
 import { UserService } from "../../../services/user.service";
-import { Observable } from "rxjs";
+import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 
 @Component({
@@ -18,6 +18,8 @@ export class StepUserProfileComponent implements Step, OnInit {
   public height!: number;
   public cropped: CropResult | null = null;
   user?: User;
+
+ @Output() imageApplied: EventEmitter<Blob | null> = new EventEmitter();
 
   constructor(
     private readonly userService: UserService
@@ -38,6 +40,10 @@ export class StepUserProfileComponent implements Step, OnInit {
       this.modalOpened = true;
       input.value = '';
     });
+  }
+
+  public emitImageApplied(){
+    this.imageApplied.emit(this.cropped?.blob);
   }
 
   public getUserProfileUrl(): string {
