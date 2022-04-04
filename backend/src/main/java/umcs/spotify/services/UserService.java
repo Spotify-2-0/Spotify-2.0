@@ -123,6 +123,7 @@ public class UserService {
         var email = ContextUserAccessor.getCurrentUserEmail();
         var currentUser = findUserByEmail(email);
         return mapper.map(currentUser, UserPreferencesDto.class);
+    }
       
     @Async
     public void assignDefaultAvatarForCurrentUser() {
