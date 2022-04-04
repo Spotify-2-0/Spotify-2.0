@@ -92,8 +92,8 @@ export class UserService {
         map(response => response.success))
   }
 
-  public updateUserDetails = (toUpdate: UpdateRequest) => {
-    this.http.put(`${environment.serverURL}/user/updateDetails`, toUpdate);
+  public updateUserDetails = (toUpdate: UpdateRequest): Observable<void> => {
+    return this.http.patch<void>(`${environment.serverURL}/user/updatePreferences`, toUpdate);
   }
 
   public getUserProfileUrl = (userId: number) => {

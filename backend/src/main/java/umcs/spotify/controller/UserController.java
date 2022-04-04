@@ -47,9 +47,10 @@ public class UserController {
         userService.sendEmailConfirmationCodeForCurrentUser();
     }
 
-    @PostMapping("/updatePreferences")
-    public void updatePreferences(@RequestBody ChangeUserPreferencesRequest request) {
-        userService.changePreferences(request.getDisplayName(), request.getFirstName(), request.getLastName());
+    @PatchMapping("/updatePreferences")
+    public ResponseEntity<?> updatePreferences(@RequestBody ChangeUserPreferencesRequest request) {
+        userService.changePreferences(request.getFirstName(), request.getLastName(), request.getDisplayName());
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/getPreferences")
