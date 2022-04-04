@@ -13,4 +13,5 @@ public class GeoLocation {
     public String continent;
     public Double latitude;
     public Double longitude;
+    public Integer radius;
 }

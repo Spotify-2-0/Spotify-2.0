@@ -68,9 +68,17 @@ public class AuthService {
 
     public AuthenticationResponse signIn(AuthenticationCredentials credentials) {
         try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(credentials.getEmail(), credentials.getPassword()));
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                credentials.getEmail(),
+                credentials.getPassword()
+            ));
         } catch (BadCredentialsException e) {
+            userRepository.findByEmail(credentials.getEmail()).ifPresent(user -> {
+                userActivityService.addActivity(user,
+                    "Sign in failed (incorrect credentials)",
+                    ContextUserAccessor.getRemoteAddres()
+                );
+            });
             throw new RestException(FORBIDDEN, "Bad credentials");
         }
 

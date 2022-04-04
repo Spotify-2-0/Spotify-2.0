@@ -17,7 +17,7 @@ public class UserActivityEntry {
     private Long id;
     @ManyToOne
     private User user;
-    public LocalDateTime occurrenceDate;
+    public long occurrenceTimestamp;
     @Embedded
     public GeoLocation location;
     public String ip;

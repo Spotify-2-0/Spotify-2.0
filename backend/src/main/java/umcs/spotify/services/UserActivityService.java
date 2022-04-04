@@ -60,7 +60,7 @@ public class UserActivityService {
         var userActivity = new UserActivityEntry();
         userActivity.setUser(user);
         userActivity.setIp(ip);
-        userActivity.setOccurrenceDate(LocalDateTime.now());
+        userActivity.setOccurrenceTimestamp(System.currentTimeMillis());
         userActivity.setActivity(activity);
         if (inet != null) {
             var geoLocation = geoService.getLocationFromAddress(inet);

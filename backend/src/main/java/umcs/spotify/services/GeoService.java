@@ -20,6 +20,7 @@ public class GeoService {
             var latitude = city.getLocation().getLatitude();
             var longitude = city.getLocation().getLongitude();
             var continent = city.getContinent().getName();
+            var radius = city.getLocation().getAccuracyRadius();
 
             var location = new GeoLocation();
             location.setCity(city.getCity().getName());
@@ -27,6 +28,7 @@ public class GeoService {
             location.setLatitude(latitude);
             location.setLongitude(longitude);
             location.setContinent(continent);
+            location.setRadius(radius);
             return location;
         } catch (IOException | GeoIp2Exception e) {
             return null;
