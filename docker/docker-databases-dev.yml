@@ -1,0 +1,35 @@
+version: '3.9'
+services:
+
+  mongodb:
+    image: "mongo"
+    container_name: "mongodb"
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo-data:/data
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+
+  postgres:
+    image: "postgres"
+    container_name: "postgres"
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=spotify
+    volumes:
+      - postgres-config:/etc/mysql
+      - postgres-data:/var/lib/mysql
+
+volumes:
+  mongo-data:
+  postgres-data:
+  postgres-config:
+
+networks:
+  default:
+    name: mongodb_network

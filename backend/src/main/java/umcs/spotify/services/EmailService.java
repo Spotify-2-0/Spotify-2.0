@@ -32,4 +32,19 @@ public class EmailService {
             e.printStackTrace();
         }
     }
+
+    @Async
+    public void sendPasswordResetEmail(User user, String pin) {
+        try {
+            var message = emailSender.createMimeMessage();
+            var helper = new MimeMessageHelper(message, true);
+
+            helper.setTo(user.getEmail());
+            helper.setSubject("[Spotify 2.0] Password change");
+            helper.setText("Your password change code: " + pin);
+            emailSender.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 }

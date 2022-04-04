@@ -19,6 +19,9 @@ export class PinCodeComponent implements OnInit{
 
   @ViewChildren('inputs') inputs!: QueryList<any>;
 
+  errorMessage!: string;
+  hasErrors: boolean = false;
+  touched: boolean = false;
   values: (string|null)[] = [];
 
   constructor() {
@@ -32,6 +35,7 @@ export class PinCodeComponent implements OnInit{
   }
 
   check(index: number, event: KeyboardEvent) {
+    this.touched = true;
     if (event.ctrlKey && event.key === 'v') {
       return;
     }
@@ -91,6 +95,28 @@ export class PinCodeComponent implements OnInit{
         this.inputs.get(i).nativeElement.value = pastedText.charAt(i)
       }
       this.inputs.get(this.numOfDigits - 1).nativeElement.focus();
+      // @ts-ignore
+      this.pinCodeComplete.emit(this.values);
     }
+  }
+
+  public markInvalid(): void {
+    this.hasErrors = true;
+  }
+
+  public setErrorMessage(message: string): void {
+    this.errorMessage = message;
+  }
+
+  onFocusOut() {
+    setTimeout(() => {
+      const areAllFilled = this.values.filter(x => x !== null).length === this.numOfDigits;
+      const isAnyFocused = this.inputs.toArray().filter(x => x.nativeElement === document.activeElement).length > 0;
+      this.hasErrors = this.touched && !areAllFilled && !isAnyFocused;
+      if (this.hasErrors) {
+        this.errorMessage = 'Code is not valid';
+      }
+    })
+
   }
 }
