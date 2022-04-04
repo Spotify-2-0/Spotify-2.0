@@ -16,6 +16,7 @@ import umcs.spotify.Constants;
 import umcs.spotify.contract.PasswordResetPinToKeyRequest;
 import umcs.spotify.contract.PasswordResetRequest;
 import umcs.spotify.dto.UserDto;
+import umcs.spotify.dto.UserPreferencesDto;
 import umcs.spotify.entity.User;
 import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.*;
@@ -114,7 +115,21 @@ public class UserService {
         }
         return false;
     }
+  
+    public void changePreferences(String displayName, String firstName, String lastName) {
+        var currentUser = findUserByEmail(ContextUserAccessor.getCurrentUserEmail());
+        currentUser.setDisplayName(displayName);
+        currentUser.setFirstName(firstName);
+        currentUser.setLastName(lastName);
+        userRepository.save(currentUser);
+    }
 
+    public UserPreferencesDto getPreferences() {
+        var email = ContextUserAccessor.getCurrentUserEmail();
+        var currentUser = findUserByEmail(email);
+        return mapper.map(currentUser, UserPreferencesDto.class);
+    }
+      
     @Async
     public void assignDefaultAvatarForCurrentUser() {
         var email = ContextUserAccessor.getCurrentUserEmail();

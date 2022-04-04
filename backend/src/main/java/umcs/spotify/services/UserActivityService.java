@@ -1,6 +1,5 @@
 package umcs.spotify.services;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Async;
@@ -16,10 +15,8 @@ import umcs.spotify.helper.FormValidatorHelper;
 import umcs.spotify.helper.Mapper;
 import umcs.spotify.repository.UserActivityRepository;
 
-import java.awt.print.Pageable;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.time.LocalDateTime;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -27,18 +24,15 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 public class UserActivityService {
 
     private final UserActivityRepository activityRepository;
-    private final UserService userService;
     private final GeoService geoService;
     private final Mapper mapper;
 
     public UserActivityService(
         UserActivityRepository activityRepository,
-        UserService userService,
         GeoService geoService,
         Mapper mapper
     ) {
         this.activityRepository = activityRepository;
-        this.userService = userService;
         this.geoService = geoService;
         this.mapper = mapper;
     }

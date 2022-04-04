@@ -6,6 +6,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import umcs.spotify.contract.ChangeUserPreferencesRequest;
+import umcs.spotify.contract.EmailConfirmRequest;
+import umcs.spotify.contract.UserExistsByEmail;
+import umcs.spotify.dto.UserPreferencesDto;
 import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.contract.*;
 import umcs.spotify.dto.UserActivityEntryDto;
@@ -56,6 +60,16 @@ public class UserController {
         return userActivityService.getUserActivity(request, errors);
     }
 
+    @PostMapping("/updatePreferences")
+    public void updatePreferences(@RequestBody ChangeUserPreferencesRequest request) {
+        userService.changePreferences(request.getDisplayName(), request.getFirstName(), request.getLastName());
+    }
+
+    @GetMapping("/getPreferences")
+    public UserPreferencesDto getPreferences() {
+        return userService.getPreferences();
+    }
+
     @PostMapping("/uploadAvatar")
     public void uploadUserAvatar(@RequestParam("image") MultipartFile multipartFile) {
         userService.uploadAvatar(multipartFile);
@@ -80,5 +94,4 @@ public class UserController {
     public void resetPassword(@Validated @RequestBody PasswordResetRequest request, Errors errors) {
         userService.resetPassword(request, errors);
     }
-
 }
