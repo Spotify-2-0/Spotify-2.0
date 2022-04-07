@@ -8,10 +8,10 @@ import javax.persistence.Embeddable;
 @Data
 @Embeddable
 public class GeoLocation {
-    public String city;
-    public String country;
-    public String continent;
-    public Double latitude;
-    public Double longitude;
-    public Integer radius;
+    private String city;
+    private String country;
+    private String continent;
+    private Double latitude;
+    private Double longitude;
+    private Integer radius;
 }

@@ -17,10 +17,10 @@ public class UserActivityEntry {
     private Long id;
     @ManyToOne
     private User user;
-    public long occurrenceTimestamp;
+    private long occurrenceTimestamp;
     @Embedded
-    public GeoLocation location;
-    public String ip;
-    public String activity;
+    private GeoLocation location;
+    private String ip;
+    private String activity;
 
 }
