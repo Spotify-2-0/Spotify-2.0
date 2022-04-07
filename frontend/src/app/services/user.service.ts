@@ -106,8 +106,8 @@ export class UserService {
     return this.http.post<void>(`${environment.serverURL}/user/uploadAvatar`, form);
   }
 
-  public setDefaultAvatar = (id: number): Observable<void> => {
-    return this.http.put<void>(`${environment.serverURL}/user/${id}/setDefaultAvatar`, null);
+  public setDefaultAvatarForCurrentUser = (): Observable<void> => {
+    return this.http.put<void>(`${environment.serverURL}/user/setDefaultAvatarForCurrentUser`, null);
   }
 
   public sendEmailPasswordReset = (email: string): Observable<void> => {

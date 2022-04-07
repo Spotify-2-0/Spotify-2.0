@@ -91,7 +91,7 @@ export class AccountSettingsComponent implements OnInit {
     }
 
     if (this.imgDeleted) {
-      this.userService.setDefaultAvatar(this.userId).subscribe();
+      this.userService.setDefaultAvatarForCurrentUser().subscribe();
       this.imgDeleted = false;
     }
   }

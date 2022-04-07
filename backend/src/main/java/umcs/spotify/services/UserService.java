@@ -132,10 +132,13 @@ public class UserService {
         return mapper.map(currentUser, UserPreferencesDto.class);
     }
 
-    @Async
-    public void assignDefaultSAvatarForCurrentUser() {
+    public void assignDefaultAvatarForCurrentUser(){
         var email = ContextUserAccessor.getCurrentUserEmail();
         var currentUser = findUserByEmail(email);
+
+        var database = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
+        var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_AVATARS);
+        bucket.delete(new ObjectId(currentUser.getAvatarMongoRef()));
         assignDefaultAvatar(currentUser);
     }
 
@@ -162,7 +165,7 @@ public class UserService {
         }
     }
 
-    public void assingDefaultAvatarByUserId(long id){
+    public void assignDefaultAvatarByUserId(long id){
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "User not found"));
 

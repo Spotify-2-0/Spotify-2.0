@@ -63,9 +63,9 @@ public class UserController {
         userService.uploadAvatar(multipartFile);
     }
 
-    @PutMapping("/{id}/setDefaultAvatar")
-    public ResponseEntity<?> setDefaultAvatar(@PathVariable long id){
-        userService.assingDefaultAvatarByUserId(id);
+    @PutMapping("/setDefaultAvatarForCurrentUser")
+    public ResponseEntity<?> setDefaultAvatarForCurrentUser(){
+        userService.assignDefaultAvatarForCurrentUser();
         return ResponseEntity.noContent().build();
     }
 
