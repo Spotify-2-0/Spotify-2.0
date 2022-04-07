@@ -46,10 +46,11 @@
     </div>
   </form>
   <div class="account-settings__avatar">
-    <app-step-user-profile (imageApplied)="this.imgBlob = $event"></app-step-user-profile>
+    <app-step-user-profile (imageApplied)="this.imgBlob = $event" [settings]="true"></app-step-user-profile>
     <button
     type="button"
     class="form__button btn btn--redlight btn--animated-bg"
+    (click)="onDeleteImg()"
   >
     Delete
   </button>

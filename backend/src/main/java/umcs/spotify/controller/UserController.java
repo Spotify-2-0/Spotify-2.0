@@ -63,6 +63,12 @@ public class UserController {
         userService.uploadAvatar(multipartFile);
     }
 
+    @PutMapping("/{id}/setDefaultAvatar")
+    public ResponseEntity<?> setDefaultAvatar(@PathVariable long id){
+        userService.assingDefaultAvatarByUserId(id);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/profile/{id}/avatar")
     public ResponseEntity<InputStreamResource> getUserAvatar(@PathVariable long id) {
         return userService.getUserAvatar(id);

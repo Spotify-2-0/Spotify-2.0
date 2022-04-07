@@ -11,12 +11,14 @@ import {
   lastNameValidator,
 } from 'src/app/shared/validators';
 import { CropResult } from 'src/app/components/avatar-cropper/avatar-cropper.component';
+import { AvatarService } from 'src/app/services/avatar.service';
 
 @Component({
   selector: 'app-account-settings',
   templateUrl: './Account-settings.component.html',
 })
 export class AccountSettingsComponent implements OnInit {
+  userId!: number;
   firstName!: string;
   lastName!: string;
   displayName!: string;
@@ -25,10 +27,12 @@ export class AccountSettingsComponent implements OnInit {
   accountSettingsForm!: FormGroup;
   updateRequest: UpdateRequest = {};
   imgBlob: Blob | null = null;
+  imgDeleted!: boolean;
 
   constructor(
     private readonly userService: UserService,
-    private readonly fb: FormBuilder
+    private readonly fb: FormBuilder,
+    private readonly avatarService: AvatarService
   ) {
     this.accountSettingsForm = this.fb.group({
       firstName: ['', [firstNameValidator()]],
@@ -41,6 +45,7 @@ export class AccountSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.userService.me().subscribe((user) => {
       this.originalUser = user;
+      this.userId = user.id;
       this.firstName = user.firstName;
       this.lastName = user.lastName;
       this.displayName = user.displayName;
@@ -53,6 +58,10 @@ export class AccountSettingsComponent implements OnInit {
         email: this.email,
       });
     });
+
+    this.avatarService.delete.subscribe(value => {
+      this.imgDeleted = value;
+    })
   }
 
   onSubmit() {
@@ -64,7 +73,9 @@ export class AccountSettingsComponent implements OnInit {
     this.sendData();
   }
 
-  onDeleteImg() {}
+  onDeleteImg() {
+    this.avatarService.emitDeleteImage(true);
+  }
 
   sendData() {
     this.updateFirstNameIfNew();
@@ -77,6 +88,11 @@ export class AccountSettingsComponent implements OnInit {
 
     if (this.imgBlob != null) {
       this.userService.uploadAvatar(this.imgBlob).subscribe();
+    }
+
+    if (this.imgDeleted) {
+      this.userService.setDefaultAvatar(this.userId).subscribe();
+      this.imgDeleted = false;
     }
   }
 

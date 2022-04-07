@@ -73,6 +73,20 @@
       cursor: inherit;
     }
   }
+
+  &--default {
+    background-color: rgb(209, 167, 160);
+    position: relative;
+  }
+
+  &__text{
+    font-family: "Bungee";
+    font-size: var(--font-size-megamegahuge);
+    position: absolute;
+    top: 44.75%;
+    left: 49.5%;
+    transform: translate(-50%, -50%);
+  }
 }
 
 .modal {

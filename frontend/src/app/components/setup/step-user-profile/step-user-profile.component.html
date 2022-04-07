@@ -4,8 +4,11 @@
       <img
         alt=""
         [src]="getUserProfileUrl()"
-        class="avatar" *ngIf="!cropped" />
-      <img class="avatar" alt="" *ngIf="cropped" [src]="cropped.base64" />
+        class="avatar" *ngIf="!cropped && !deleted" />
+        <div class="avatar avatar--default" *ngIf="deleted">
+          <span class="avatar__text">{{ this.user?.firstName?.charAt(0) + "" + this.user?.lastName?.charAt(0) }}</span>
+        </div>
+      <img class="avatar" alt="" *ngIf="cropped && !deleted" [src]="cropped.base64" />
       <label for="avatar">
         <app-icon class="avatar__icon-change" icon="picture"></app-icon>
       </label>
@@ -16,7 +19,6 @@
     </div>
   </div>
 </div>
-
 <ng-container class="modal" *ngIf="modalOpened">
   <div class="modal--bg"></div>
   <div class="modal--content">

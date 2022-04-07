@@ -162,6 +162,13 @@ public class UserService {
         }
     }
 
+    public void assingDefaultAvatarByUserId(long id){
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "User not found"));
+
+        assignDefaultAvatar(user);
+    }
+
     public ResponseEntity<InputStreamResource> getUserAvatar(long id) {
         var user = userRepository.findById(id)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "User not found"));

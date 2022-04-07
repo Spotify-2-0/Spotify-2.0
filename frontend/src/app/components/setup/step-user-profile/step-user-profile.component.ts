@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Step } from '../../stepper/step';
 import { image2base64 } from '../../../shared/functions';
 import { CropResult } from '../../avatar-cropper/avatar-cropper.component';
@@ -6,6 +6,7 @@ import { User } from "../../../models/models";
 import { UserService } from "../../../services/user.service";
 import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
+import { AvatarService } from 'src/app/services/avatar.service';
 
 @Component({
   selector: 'app-step-user-profile',
@@ -18,15 +19,31 @@ export class StepUserProfileComponent implements Step, OnInit {
   public height!: number;
   public cropped: CropResult | null = null;
   user?: User;
+  deleted!: boolean;
 
- @Output() imageApplied: EventEmitter<Blob | null> = new EventEmitter();
+  @Input() settings: boolean = false;
+
+  @Output() imageApplied: EventEmitter<Blob | null> = new EventEmitter();
 
   constructor(
-    private readonly userService: UserService
+    private readonly userService: UserService,
+    private readonly avatarService: AvatarService
   ) {}
 
   public ngOnInit(): void {
     this.user = this.userService.currentUser()!;
+
+    if(this.settings) {
+      this.getUserProfileUrl();
+    }
+
+    this.avatarService.delete.subscribe(value => {
+      this.deleted = value
+
+      if(value){
+        this.cropped = null;
+      }
+    })
   }
 
   public selectFile($event: Event): void {
@@ -44,6 +61,7 @@ export class StepUserProfileComponent implements Step, OnInit {
 
   public emitImageApplied(){
     this.imageApplied.emit(this.cropped?.blob);
+    this.deleted = false;
   }
 
   public getUserProfileUrl(): string {
