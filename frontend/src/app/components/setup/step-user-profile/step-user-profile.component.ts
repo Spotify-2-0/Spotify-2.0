@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { Step } from '../../stepper/step';
 import { image2base64 } from '../../../shared/functions';
 import { CropResult } from '../../avatar-cropper/avatar-cropper.component';
@@ -7,13 +7,14 @@ import { UserService } from "../../../services/user.service";
 import { Observable, Subject } from "rxjs";
 import { map } from "rxjs/operators";
 import { AvatarService } from 'src/app/services/avatar.service';
+import { ModalComponent } from "../../modal/modal.component";
 
 @Component({
   selector: 'app-step-user-profile',
   templateUrl: './step-user-profile.component.html',
 })
 export class StepUserProfileComponent implements Step, OnInit {
-  public modalOpened = false;
+  @ViewChild('modal') modal!: ModalComponent;
   public dataUri!: string;
   public width!: number;
   public height!: number;
@@ -54,13 +55,14 @@ export class StepUserProfileComponent implements Step, OnInit {
       this.dataUri = base64;
       this.width = width;
       this.height = height;
-      this.modalOpened = true;
+      this.modal.open();
       input.value = '';
     });
   }
 
   public emitImageApplied(){
     this.imageApplied.emit(this.cropped?.blob);
+    this.modal.close();
     this.deleted = false;
   }
 

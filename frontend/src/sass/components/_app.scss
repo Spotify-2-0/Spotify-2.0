@@ -1,0 +1,36 @@
+.logged-page {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+
+  &__main {
+    flex-grow: 1;
+    display: flex;
+    background: var(--color-background-app);
+  }
+
+  &__sidebar {
+    background: #fff;
+    max-width: 30rem;
+    min-width: 30rem;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__player {
+    flex-grow: 1;
+    @media (max-width: 1000px) {
+      height: 80px;
+    }
+  }
+}
