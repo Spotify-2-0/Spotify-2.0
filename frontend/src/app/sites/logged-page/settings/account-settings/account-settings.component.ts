@@ -15,7 +15,7 @@ import { AvatarService } from 'src/app/services/avatar.service';
 
 @Component({
   selector: 'app-account-settings',
-  templateUrl: './Account-settings.component.html',
+  templateUrl: './account-settings.component.html',
 })
 export class AccountSettingsComponent implements OnInit {
   userId!: number;
