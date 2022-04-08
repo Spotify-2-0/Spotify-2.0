@@ -15,8 +15,8 @@ import { JwtService } from './services/jwt.service';
 import { NegateAuthGuard } from './guards/negate-auth.guard';
 import { NegateEmailConfirmedGuard } from './guards/negate-email-confirmed.guard';
 import { PasswordResetComponent } from './sites/password-reset/password-reset.component';
-import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/Account-settings.component';
-import { SettingsComponent } from './sites/logged-page/settings/Settings.component';
+import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/account-settings.component';
+import { SettingsComponent } from './sites/logged-page/settings/settings.component';
 
 const initializer = (): (() => Promise<void>) => {
   let theme = localStorage.getItem('user_theme');
