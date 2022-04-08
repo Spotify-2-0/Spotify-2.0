@@ -6,7 +6,7 @@
   .container {
     height: 100%;
     display: flex;
-    color: var(--color-black);
+    color: var(--color-text);
     align-items: center;
 
     &__info {
@@ -45,7 +45,7 @@
     .info {
       opacity: 1;
       padding: 5rem;
-      color: var(--color-black);
+      color: var(--color-text);
       text-align: left;
 
       &__wrapper {
@@ -94,7 +94,7 @@
         text-align: center;
         margin-top: 50px;
         background: var(--color-violet-dark);
-        color: var(--color-black);
+        color: var(--color-text);
         outline: none;
         border: none;
         border-radius: 50px;
@@ -150,7 +150,7 @@
     .divider {
       width: 2px;
       height: 36px;
-      background: var(--color-black);
+      background: var(--color-text);
       margin-left: 1rem;
       margin-right: 1rem;
       transition: 0.3s;
@@ -165,7 +165,7 @@
     }
 
     .sign-in {
-      color: var(--color-black);
+      color: var(--color-text);
       @include sign;
     }
 
@@ -174,7 +174,7 @@
       margin-right: 25px;
       width: 36px;
       height: 36px;
-      color: var(--color-black);
+      color: var(--color-text);
       cursor: pointer;
       transition: color 0.3s;
       user-select: none;

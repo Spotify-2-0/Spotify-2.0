@@ -5,7 +5,7 @@
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
-  color: var(--color-black);
+  color: var(--color-text);
 
   @media (max-width: 1000px) {
     width: unset;
@@ -48,7 +48,7 @@
 
 .step {
   height: 60%;
-  color: var(--color-black);
+  color: var(--color-text);
   display: flex;
   flex-flow: column;
   &__wrapper {

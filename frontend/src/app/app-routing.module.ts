@@ -1,20 +1,23 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoggedPageComponent } from './sites/logged-page/logged-page.component';
-import { HomeComponent } from "./sites/main/home.component";
+import { HomeComponent } from './sites/main/home.component';
 import { SigninPageComponent } from './sites/signin-page/signin-page.component';
 import { SignupPageComponent } from './sites/signup-page/signup-page.component';
 import { SetupPageComponent } from './sites/setup-page/setup-page.component';
-import { NotFoundComponent } from "./sites/not-found/not-found.component";
-import { UserService } from "./services/user.service";
-import { AuthGuard } from "./guards/auth.guard";
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
-import { TokenInterceptor } from "./interceptors/token.interceptor";
-import { EmailConfirmedGuard } from "./guards/email-confirmed.guard";
-import { JwtService } from "./services/jwt.service";
-import { NegateAuthGuard } from "./guards/negate-auth.guard";
-import { NegateEmailConfirmedGuard } from "./guards/negate-email-confirmed.guard";
-import { PasswordResetComponent } from "./sites/password-reset/password-reset.component";
+import { NotFoundComponent } from './sites/not-found/not-found.component';
+import { UserService } from './services/user.service';
+import { AuthGuard } from './guards/auth.guard';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from './interceptors/token.interceptor';
+import { EmailConfirmedGuard } from './guards/email-confirmed.guard';
+import { JwtService } from './services/jwt.service';
+import { NegateAuthGuard } from './guards/negate-auth.guard';
+import { NegateEmailConfirmedGuard } from './guards/negate-email-confirmed.guard';
+import { PasswordResetComponent } from './sites/password-reset/password-reset.component';
+import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/account-settings.component';
+import { SettingsComponent } from './sites/logged-page/settings/settings.component';
+import { ChangePasswordComponent } from './sites/logged-page/settings/change-password/change-password.component';
 
 const initializer = (): (() => Promise<void>) => {
   let theme = localStorage.getItem('user_theme');
@@ -34,7 +37,10 @@ const initializer = (): (() => Promise<void>) => {
   return () => Promise.resolve();
 };
 
-const userInitializer = (userService: UserService, jwtService: JwtService): (() => Promise<void>) => {
+const userInitializer = (
+  userService: UserService,
+  jwtService: JwtService
+): (() => Promise<void>) => {
   if (!localStorage.getItem('access_token')) {
     return () => Promise.resolve();
   }
@@ -56,20 +62,20 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [NegateAuthGuard],
-    data: {authRouteTo: '/app'},
+    data: { authRouteTo: '/app' },
     component: HomeComponent,
   },
   {
     path: 'signup',
     canActivate: [NegateAuthGuard],
-    data: {authRouteTo: '/app'},
+    data: { authRouteTo: '/app' },
     component: SignupPageComponent,
   },
   {
     path: 'signin',
     canActivate: [NegateAuthGuard],
-    data: {authRouteTo: '/app'},
-    component: SigninPageComponent
+    data: { authRouteTo: '/app' },
+    component: SigninPageComponent,
   },
   {
     path: 'setup',
@@ -95,14 +101,47 @@ const routes: Routes = [
       authRouteTo: '/app',
       emailRouteTo: '/setup',
     },
-    component: LoggedPageComponent
+    children: [
+      {
+        path: 'settings',
+        canActivate: [AuthGuard, EmailConfirmedGuard],
+        data: {
+          authRouteTo: '/app',
+          emailRouteTo: '/setup',
+        },
+        component: SettingsComponent,
+        children: [
+          {
+            path: 'account-settings',
+            canActivate: [AuthGuard, EmailConfirmedGuard],
+            data: {
+              authRouteTo: '/app',
+              emailRouteTo: '/setup',
+            },
+            component: AccountSettingsComponent,
+          },
+          {
+            path: 'change-password',
+            canActivate: [AuthGuard, EmailConfirmedGuard],
+            data: {
+              authRouteTo: '/app',
+              emailRouteTo: '/setup',
+            },
+            component: ChangePasswordComponent,
+          }
+          //TODO: Activity log etc.
+        ],
+      },
+    ],
+    component: LoggedPageComponent,
   },
+
   {
     path: '**',
     pathMatch: 'full',
-    component: NotFoundComponent
-  }
-]
+    component: NotFoundComponent,
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
@@ -112,7 +151,7 @@ const routes: Routes = [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
-      multi: true
+      multi: true,
     },
     {
       provide: APP_INITIALIZER,

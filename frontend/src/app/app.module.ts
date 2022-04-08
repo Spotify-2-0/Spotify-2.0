@@ -29,6 +29,9 @@ import { FooterComponent } from './components/footer/footer.component';
 import { NotFoundComponent } from './sites/not-found/not-found.component';
 import { PinCodeComponent } from './components/pin-code/pin-code.component';
 import { PasswordResetComponent } from './sites/password-reset/password-reset.component';
+import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/account-settings.component';
+import { SettingsComponent } from './sites/logged-page/settings/settings.component';
+import { ChangePasswordComponent } from './sites/logged-page/settings/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -54,6 +57,9 @@ import { PasswordResetComponent } from './sites/password-reset/password-reset.co
     NotFoundComponent,
     PinCodeComponent,
     PasswordResetComponent,
+    SettingsComponent,
+    AccountSettingsComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

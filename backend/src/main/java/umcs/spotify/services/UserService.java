@@ -113,12 +113,18 @@ public class UserService {
         return false;
     }
 
-    public void changePreferences(String displayName, String firstName, String lastName) {
+    @Transactional
+    public void changePreferences(String firstName, String lastName, String displayName) {
         var currentUser = findUserByEmail(ContextUserAccessor.getCurrentUserEmail());
-        currentUser.setDisplayName(displayName);
-        currentUser.setFirstName(firstName);
-        currentUser.setLastName(lastName);
-        userRepository.save(currentUser);
+        if(firstName != null){
+            currentUser.setFirstName(firstName);
+        }
+        if(lastName != null){
+            currentUser.setLastName(lastName);
+        }
+        if(displayName != null){
+            currentUser.setDisplayName(displayName);
+        }
     }
 
     public UserPreferencesDto getPreferences() {
@@ -127,10 +133,13 @@ public class UserService {
         return mapper.map(currentUser, UserPreferencesDto.class);
     }
 
-    @Async
-    public void assignDefaultAvatarForCurrentUser() {
+    public void assignDefaultAvatarForCurrentUser(){
         var email = ContextUserAccessor.getCurrentUserEmail();
         var currentUser = findUserByEmail(email);
+
+        var database = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
+        var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_AVATARS);
+        bucket.delete(new ObjectId(currentUser.getAvatarMongoRef()));
         assignDefaultAvatar(currentUser);
     }
 
@@ -140,9 +149,9 @@ public class UserService {
         var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_AVATARS);
 
         var initials = Formatter.format(
-            "{}{}",
-            user.getFirstName().charAt(0),
-            user.getLastName().charAt(0)
+                "{}{}",
+                user.getFirstName().charAt(0),
+                user.getLastName().charAt(0)
         );
         var generatedAvatar = AvatarHelper.generateAvatarFromInitials(initials, 300, 300);
 
@@ -155,6 +164,13 @@ public class UserService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void assignDefaultAvatarByUserId(long id){
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "User not found"));
+
+        assignDefaultAvatar(user);
     }
 
     public ResponseEntity<InputStreamResource> getUserAvatar(long id) {
@@ -238,7 +254,7 @@ public class UserService {
 
         var email = PASSWORD_RESET_KEY_CODE_CACHE.get(request.getKey());
         var user = userRepository.findByEmail(email)
-               .orElseThrow(() -> new RestException(NOT_FOUND, "Invalid or expired password reset key"));
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Invalid or expired password reset key"));
 
         PASSWORD_RESET_KEY_CODE_CACHE.remove(request.getKey());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
