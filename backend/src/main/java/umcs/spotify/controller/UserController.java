@@ -77,6 +77,12 @@ public class UserController {
         return Collections.singletonMap("key", userService.getPasswordChangeKeyFromPinCode(request));
     }
 
+    @PatchMapping("/changePassword")
+    public ResponseEntity<?> changePasswordForLoggedUser(@Validated @RequestBody PasswordChangeRequest request, Errors errors){
+        userService.changePassword(request, errors);
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/resetPassword")
     public void resetPassword(@Validated @RequestBody PasswordResetRequest request, Errors errors) {
         userService.resetPassword(request, errors);

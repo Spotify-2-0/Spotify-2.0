@@ -11,9 +11,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.Constants;
+import umcs.spotify.contract.PasswordChangeRequest;
 import umcs.spotify.contract.PasswordResetPinToKeyRequest;
 import umcs.spotify.contract.PasswordResetRequest;
 import umcs.spotify.dto.UserDto;
@@ -110,7 +112,7 @@ public class UserService {
         }
         return false;
     }
-  
+
     public void changePreferences(String displayName, String firstName, String lastName) {
         var currentUser = findUserByEmail(ContextUserAccessor.getCurrentUserEmail());
         currentUser.setDisplayName(displayName);
@@ -123,7 +125,8 @@ public class UserService {
         var email = ContextUserAccessor.getCurrentUserEmail();
         var currentUser = findUserByEmail(email);
         return mapper.map(currentUser, UserPreferencesDto.class);
-      
+    }
+
     @Async
     public void assignDefaultAvatarForCurrentUser() {
         var email = ContextUserAccessor.getCurrentUserEmail();
@@ -201,6 +204,31 @@ public class UserService {
         var resetKey = UUID.randomUUID().toString().replace("-", "");
         PASSWORD_RESET_KEY_CODE_CACHE.put(resetKey, user.getEmail());
         return resetKey;
+    }
+
+    @Transactional
+    public void changePassword(PasswordChangeRequest request, Errors errors){
+        if(errors.hasFieldErrors()){
+            throw new RestException(BAD_REQUEST, FormValidatorHelper.returnFormattedErrors(errors));
+        }
+
+        var userDto = getCurrentUser();
+        var user = userRepository.findByEmail(userDto.getEmail())
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Invalid or expired password reset key"));
+
+        boolean isOldPasswordMatch = passwordEncoder.matches(request.getOldPassword(), user.getPassword());
+        boolean isNewPasswordMatch = request.getNewPassword().equals(request.getRepeatedNewPassword());
+
+
+        if(!isOldPasswordMatch){
+            throw new RestException(UNAUTHORIZED, "Invalid password");
+        }
+
+        if(!isNewPasswordMatch){
+            throw new RestException(BAD_REQUEST, "New and old password aren't matching each other");
+        }
+
+        user.setPassword(request.getNewPassword());
     }
 
     public void resetPassword(PasswordResetRequest request, Errors errors) {
