@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from "rxjs";
-import { min, tap } from "rxjs/operators";
 import { User } from "../../../models/models";
 import { UserService } from "../../../services/user.service";
 
