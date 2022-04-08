@@ -4,8 +4,10 @@
     <input
       (focusout)="onFocusOut()"
       [formControlName]="formName"
+      [value]="value"
       [class.input-error]="isError()"
       [type]="hideInput ? 'password' : 'text'"
+      [readonly]="disable"
       class="form-input"
     />
     <app-icon *ngIf="isError()" class="error__icon" icon="invalid"></app-icon>

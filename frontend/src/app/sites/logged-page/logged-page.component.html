@@ -1,7 +1,9 @@
-<div class="main-app-container">
-    <div class="content-container">
-        <app-sidebar class="sidebar"></app-sidebar>
-        <div class="content">app</div>
-    </div>
-    <app-player class="player"></app-player>
-</div>
+<section class="logged-page">
+    <main class="logged-page__main">
+      <app-sidebar class="logged-page__sidebar"></app-sidebar>
+      <router-outlet></router-outlet>
+    </main>
+    <footer class="logged-page__footer">
+      <app-player class="logged-page__player"></app-player>
+    </footer>
+</section>

@@ -9,6 +9,7 @@ import {
   ViewChild,
 } from '@angular/core';
 import { fromEvent, Subscription } from 'rxjs';
+import { AvatarService } from 'src/app/services/avatar.service';
 import { b64toBlob } from '../../shared/functions';
 
 export interface CropResult {
@@ -52,6 +53,8 @@ export class AvatarCropperComponent implements OnChanges {
   @ViewChild('imageSource', { static: true }) imageSource!: ElementRef;
   @ViewChild('childSource', { static: true }) childSource!: ElementRef;
   @ViewChild('wrapper', { static: true }) wrapperSource!: ElementRef;
+
+  constructor(private avatarService: AvatarService){}
 
   async ngOnChanges(changes: SimpleChanges) {
     if (changes.dataURI) {
@@ -187,8 +190,9 @@ export class AvatarCropperComponent implements OnChanges {
     this.parent.style.top = y - relative.y + 'px';
   }
 
-  onApply() {
+   onApply() {
     this.finished.emit(this.crop());
+    this.avatarService.emitDeleteImage(false);
   }
 
   onCancel() {

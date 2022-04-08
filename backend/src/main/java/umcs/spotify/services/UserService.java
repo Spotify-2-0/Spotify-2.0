@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.Constants;
@@ -110,24 +111,34 @@ public class UserService {
         }
         return false;
     }
-  
-    public void changePreferences(String displayName, String firstName, String lastName) {
+
+    @Transactional
+    public void changePreferences(String firstName, String lastName, String displayName) {
         var currentUser = findUserByEmail(ContextUserAccessor.getCurrentUserEmail());
-        currentUser.setDisplayName(displayName);
-        currentUser.setFirstName(firstName);
-        currentUser.setLastName(lastName);
-        userRepository.save(currentUser);
+        if(firstName != null){
+            currentUser.setFirstName(firstName);
+        }
+        if(lastName != null){
+            currentUser.setLastName(lastName);
+        }
+        if(displayName != null){
+            currentUser.setDisplayName(displayName);
+        }
     }
 
     public UserPreferencesDto getPreferences() {
         var email = ContextUserAccessor.getCurrentUserEmail();
         var currentUser = findUserByEmail(email);
         return mapper.map(currentUser, UserPreferencesDto.class);
-      
-    @Async
-    public void assignDefaultAvatarForCurrentUser() {
+    }
+
+    public void assignDefaultAvatarForCurrentUser(){
         var email = ContextUserAccessor.getCurrentUserEmail();
         var currentUser = findUserByEmail(email);
+
+        var database = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
+        var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_AVATARS);
+        bucket.delete(new ObjectId(currentUser.getAvatarMongoRef()));
         assignDefaultAvatar(currentUser);
     }
 
@@ -152,6 +163,13 @@ public class UserService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void assignDefaultAvatarByUserId(long id){
+        var user = userRepository.findById(id)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "User not found"));
+
+        assignDefaultAvatar(user);
     }
 
     public ResponseEntity<InputStreamResource> getUserAvatar(long id) {

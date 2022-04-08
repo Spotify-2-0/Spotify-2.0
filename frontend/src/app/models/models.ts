@@ -17,6 +17,12 @@ export interface SignInRequest {
   password: string,
 }
 
+export interface UpdateRequest {
+  firstName?: string,
+  lastName?: string,
+  displayName?: string
+}
+
 export interface UserExistsByRequest {
   by: string
 }
