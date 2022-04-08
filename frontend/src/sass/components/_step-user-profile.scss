@@ -89,12 +89,15 @@
   }
 }
 
+
 .modal {
+
+
   &--bg {
     width: 100vw;
     height: 100vh;
     z-index: 9998;
-    position: absolute;
+    position: fixed;
     left: 0;
     top: 0;
     backdrop-filter: blur(10px) brightness(0.8);
@@ -102,7 +105,7 @@
 
   &--content {
     z-index: 9999;
-    position: absolute;
+    position: fixed;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
