@@ -60,9 +60,10 @@ public class UserController {
         return userActivityService.getUserActivity(request, errors);
     }
 
-    @PostMapping("/updatePreferences")
-    public void updatePreferences(@RequestBody ChangeUserPreferencesRequest request) {
-        userService.changePreferences(request.getDisplayName(), request.getFirstName(), request.getLastName());
+    @PatchMapping("/updatePreferences")
+    public ResponseEntity<?> updatePreferences(@RequestBody ChangeUserPreferencesRequest request) {
+        userService.changePreferences(request.getFirstName(), request.getLastName(), request.getDisplayName());
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/getPreferences")
@@ -73,6 +74,12 @@ public class UserController {
     @PostMapping("/uploadAvatar")
     public void uploadUserAvatar(@RequestParam("image") MultipartFile multipartFile) {
         userService.uploadAvatar(multipartFile);
+    }
+
+    @PutMapping("/setDefaultAvatarForCurrentUser")
+    public ResponseEntity<?> setDefaultAvatarForCurrentUser(){
+        userService.assignDefaultAvatarForCurrentUser();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/profile/{id}/avatar")

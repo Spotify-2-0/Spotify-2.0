@@ -6,6 +6,7 @@ import {
   SignInRequest,
   SignResponse,
   SignUpRequest,
+  UpdateRequest,
   User,
   UserExistsByResponse
 } from "../models/models";
@@ -91,6 +92,10 @@ export class UserService {
         map(response => response.success))
   }
 
+  public updateUserDetails = (toUpdate: UpdateRequest): Observable<void> => {
+    return this.http.patch<void>(`${environment.serverURL}/user/updatePreferences`, toUpdate);
+  }
+
   public getUserProfileUrl = (userId: number) => {
     return `${environment.serverURL}/user/profile/${userId}/avatar`
   }
@@ -99,6 +104,10 @@ export class UserService {
     const form = new FormData();
     form.append('image', avatar);
     return this.http.post<void>(`${environment.serverURL}/user/uploadAvatar`, form);
+  }
+
+  public setDefaultAvatarForCurrentUser = (): Observable<void> => {
+    return this.http.put<void>(`${environment.serverURL}/user/setDefaultAvatarForCurrentUser`, null);
   }
 
   public sendEmailPasswordReset = (email: string): Observable<void> => {
@@ -120,5 +129,4 @@ export class UserService {
       password: password,
     })
   }
-
 }

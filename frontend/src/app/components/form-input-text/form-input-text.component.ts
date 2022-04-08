@@ -11,8 +11,8 @@ export class FormInputTextComponent {
   @Input() public label?: string;
   @Input() public hideInput: boolean = false;
   @Input() public triggerValidationOnLostFocus?: boolean = false;
-
-  public value: string = '';
+  @Input() public value?: string;
+  @Input() public disable: boolean = false;
 
   constructor() {}
 
