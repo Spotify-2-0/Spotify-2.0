@@ -91,7 +91,7 @@ public class AuthService {
             ContextUserAccessor.getRemoteAddres()
         );
 
-        return new AuthenticationResponse(token, mapper.map(user, UserDto.class));
+        return new AuthenticationResponse(token, mapper.userToDto(user));
     }
 
     public AuthenticationResponse signUp(RegisterUserRequest request, Errors errors) {
@@ -118,7 +118,7 @@ public class AuthService {
 
         var userDetails = userDetailsService.loadUserByUsername(request.getEmail());
         var token = jwtUtils.generateToken(userDetails);
-        return new AuthenticationResponse(token, mapper.map(user, UserDto.class));
+        return new AuthenticationResponse(token, mapper.userToDto(user));
     }
 
 
