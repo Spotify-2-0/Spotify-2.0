@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import {
   ConfirmEmailResponse,
+  PasswordChangeRequest,
   PasswordResetPinToKeyResponse,
   SignInRequest,
   SignResponse,
@@ -121,6 +122,10 @@ export class UserService {
       email: email,
       pin: pin
     }).pipe(map(response => response.key))
+  }
+
+  public changePassword = (changePasswordRequest: PasswordChangeRequest): Observable<void> => {
+    return this.http.patch<void>(`${environment.serverURL}/user/changePassword`, changePasswordRequest);
   }
 
   public passwordResetKeyFromPinCode = (resetKey: string, password: string): Observable<void> => {

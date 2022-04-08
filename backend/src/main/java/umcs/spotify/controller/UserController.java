@@ -1,7 +1,10 @@
 package umcs.spotify.controller;
 
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.ChangeUserPreferencesRequest;
 import umcs.spotify.contract.EmailConfirmRequest;
@@ -9,9 +12,9 @@ import umcs.spotify.contract.UserExistsByEmail;
 import umcs.spotify.dto.UserPreferencesDto;
 import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.contract.*;
-import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
+import umcs.spotify.dto.UserActivityEntryDto;
 import umcs.spotify.dto.UserDto;
+import umcs.spotify.services.UserActivityService;
 import umcs.spotify.services.UserService;
 
 import java.util.Collections;
@@ -21,9 +24,14 @@ import java.util.Map;
 @RequestMapping("/user")
 public class UserController {
 
+    private final UserActivityService userActivityService;
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public UserController(
+        UserActivityService userActivityService,
+        UserService userService
+    ) {
+        this.userActivityService = userActivityService;
         this.userService = userService;
     }
 
@@ -47,6 +55,11 @@ public class UserController {
         userService.sendEmailConfirmationCodeForCurrentUser();
     }
 
+    @GetMapping("/activity")
+    public Page<UserActivityEntryDto> getUserActivity(UserActivityRequest request, Errors errors) {
+        return userActivityService.getUserActivity(request, errors);
+    }
+
     @PatchMapping("/updatePreferences")
     public ResponseEntity<?> updatePreferences(@RequestBody ChangeUserPreferencesRequest request) {
         userService.changePreferences(request.getFirstName(), request.getLastName(), request.getDisplayName());
@@ -57,7 +70,7 @@ public class UserController {
     public UserPreferencesDto getPreferences() {
         return userService.getPreferences();
     }
-  
+
     @PostMapping("/uploadAvatar")
     public void uploadUserAvatar(@RequestParam("image") MultipartFile multipartFile) {
         userService.uploadAvatar(multipartFile);
@@ -82,6 +95,12 @@ public class UserController {
     @PostMapping("/passwordResetKeyFromPinCode")
     public Map<String, String> getPasswordChangeKeyFromPinCode(@RequestBody PasswordResetPinToKeyRequest request) {
         return Collections.singletonMap("key", userService.getPasswordChangeKeyFromPinCode(request));
+    }
+
+    @PatchMapping("/changePassword")
+    public ResponseEntity<?> changePasswordForLoggedUser(@Validated @RequestBody PasswordChangeRequest request, Errors errors){
+        userService.changePassword(request, errors);
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/resetPassword")

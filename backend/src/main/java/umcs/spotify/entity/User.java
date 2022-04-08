@@ -44,6 +44,9 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<UserActivityEntry> activities = new HashSet<>();
+
     public void addRole(Role role) {
         roles.add(role);
     }

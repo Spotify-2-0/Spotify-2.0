@@ -104,6 +104,21 @@ export const passwordValidator = (): ValidatorFn => {
   };
 };
 
+export const repeatPasswordValidator = (newPassword: string, repeatedNewPassword: string): ValidationErrors => {
+  return (formGroup: FormGroup): void => {
+    const newPasswordControl = formGroup.controls[newPassword];
+    const repeatedNewPasswordControl = formGroup.controls[repeatedNewPassword];
+    if(newPasswordControl.value !== repeatedNewPasswordControl.value){
+      repeatedNewPasswordControl.setErrors({
+        password:
+          'Repeated password does not equal new password',
+      });
+    }else {
+      repeatedNewPasswordControl.setErrors(null);
+    }
+  }
+}
+
 export const ConfirmedValidator = (
   controlName: string,
   matchingControlName: string
