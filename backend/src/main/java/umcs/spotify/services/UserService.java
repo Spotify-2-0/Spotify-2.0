@@ -244,7 +244,7 @@ public class UserService {
             throw new RestException(BAD_REQUEST, "New and old password aren't matching each other");
         }
 
-        user.setPassword(request.getNewPassword());
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
     }
 
     public void resetPassword(PasswordResetRequest request, Errors errors) {
