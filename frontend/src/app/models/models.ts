@@ -39,6 +39,12 @@ export interface PasswordResetPinToKeyResponse {
   key: string;
 }
 
+export interface PasswordChangeRequest {
+  oldPassword: string;
+  newPassword: string;
+  repeatedNewPassword: string;
+}
+
 export interface ApiError {
   statusCode: number,
   timestamp: number,

@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.Constants;
+import umcs.spotify.contract.PasswordChangeRequest;
 import umcs.spotify.contract.PasswordResetPinToKeyRequest;
 import umcs.spotify.contract.PasswordResetRequest;
 import umcs.spotify.dto.UserDto;
@@ -154,9 +155,9 @@ public class UserService {
         var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_AVATARS);
 
         var initials = Formatter.format(
-            "{}{}",
-            user.getFirstName().charAt(0),
-            user.getLastName().charAt(0)
+                "{}{}",
+                user.getFirstName().charAt(0),
+                user.getLastName().charAt(0)
         );
         var generatedAvatar = AvatarHelper.generateAvatarFromInitials(initials, 300, 300);
 
@@ -227,6 +228,31 @@ public class UserService {
         return resetKey;
     }
 
+    @Transactional
+    public void changePassword(PasswordChangeRequest request, Errors errors){
+        if(errors.hasFieldErrors()){
+            throw new RestException(BAD_REQUEST, FormValidatorHelper.returnFormattedErrors(errors));
+        }
+
+        var userDto = getCurrentUser();
+        var user = userRepository.findByEmail(userDto.getEmail())
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Invalid or expired password reset key"));
+
+        boolean isOldPasswordMatch = passwordEncoder.matches(request.getOldPassword(), user.getPassword());
+        boolean isNewPasswordMatch = request.getNewPassword().equals(request.getRepeatedNewPassword());
+
+
+        if(!isOldPasswordMatch){
+            throw new RestException(UNAUTHORIZED, "Invalid password");
+        }
+
+        if(!isNewPasswordMatch){
+            throw new RestException(BAD_REQUEST, "New and old password aren't matching each other");
+        }
+
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+    }
+
     public void resetPassword(PasswordResetRequest request, Errors errors) {
         if (errors.hasFieldErrors()) {
             throw new RestException(BAD_REQUEST, FormValidatorHelper.returnFormattedErrors(errors));
@@ -234,7 +260,7 @@ public class UserService {
 
         var email = PASSWORD_RESET_KEY_CODE_CACHE.get(request.getKey());
         var user = userRepository.findByEmail(email)
-               .orElseThrow(() -> new RestException(NOT_FOUND, "Invalid or expired password reset key"));
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Invalid or expired password reset key"));
 
         PASSWORD_RESET_KEY_CODE_CACHE.remove(request.getKey());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
