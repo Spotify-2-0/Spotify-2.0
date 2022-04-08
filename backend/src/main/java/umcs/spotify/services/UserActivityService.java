@@ -45,7 +45,7 @@ public class UserActivityService {
         var email = ContextUserAccessor.getCurrentUserEmail();
         var page = PageRequest.of(request.getPage(), request.getPageSize());
         var activities = activityRepository.findByUserEmail(email, page);
-        return mapper.mapEntityPageIntoDtoPage(activities, UserActivityEntryDto.class);
+        return mapper.mapUserActivityPageToDto(activities);
     }
 
     @Async

@@ -79,7 +79,7 @@ public class UserService {
 
     public UserDto getCurrentUser() {
         var email = ContextUserAccessor.getCurrentUserEmail();
-        return mapper.map(findUserByEmail(email), UserDto.class);
+        return mapper.userToDto(findUserByEmail(email));
     }
 
     public void sendEmailConfirmationCodeForCurrentUser() {

@@ -1,3 +1,9 @@
+<audio style="display: none" controls #player>
+  <source [src]="getTrackURL()" type="audio/mpeg">
+  Your browser does not support the audio element.
+</audio>
+
+
 <div class="player-container">
     <div class="current-song">
         <img src="https://images.genius.com/d95e4b9e5949a632ba9486d3b5404ec1.1000x1000x1.jpg" alt="test image" class="cover-art-image">
@@ -14,8 +20,8 @@
             <div class="control-button medium-button">
                 <app-icon class="icon" icon="prev"></app-icon>
             </div>
-            <div class="control-button play-button">
-                <app-icon class="icon" icon="play"></app-icon>
+            <div class="control-button play-button" (click)="togglePlay()">
+                <app-icon class="icon" [icon]="isPlaying ? 'pause' : 'play'"></app-icon>
             </div>
             <div class="control-button medium-button">
                 <app-icon class="icon" icon="next"></app-icon>
@@ -25,9 +31,17 @@
             </div>
         </div>
         <div class="playback-bar">
-            <div class="time-passed">00:00</div>
-            <progress class="progressbar" value="32" max="100"> 32% </progress>
-            <div class="time-duration">03:52</div>
+            <div class="time-passed">{{ formatPlayerTime(currentTime) }}</div>
+            <input class="progressbar"
+                   type="range"
+                   [min]="0"
+                   [max]="maxTime"
+                   [value]="progress"
+                   (input)="jumpTo($event)"
+                   step="1"
+            >
+            <!--<progress class="progressbar" [value]="progress" max="1"></progress>-->
+            <div class="time-duration">{{ formatPlayerTime(maxTime) }}</div>
         </div>
     </div>
     <div class="sound-controls">
@@ -38,7 +52,13 @@
             <app-icon class="icon" icon="volume"></app-icon>
         </div>
         <div>
-            <progress class="volumebar" value="32" max="100"> 32% </progress>
+          <input class="volumebar"
+                 type="range"
+                 (input)="volumeChanged($event)"
+                 [value]="volume"
+                 min="0"
+                 step="0.01"
+                 max="1">
         </div>
     </div>
 </div>

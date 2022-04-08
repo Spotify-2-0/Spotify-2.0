@@ -44,6 +44,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().disable()
                 .authorizeRequests()
                 .antMatchers(
+                    "/track/*",
                     "/auth/**",
                     "/user/existsBy*",
                     "/user/profile/**/avatar",
