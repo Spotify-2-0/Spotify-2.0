@@ -32,6 +32,7 @@ import { PasswordResetComponent } from './sites/password-reset/password-reset.co
 import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/account-settings.component';
 import { SettingsComponent } from './sites/logged-page/settings/settings.component';
 import { ChangePasswordComponent } from './sites/logged-page/settings/change-password/change-password.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { ChangePasswordComponent } from './sites/logged-page/settings/change-pas
     PasswordResetComponent,
     SettingsComponent,
     AccountSettingsComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,

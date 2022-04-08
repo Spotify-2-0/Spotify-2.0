@@ -19,19 +19,22 @@
     </div>
   </div>
 </div>
-<ng-container class="modal" *ngIf="modalOpened">
+<!--<ng-container *ngIf="modalOpened">
   <div class="modal--bg"></div>
   <div class="modal--content">
-    <app-avatar-cropper
-      [width]="width"
-      [height]="height"
-      [dataURI]="dataUri"
-      format="jpeg"
-      (finished)="cropped = $event; modalOpened = false; emitImageApplied()"
-    >
-    </app-avatar-cropper>
+
   </div>
-</ng-container>
+</ng-container>-->
+<app-modal [id]="'avatar'" #modal>
+  <app-avatar-cropper
+    [width]="width"
+    [height]="height"
+    [dataURI]="dataUri"
+    format="jpeg"
+    (finished)="cropped = $event; emitImageApplied()"
+  >
+  </app-avatar-cropper>
+</app-modal>
 
 <input
   style="display: none"
