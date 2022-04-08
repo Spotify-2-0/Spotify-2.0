@@ -17,6 +17,7 @@ import { NegateEmailConfirmedGuard } from './guards/negate-email-confirmed.guard
 import { PasswordResetComponent } from './sites/password-reset/password-reset.component';
 import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/account-settings.component';
 import { SettingsComponent } from './sites/logged-page/settings/settings.component';
+import { ChangePasswordComponent } from './sites/logged-page/settings/change-password/change-password.component';
 
 const initializer = (): (() => Promise<void>) => {
   let theme = localStorage.getItem('user_theme');
@@ -119,7 +120,16 @@ const routes: Routes = [
             },
             component: AccountSettingsComponent,
           },
-          //TODO: Password change etc.
+          {
+            path: 'change-password',
+            canActivate: [AuthGuard, EmailConfirmedGuard],
+            data: {
+              authRouteTo: '/app',
+              emailRouteTo: '/setup',
+            },
+            component: ChangePasswordComponent,
+          }
+          //TODO: Activity log etc.
         ],
       },
     ],

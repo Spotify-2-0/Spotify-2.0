@@ -31,6 +31,7 @@ import { PinCodeComponent } from './components/pin-code/pin-code.component';
 import { PasswordResetComponent } from './sites/password-reset/password-reset.component';
 import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/account-settings.component';
 import { SettingsComponent } from './sites/logged-page/settings/settings.component';
+import { ChangePasswordComponent } from './sites/logged-page/settings/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { SettingsComponent } from './sites/logged-page/settings/settings.compone
     PinCodeComponent,
     PasswordResetComponent,
     SettingsComponent,
-    AccountSettingsComponent
+    AccountSettingsComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
