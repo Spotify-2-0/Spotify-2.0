@@ -4,7 +4,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import net.jodah.expiringmap.ExpiringMap;
 import org.bson.types.ObjectId;
-import org.modelmapper.ModelMapper;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -45,19 +44,22 @@ public class UserService {
             .build();
 
 
+    private final UserActivityService activityService;
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final EmailService emailService;
     private final MongoClient mongoClient;
-    private final ModelMapper mapper;
+    private final Mapper mapper;
 
     public UserService(
+            UserActivityService activityService,
             PasswordEncoder passwordEncoder,
             UserRepository userRepository,
             EmailService emailService,
             MongoClient mongoClient,
-            ModelMapper mapper
+            Mapper mapper
     ) {
+        this.activityService = activityService;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.emailService = emailService;
@@ -92,12 +94,15 @@ public class UserService {
     }
 
     public void sendEmailPasswordReset(String email) {
-        var maybeUser = userRepository.findByEmail(email);
-        maybeUser.ifPresent((user) -> {
+        userRepository.findByEmail(email).ifPresent((user) -> {
             var pin = PinCodeHelper.generateRandomPin(5);
             PASSWORD_RESET_PIN_CODE_CACHE.put(user.getEmail(), pin);
             userRepository.save(user);
             emailService.sendPasswordResetEmail(user, pin);
+            activityService.addActivity(user,
+                "Password reset requested",
+                ContextUserAccessor.getRemoteAddres()
+            );
         });
     }
 
@@ -132,7 +137,8 @@ public class UserService {
         return mapper.map(currentUser, UserPreferencesDto.class);
     }
 
-    public void assignDefaultAvatarForCurrentUser(){
+    @Async
+    public void assignDefaultAvatarForCurrentUser() {
         var email = ContextUserAccessor.getCurrentUserEmail();
         var currentUser = findUserByEmail(email);
 
@@ -233,5 +239,9 @@ public class UserService {
         PASSWORD_RESET_KEY_CODE_CACHE.remove(request.getKey());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         userRepository.save(user);
+        activityService.addActivity(user,
+            "Password changed",
+            ContextUserAccessor.getRemoteAddres()
+        );
     }
 }

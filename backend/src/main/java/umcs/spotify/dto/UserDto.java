@@ -1,15 +1,17 @@
 package umcs.spotify.dto;
 
-import lombok.Data;
+import lombok.*;
 
-@Data
+@Value
+@NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class UserDto {
 
-    private Long id;
-    private String firstName;
-    private String lastName;
-    private String displayName;
-    private String email;
-    private boolean emailConfirmed;
+    Long id;
+    String firstName;
+    String lastName;
+    String displayName;
+    String email;
+    boolean emailConfirmed;
 
 }
