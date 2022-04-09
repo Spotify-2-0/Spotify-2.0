@@ -47,6 +47,12 @@ public class User {
     @ManyToMany(fetch = FetchType.LAZY)
     private Set<UserActivityEntry> activities = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "user_collections",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "collection_id"))
+    private List<Collection> collections;
+
     public void addRole(Role role) {
         roles.add(role);
     }
