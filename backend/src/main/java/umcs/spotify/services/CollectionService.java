@@ -45,4 +45,8 @@ public class CollectionService {
         Collection savedCollection = collectionRepository.save(collectionToSave);
         return mapper.map(savedCollection, CollectionDto.class);
     }
+
+    public void deleteCollection(Long id) {
+        collectionRepository.deleteById(id);
+    }
 }
