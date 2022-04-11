@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.CollectionRequest;
+import umcs.spotify.contract.UpdateCollectionRequest;
 import umcs.spotify.dto.CollectionDto;
 import umcs.spotify.dto.ErrorMessageDto;
 import umcs.spotify.entity.Collection;
@@ -38,9 +39,13 @@ public class CollectionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(collectionService.addCollection(collectionRequest));
     }
 
+    @PutMapping("/{id}")
+    public void updateCollection(@PathVariable Long id, @Valid @RequestBody UpdateCollectionRequest request) {
+        collectionService.updateCollection(id, request.getName(), request.getType(), request.getAvatarPath());
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorMessageDto> entityNotFound(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageDto(ex.getLocalizedMessage()));
     }
-
 }

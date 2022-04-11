@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import umcs.spotify.contract.CollectionRequest;
 import umcs.spotify.dto.CollectionDto;
 import umcs.spotify.entity.Collection;
+import umcs.spotify.entity.CollectionType;
 import umcs.spotify.helper.Mapper;
 import umcs.spotify.repository.CollectionRepository;
 
@@ -44,5 +45,13 @@ public class CollectionService {
 
         Collection savedCollection = collectionRepository.save(collectionToSave);
         return mapper.map(savedCollection, CollectionDto.class);
+    }
+
+    public void updateCollection(Long id, String name, CollectionType type, String avatarPath) {
+        Collection collection = collectionRepository.getById(id);
+        collection.setName(name);
+        collection.setType(type);
+        collection.setAvatarPath(avatarPath);
+        collectionRepository.save(collection);
     }
 }
