@@ -11,7 +11,6 @@ import { Observable } from 'rxjs';
 export class TokenInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    console.log("interceptor")
     let token = localStorage.getItem('access_token')
     if (token) {
       request = request.clone({

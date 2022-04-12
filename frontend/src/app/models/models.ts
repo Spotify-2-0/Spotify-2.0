@@ -59,3 +59,9 @@ export interface User {
   email: string,
   emailConfirmed: boolean,
 }
+
+export enum PlayMode {
+  Default,
+  Single,
+  Playlist
+}

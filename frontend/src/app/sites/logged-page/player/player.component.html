@@ -15,7 +15,11 @@
     <div class="player-controls">
         <div class="player-controls-buttons">
             <div class="control-button loop-button small-button">
-                <app-icon class="icon" icon="loop"></app-icon>
+              <ng-container [ngSwitch]="playMode">
+                <app-icon *ngSwitchCase="PlayMode.Default"  (click)="switchPlayMode()" class="icon" icon="loop"></app-icon>
+                <app-icon *ngSwitchCase="PlayMode.Playlist" (click)="switchPlayMode()" class="icon active" icon="loop"></app-icon>
+                <app-icon *ngSwitchCase="PlayMode.Single"   (click)="switchPlayMode()" class="icon active" icon="loop-single"></app-icon>
+              </ng-container>
             </div>
             <div class="control-button medium-button">
                 <app-icon class="icon" icon="prev"></app-icon>
@@ -32,14 +36,19 @@
         </div>
         <div class="playback-bar">
             <div class="time-passed">{{ formatPlayerTime(currentTime) }}</div>
-            <input class="progressbar"
-                   type="range"
-                   [min]="0"
-                   [max]="maxTime"
-                   [value]="progress"
-                   (input)="jumpTo($event)"
-                   step="1"
-            >
+            <div class="playbar">
+              <input class="progressbar"
+                     type="range"
+                     [min]="0"
+                     [max]="maxTime"
+                     [value]="progress"
+                     (change)="jumpTo($event)"
+                     (input)="progressInput($event)"
+                     (mouseup)="isHoldingDownPlayer = false"
+                     (mousedown)="isHoldingDownPlayer = true"
+                     step="1"
+              >
+            </div>
             <!--<progress class="progressbar" [value]="progress" max="1"></progress>-->
             <div class="time-duration">{{ formatPlayerTime(maxTime) }}</div>
         </div>
