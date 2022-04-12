@@ -30,7 +30,7 @@ public class Mapper {
                 .setDestinationNamingConvention(NamingConventions.builder());
 
         mapper.createTypeMap(User.class, UserDto.UserDtoBuilder.class, builderConfiguration);
-        mapper.createTypeMap(User.class, UserActivityEntryDto.UserActivityEntryDtoBuilder.class, builderConfiguration);
+        mapper.createTypeMap(UserActivityEntry.class, UserActivityEntryDto.UserActivityEntryDtoBuilder.class, builderConfiguration);
         mapper.createTypeMap(Collection.class, CollectionDto.CollectionDtoBuilder.class, builderConfiguration)
                 .addMappings(
                         mapping -> mapping.using(new UsersListConverter()).map(Collection::getUsers, CollectionDto.CollectionDtoBuilder::users)
@@ -55,10 +55,7 @@ public class Mapper {
     }
 
     public Page<UserActivityEntryDto> mapUserActivityPageToDto(Page<UserActivityEntry> entities) {
-        return entities.map(entity -> MAPPER.map(
-            UserActivityEntry.class,
-            UserActivityEntryDto.UserActivityEntryDtoBuilder.class
-        ).build());
+        return entities.map(entity -> MAPPER.map(entity, UserActivityEntryDto.UserActivityEntryDtoBuilder.class).build());
     }
 
     public <D, T> Page<D> mapEntityPageIntoDtoPage(Page<T> entities, Class<D> dtoClass) {
