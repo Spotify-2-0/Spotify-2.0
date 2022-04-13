@@ -12,7 +12,6 @@ import java.util.List;
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class AddTrackRequest {
-    MultipartFile image;
     MultipartFile track;
     String name;
     List<Long> genres;

@@ -113,9 +113,7 @@ public class CollectionService {
                 .orElseThrow(() -> new RestException(NOT_FOUND, "Track not found"));
 
         var db = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
-        var imgBucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_AVATARS);
         var mp3Bucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_TRACKS);
-        imgBucket.delete(new ObjectId(track.getImageMongoRef()));
         mp3Bucket.delete(new ObjectId(track.getFileMongoRef()));
 
         collection.getTracks().remove(track);
@@ -147,10 +145,6 @@ public class CollectionService {
         findMissing(artists, artistsIds, (artist, ids) -> artist.getId().equals(ids), User::getId)
                 .ifPresent(missing -> { throw new RestException(NOT_FOUND, "Invalid artists ids: ({})", missing); });
 
-        if (!IOHelper.isFileJpeg(request.getImage())) {
-            throw new RestException(UNPROCESSABLE_ENTITY, "Invalid image file");
-        }
-
         File tempFile = null;
         try {
             tempFile = IOHelper.multipartToTempFile(request.getTrack());
@@ -159,10 +153,8 @@ public class CollectionService {
                     .orElseThrow(() -> new RestException(INTERNAL_SERVER_ERROR, "Failed to read mp3"));
 
             var db = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
-            var imgBucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_AVATARS);
             var mp3Bucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_TRACKS);
 
-            var imgMongoRef = imgBucket.uploadFromStream("", request.getImage().getInputStream());
             var mp3MongoRef = mp3Bucket.uploadFromStream("", new FileInputStream(tempFile));
 
             var track = new AudioTrack();
@@ -172,7 +164,6 @@ public class CollectionService {
             track.setArtists(artists);
             track.setName(request.getName());
             track.setFileMongoRef(mp3MongoRef.toString());
-            track.setImageMongoRef(imgMongoRef.toString());
 
             audioTrackRepository.save(track);
             tempFile.delete();
