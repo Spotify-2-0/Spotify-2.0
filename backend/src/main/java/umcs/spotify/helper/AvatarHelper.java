@@ -1,17 +1,15 @@
 package umcs.spotify.helper;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URLConnection;
 import java.util.Random;
 
 public class AvatarHelper {
 
+    private static final Font BUNGEE_REGULAR = IOHelper.loadFont("fonts/Bungee-Regular.ttf").deriveFont(Font.PLAIN);
     private static final Random RANDOM = new Random();
     private static final Color[] COLORS_POOL = new Color[]{
         new Color(206, 132, 173),
@@ -39,7 +37,7 @@ public class AvatarHelper {
 
         // Font scale
         var fontSize = Math.min(width, height) * 0.5f;
-        var font = Fonts.BUNGEE_REGULAR.deriveFont(fontSize);
+        var font = BUNGEE_REGULAR.deriveFont(fontSize);
 
         graphics.setFont(font);
         var fontMetrics = graphics.getFontMetrics();
@@ -65,15 +63,6 @@ public class AvatarHelper {
             try (var is = new ByteArrayInputStream(os.toByteArray())) {
                 return is;
             }
-        }
-    }
-
-    public static boolean isValidJpeg(MultipartFile multipartFile) {
-        try (var is = new BufferedInputStream(multipartFile.getInputStream())) {
-            var mimeType = URLConnection.guessContentTypeFromStream(is);
-            return mimeType.equalsIgnoreCase("image/jpeg");
-        } catch (IOException e) {
-            return false;
         }
     }
 }

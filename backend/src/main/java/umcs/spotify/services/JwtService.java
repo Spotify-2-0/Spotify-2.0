@@ -1,4 +1,4 @@
-package umcs.spotify.helper;
+package umcs.spotify.services;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
-public class JwtUtils {
+public class JwtService {
 
     @Value("${jwt.secret}")
     private String secret;

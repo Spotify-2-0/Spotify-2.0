@@ -1,18 +1,17 @@
 package umcs.spotify.helper;
 
 import org.modelmapper.AbstractConverter;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeMap;
+import org.modelmapper.config.Configuration;
 import org.modelmapper.convention.NameTransformers;
 import org.modelmapper.convention.NamingConventions;
-import org.modelmapper.internal.util.Assert;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import umcs.spotify.dto.*;
 import umcs.spotify.entity.*;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,20 +22,27 @@ public class Mapper {
 
     private static ModelMapper mapper() {
         var mapper = new ModelMapper();
-        // maping here
+        mapper.getConfiguration()
+                .setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
+
+        Converter<Duration, Long> durationConverter = ctx -> ctx.getSource().toMillis();
 
         var builderConfiguration = mapper.getConfiguration().copy()
                 .setDestinationNameTransformer(NameTransformers.builder())
                 .setDestinationNamingConvention(NamingConventions.builder());
 
+        mapper.createTypeMap(AudioTrack.class, AudioTrackDto.class)
+                .addMappings(map -> map.using(durationConverter).map(AudioTrack::getDuration, AudioTrackDto::setDuration));
+
         mapper.createTypeMap(User.class, UserDto.UserDtoBuilder.class, builderConfiguration);
         mapper.createTypeMap(UserActivityEntry.class, UserActivityEntryDto.UserActivityEntryDtoBuilder.class, builderConfiguration);
         mapper.createTypeMap(Collection.class, CollectionDto.CollectionDtoBuilder.class, builderConfiguration)
                 .addMappings(
-                        mapping -> mapping.using(new UsersListConverter()).map(Collection::getUsers, CollectionDto.CollectionDtoBuilder::users)
+                    mapping -> mapping.using(new UsersListConverter()).map(Collection::getUsers, CollectionDto.CollectionDtoBuilder::users)
                 )
                 .addMappings(
-                        mapping -> mapping.using(new TracksListConverter()).map(Collection::getTracks, CollectionDto.CollectionDtoBuilder::tracks)
+                    mapping -> mapping.using(new TracksListConverter()).map(Collection::getTracks, CollectionDto.CollectionDtoBuilder::tracks)
                 );
 
         return mapper;
@@ -86,8 +92,7 @@ public class Mapper {
                 return new AudioTrackDto(
                         audioTrack.getId(),
                         audioTrack.getName(),
-                        audioTrack.getDuration(),
-                        audioTrack.getFilePath(),
+                        audioTrack.getDuration().toMillis(),
                         audioTrack.getViews(),
                         audioTrack.getPublishedDate(),
                         genres.stream().map(genre -> new GenreDto(genre.getId(), genre.getName())).collect(Collectors.toList())
