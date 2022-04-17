@@ -1,0 +1,65 @@
+<section class="activity-log">
+  <table class="table">
+    <tr class="table__row table__row--head">
+      <th class="table__heading">
+        #
+      </th>
+      <th class="table__heading">
+        action
+      </th>
+      <th class="table__heading table__heading--bigger">
+        date
+      </th>
+      <th class="table__heading">
+        location
+      </th>
+      <th class="table__heading table__heading--bigger">
+        IP Address
+      </th>
+    </tr>
+    <tr class="table__row" *ngFor="let activity of this.activities; let i = index">
+      <td class="table__item">
+        {{ i+1+this.size*this.page }}
+      </td>
+      <td class="table__item">
+        {{ activity.activity }}
+      </td>
+      <td class="table__item">
+        {{ activity.occurrenceDate }}
+      </td>
+      <td class="table__item">
+        {{ activity.location?.city + ", " + activity.location?.country }}
+      </td>
+      <td class="table__item table__item--hidden" *ngIf="activity.hiddenIp">
+        <a class="table__link" (click)="activity.hiddenIp=!activity.hiddenIp">show</a>
+      </td>
+      <td class="table__item" *ngIf="!activity.hiddenIp">
+        {{ activity.ip }}
+      </td>
+    </tr>
+  </table>
+  <div class="page-counter">
+    <span class="page-counter__text">Page: </span>
+    <span class="page-counter__current">{{ this.page + 1 }}</span>
+    <span class="page-counter__delimer">/</span>
+    <span class="page-counter__max">{{ this.nOfPages }}</span>
+  </div>
+  <div class="page-changer">
+    <span class="page-changer__max-left" [ngClass]="{ 'disabled': !this.leftClickable }" (click)="toLeftMax()">
+      <app-icon icon="d-r-arrow"></app-icon>
+    </span>
+    <span class="page-changer__left" [ngClass]="{ 'disabled': !this.leftClickable }" (click)="toLeft()"><app-icon icon="r-arrow"></app-icon></span>
+    <span class="page-changer__n-of-pages">
+      <select class="selector" (click)="this.page = 0; updateItemsPerPage()" [(ngModel)]="this.size">
+        <option class="selector__option" *ngFor="let option of this.itemsPerPage" [value]="option">{{ option }}</option>
+      </select>
+    </span>
+    <span class="page-changer__right" [ngClass]="{ 'disabled': !this.rightClickable }" (click)="toRight()">
+      <app-icon icon="r-arrow"></app-icon>
+    </span>
+    <span class="page-changer__max-right" [ngClass]="{ 'disabled': !this.rightClickable }" (click)="toRightMax()">
+      <app-icon icon="d-r-arrow"></app-icon>
+    </span>
+  </div>
+</section>
+

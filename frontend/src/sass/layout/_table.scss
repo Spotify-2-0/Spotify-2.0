@@ -1,0 +1,38 @@
+.table {
+  font-size: var(--font-size-default);
+  border-collapse: collapse;
+  overflow-y: scroll;
+  display: block;
+  max-height: 60rem;
+
+  &__row {
+    border-bottom: 1px solid rgba(gray, 0.3);
+  }
+
+  &__heading {
+    padding: 1rem;
+    text-transform: capitalize;
+    min-width: 10rem;
+
+    &--bigger {
+      min-width: 16rem;
+    }
+  }
+
+  &__item {
+    padding: 1rem;
+    text-align: center;
+
+    &--hidden {
+    }
+  }
+
+  &__link {
+    &,
+    &:link,
+    &:visited {
+      cursor: pointer;
+      text-decoration: none;
+    }
+  }
+}

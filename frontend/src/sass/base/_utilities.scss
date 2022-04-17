@@ -127,3 +127,8 @@ $text-size-huge: 8rem;
     justify-content: center;
   }
 }
+
+.disabled {
+  opacity: 0.25;
+  cursor: auto;
+}
