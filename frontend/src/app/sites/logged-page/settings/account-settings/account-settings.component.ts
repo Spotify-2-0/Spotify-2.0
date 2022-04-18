@@ -76,6 +76,7 @@ export class AccountSettingsComponent implements OnInit {
 
   onDeleteImg() {
     this.avatarService.emitDeleteImage(true);
+    this.imgBlob = null;
   }
 
   sendData() {
@@ -93,7 +94,7 @@ export class AccountSettingsComponent implements OnInit {
     }
 
     if (this.imgDeleted) {
-      this.userService.setDefaultAvatarForCurrentUser().subscribe();
+      this.userService.setDefaultAvatarForCurrentUser().subscribe(() => this.avatarService.emitChangeImage());
       this.imgDeleted = false;
     }
   }

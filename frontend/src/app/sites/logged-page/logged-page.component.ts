@@ -28,7 +28,9 @@ export class LoggedPageComponent implements OnInit {
         this.firstName = user.firstName;
         this.lastName = user.lastName;
       });
-      this.avatarService.change.subscribe(() => this.avatarBlob = this.userService.getUserProfileUrl(this.userId));
+      this.avatarService.change.subscribe(() => {
+      this.avatarBlob = this.userService.getUserProfileUrl(this.userId)
+      });
   }
 
   public toggleTheme(): void {
