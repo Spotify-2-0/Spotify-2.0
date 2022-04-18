@@ -28,11 +28,13 @@
 @import "layout/header";
 @import "layout/navigation";
 @import "layout/logo";
+@import "layout/logged-nav";
 @import "layout/settings";
 
 @import "pages/account-settings";
 @import "pages/change-password";
 @import "pages/home";
+@import "pages/logged-page";
 @import "pages/setup";
 @import "pages/signin";
 @import "pages/signup";

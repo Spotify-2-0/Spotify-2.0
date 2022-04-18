@@ -1,0 +1,7 @@
+.logged-page {
+  &__sidebar,
+  &__main {
+    background-color: var(--color-background);
+    color: var(--color-text);
+  }
+}
