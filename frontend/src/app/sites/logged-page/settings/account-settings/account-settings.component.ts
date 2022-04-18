@@ -87,7 +87,7 @@ export class AccountSettingsComponent implements OnInit {
     }
 
     if (this.imgBlob != null) {
-      this.userService.uploadAvatar(this.imgBlob).subscribe();
+      this.userService.uploadAvatar(this.imgBlob).subscribe(() => this.avatarService.emitChangeImage());
     }
 
     if (this.imgDeleted) {

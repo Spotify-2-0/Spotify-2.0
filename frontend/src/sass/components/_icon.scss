@@ -5,7 +5,6 @@
 .icon-span {
   background-repeat: no-repeat;
   display: inline-block;
-  fill: currentColor;
   font-size: 16px;
   height: inherit;
   line-height: inherit;
@@ -13,10 +12,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  svg {
-    fill: var(--color-text);
-  }
 }
 
 .icon {

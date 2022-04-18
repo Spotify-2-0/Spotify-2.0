@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AvatarService } from 'src/app/services/avatar.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -8,11 +9,13 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoggedPageComponent implements OnInit {
   avatarBlob!: string;
+  userId!: number;
   firstName!: string;
   lastName!: string
 
   constructor(
     private readonly themeService: ThemeService,
+    private readonly avatarService: AvatarService,
     private readonly userService: UserService
   ) {}
 
@@ -20,10 +23,12 @@ export class LoggedPageComponent implements OnInit {
     this.userService
       .me()
       .subscribe(user => {
-        this.avatarBlob = this.userService.getUserProfileUrl(user.id)
+        this.userId = user.id;
+        this.avatarBlob = this.userService.getUserProfileUrl(this.userId)
         this.firstName = user.firstName;
         this.lastName = user.lastName;
       });
+      this.avatarService.change.subscribe(() => this.avatarBlob = this.userService.getUserProfileUrl(this.userId));
   }
 
   public toggleTheme(): void {
