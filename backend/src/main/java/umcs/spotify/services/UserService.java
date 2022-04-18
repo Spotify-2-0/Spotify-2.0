@@ -138,14 +138,18 @@ public class UserService {
         return mapper.map(currentUser, UserPreferencesDto.class);
     }
 
-    @Async
     public void assignDefaultAvatarForCurrentUser() {
         var email = ContextUserAccessor.getCurrentUserEmail();
         var currentUser = findUserByEmail(email);
 
         var database = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
         var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_AVATARS);
-        bucket.delete(new ObjectId(currentUser.getAvatarMongoRef()));
+        var avatarMongoRef = currentUser.getAvatarMongoRef();
+
+        if(avatarMongoRef != null){
+            bucket.delete(new ObjectId(avatarMongoRef));
+        }
+
         assignDefaultAvatar(currentUser);
     }
 
@@ -161,10 +165,10 @@ public class UserService {
         );
         var generatedAvatar = AvatarHelper.generateAvatarFromInitials(initials, 300, 300);
 
-
         try {
             var stream = AvatarHelper.toStream(generatedAvatar);
             var mongoRef = bucket.uploadFromStream("", stream).toString();
+
             user.setAvatarMongoRef(mongoRef);
             userRepository.save(user);
         } catch (IOException e) {
@@ -206,6 +210,12 @@ public class UserService {
 
         try {
             var id = bucket.uploadFromStream("", multipartFile.getInputStream());
+            var avatarMongoRef = currentUser.getAvatarMongoRef();
+
+            if(avatarMongoRef != null){
+                bucket.delete(new ObjectId(avatarMongoRef));
+            }
+
             currentUser.setAvatarMongoRef(id.toString());
             userRepository.save(currentUser);
         } catch (IOException e) {
