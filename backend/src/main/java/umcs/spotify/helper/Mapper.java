@@ -1,6 +1,7 @@
 package umcs.spotify.helper;
 
 import org.modelmapper.AbstractConverter;
+import org.modelmapper.Converter;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeMap;
 import org.modelmapper.convention.NameTransformers;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import umcs.spotify.dto.*;
 import umcs.spotify.entity.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -23,14 +26,19 @@ public class Mapper {
 
     private static ModelMapper mapper() {
         var mapper = new ModelMapper();
-        // maping here
+        Converter<LocalDateTime, Long> dateToMillisConverter = ctx -> ctx.getSource()
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
 
         var builderConfiguration = mapper.getConfiguration().copy()
                 .setDestinationNameTransformer(NameTransformers.builder())
                 .setDestinationNamingConvention(NamingConventions.builder());
 
         mapper.createTypeMap(User.class, UserDto.UserDtoBuilder.class, builderConfiguration);
-        mapper.createTypeMap(UserActivityEntry.class, UserActivityEntryDto.UserActivityEntryDtoBuilder.class, builderConfiguration);
+        mapper.createTypeMap(UserActivityEntry.class, UserActivityEntryDto.class, builderConfiguration)
+                .addMappings(map -> map.using(dateToMillisConverter)
+                                .map(UserActivityEntry::getOccurrenceDate, UserActivityEntryDto::setOccurrenceDate));
         mapper.createTypeMap(Collection.class, CollectionDto.CollectionDtoBuilder.class, builderConfiguration)
                 .addMappings(
                         mapping -> mapping.using(new UsersListConverter()).map(Collection::getUsers, CollectionDto.CollectionDtoBuilder::users)
@@ -55,7 +63,7 @@ public class Mapper {
     }
 
     public Page<UserActivityEntryDto> mapUserActivityPageToDto(Page<UserActivityEntry> entities) {
-        return entities.map(entity -> MAPPER.map(entity, UserActivityEntryDto.UserActivityEntryDtoBuilder.class).build());
+        return entities.map(entity -> MAPPER.map(entity, UserActivityEntryDto.class));
     }
 
     public <D, T> Page<D> mapEntityPageIntoDtoPage(Page<T> entities, Class<D> dtoClass) {
