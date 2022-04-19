@@ -7,14 +7,11 @@ import lombok.Value;
 import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.entity.CollectionType;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-
 @Value
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
-public class UpdateCollectionRequest {
+public class CollectionCreateRequest {
     String name;
-    CollectionType type;
     MultipartFile image;
+    CollectionType type;
 }

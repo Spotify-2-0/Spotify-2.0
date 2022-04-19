@@ -16,6 +16,9 @@ public class Collection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne
+    private User owner;
+
     private String name;
 
     @Enumerated(EnumType.STRING)
@@ -30,5 +33,5 @@ public class Collection {
             inverseJoinColumns = @JoinColumn(name = "track_id"))
     private List<AudioTrack> tracks;
 
-    private String avatarPath;
+    private String imageMongoRef;
 }

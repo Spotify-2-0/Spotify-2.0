@@ -7,11 +7,9 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.Constants;
 import umcs.spotify.exception.RestException;
-import umcs.spotify.helper.JwtUtils;
-import umcs.spotify.helper.StreamHelper;
+import umcs.spotify.helper.IOHelper;
 
 import java.io.IOException;
 
@@ -25,24 +23,24 @@ public class TrackService {
 
     private static final int MAX_CHUNK = 1024 * 1024;
 
-    private final JwtUtils jwtUtils;
+    private final JwtService jwtService;
     private final MongoClient mongoClient;
     private final UserDetailsService userDetailsService;
 
     public TrackService(
-        JwtUtils jwtUtils,
+        JwtService jwtService,
         MongoClient mongoClient,
         UserDetailsService userDetailsService
     ) {
-        this.jwtUtils = jwtUtils;
+        this.jwtService = jwtService;
         this.mongoClient = mongoClient;
         this.userDetailsService = userDetailsService;
     }
 
     public ResponseEntity<?> getTrackChunked(String id, String token, String range) {
-        var userName = jwtUtils.extractUsername(token);
+        var userName = jwtService.extractUsername(token);
         var userDetails = userDetailsService.loadUserByUsername(userName);
-        if (!jwtUtils.isTokenValid(token, userDetails)) {
+        if (!jwtService.isTokenValid(token, userDetails)) {
             throw new RestException(FORBIDDEN, "You do not have access to this resource");
         }
 
@@ -64,7 +62,7 @@ public class TrackService {
             }
 
             var bytesToCopy = end - start + 1;
-            try (var resource = StreamHelper.copyInputStreamRange(stream, start, end)) {
+            try (var resource = IOHelper.copyInputStreamRange(stream, start, end)) {
                 return ResponseEntity.status(PARTIAL_CONTENT)
                         .header(CONTENT_TYPE, "audio/mpeg")
                         .header(ACCEPT_RANGES, "bytes")

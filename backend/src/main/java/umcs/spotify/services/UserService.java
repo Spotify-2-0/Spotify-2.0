@@ -200,7 +200,7 @@ public class UserService {
         var database = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
         var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_AVATARS);
 
-        if (!AvatarHelper.isValidJpeg(multipartFile)) {
+        if (!IOHelper.isFileJpeg(multipartFile)) {
             throw new RestException(UNPROCESSABLE_ENTITY, "File is not jpeg");
         }
 

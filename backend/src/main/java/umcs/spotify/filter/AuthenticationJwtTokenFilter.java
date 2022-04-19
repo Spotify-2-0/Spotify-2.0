@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import umcs.spotify.helper.JwtUtils;
+import umcs.spotify.services.JwtService;
 import umcs.spotify.services.UserDetailsServiceImpl;
 
 import javax.servlet.FilterChain;
@@ -19,7 +19,7 @@ import java.io.IOException;
 public class AuthenticationJwtTokenFilter extends OncePerRequestFilter {
 
     @Autowired
-    private JwtUtils jwtUtils;
+    private JwtService jwtService;
 
     @Autowired
     private UserDetailsServiceImpl service;
@@ -35,14 +35,14 @@ public class AuthenticationJwtTokenFilter extends OncePerRequestFilter {
 
         if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
             token = authorizationHeader.substring(7);
-            userName = jwtUtils.extractUsername(token);
+            userName = jwtService.extractUsername(token);
         }
 
         if (userName != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
             var userDetails = service.loadUserByUsername(userName);
 
-            if (jwtUtils.isTokenValid(token, userDetails)) {
+            if (jwtService.isTokenValid(token, userDetails)) {
                 var usernamePasswordAuthenticationToken =
                         new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
