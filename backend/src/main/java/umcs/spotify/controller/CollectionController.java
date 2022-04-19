@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.CollectionRequest;
+import umcs.spotify.contract.UpdateCollectionRequest;
 import umcs.spotify.dto.CollectionDto;
 import umcs.spotify.dto.ErrorMessageDto;
 import umcs.spotify.entity.Collection;
@@ -36,6 +37,11 @@ public class CollectionController {
     @PostMapping("/")
     public ResponseEntity<CollectionDto> addCollection(@Valid @RequestBody CollectionRequest collectionRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(collectionService.addCollection(collectionRequest));
+    }
+
+    @PutMapping("/{id}")
+    public void updateCollection(@PathVariable Long id, @Valid @RequestBody UpdateCollectionRequest request) {
+        collectionService.updateCollection(id, request.getName(), request.getType(), request.getAvatarPath());
     }
 
     @DeleteMapping("/{id}")
