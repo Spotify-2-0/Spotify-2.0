@@ -5,13 +5,12 @@ import umcs.spotify.entity.GeoLocation;
 
 import java.time.LocalDateTime;
 
-@Value
-@Builder
+@Data
 @NoArgsConstructor(force = true, access = AccessLevel.PRIVATE)
 @AllArgsConstructor
 public class UserActivityEntryDto {
     Long id;
-    LocalDateTime occurrenceDate;
+    Long occurrenceDate;
     GeoLocation location;
     String ip;
     String activity;

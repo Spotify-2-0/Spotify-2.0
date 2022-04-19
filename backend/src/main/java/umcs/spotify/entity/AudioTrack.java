@@ -21,8 +21,8 @@ public class AudioTrack {
 
     private String name;
     private Duration duration;
-    private String filePath;
-    private Long views;
+    private String fileMongoRef;
+    private Long views = 0L;
     private LocalDateTime publishedDate;
 
 
@@ -31,5 +31,11 @@ public class AudioTrack {
             joinColumns = @JoinColumn(name = "track_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genres;
+
+    @ManyToMany
+    @JoinTable(	name = "tracks_users",
+            joinColumns = @JoinColumn(name = "track_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> artists;
 
 }
