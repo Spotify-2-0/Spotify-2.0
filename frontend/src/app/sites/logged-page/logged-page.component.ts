@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AvatarService } from 'src/app/services/avatar.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { UserService } from 'src/app/services/user.service';
-import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-logged-page',
