@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.AddTrackRequest;
 import umcs.spotify.contract.CollectionCreateRequest;
 import umcs.spotify.dto.AudioTrackDto;
+import umcs.spotify.contract.UpdateCollectionRequest;
 import umcs.spotify.dto.CollectionDto;
 import umcs.spotify.dto.ErrorMessageDto;
 import umcs.spotify.services.CollectionService;
@@ -49,9 +50,18 @@ public class CollectionController {
         collectionService.removeTrack(collectionId, trackId);
     }
 
+    @PutMapping("/{id}")
+    public void updateCollection(@PathVariable Long id, @Valid @RequestBody UpdateCollectionRequest request) {
+        collectionService.updateCollection(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteCollection(@PathVariable Long id) {
+        collectionService.deleteCollection(id);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorMessageDto> entityNotFound(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageDto(ex.getLocalizedMessage()));
     }
-
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import umcs.spotify.Constants;
 import umcs.spotify.contract.AddTrackRequest;
 import umcs.spotify.contract.CollectionCreateRequest;
+import umcs.spotify.contract.UpdateCollectionRequest;
 import umcs.spotify.dto.AudioTrackDto;
 import umcs.spotify.dto.CollectionDto;
 import umcs.spotify.entity.AudioTrack;
@@ -17,6 +18,7 @@ import umcs.spotify.entity.User;
 import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.IOHelper;
 import umcs.spotify.helper.ContextUserAccessor;
+import umcs.spotify.entity.CollectionType;
 import umcs.spotify.helper.Mapper;
 import umcs.spotify.repository.AudioTrackRepository;
 import umcs.spotify.repository.CollectionRepository;
@@ -175,6 +177,39 @@ public class CollectionService {
             }
             throw new RestException(INTERNAL_SERVER_ERROR, "Error while saving files");
         }
+    }
+
+    public void updateCollection(long id, UpdateCollectionRequest request) {
+        var collection = collectionRepository.getById(id);
+
+        var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
+        var user = userService.findUserByEmail(currentUserEmail);
+
+        if (!collection.getOwner().getId().equals(user.getId())) {
+            throw new RestException(FORBIDDEN, "You are not owner of this collection");
+        }
+
+        if (request.getName() != null)
+            collection.setName(request.getName());
+        if (request.getType() != null)
+            collection.setType(request.getType());
+        if (request.getImage() != null) {
+            var db = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
+            var imgBucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_AVATARS);
+            try {
+                imgBucket.delete(new ObjectId(collection.getImageMongoRef()));
+                var imgMongoRef = imgBucket.uploadFromStream("", request.getImage().getInputStream());
+                collection.setImageMongoRef(imgMongoRef.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new RestException(INTERNAL_SERVER_ERROR, "Error while saving files");
+            }
+        }
+        collectionRepository.save(collection);
+    }
+
+    public void deleteCollection(Long id) {
+        collectionRepository.deleteById(id);
     }
 
     private <A, B> Optional<String> findMissing(
