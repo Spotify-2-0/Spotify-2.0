@@ -17,6 +17,7 @@ import umcs.spotify.repository.UserActivityRepository;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -54,7 +55,7 @@ public class UserActivityService {
         var userActivity = new UserActivityEntry();
         userActivity.setUser(user);
         userActivity.setIp(ip);
-        userActivity.setOccurrenceTimestamp(System.currentTimeMillis());
+        userActivity.setOccurrenceDate(LocalDateTime.now());
         userActivity.setActivity(activity);
         if (inet != null) {
             var geoLocation = geoService.getLocationFromAddress(inet);

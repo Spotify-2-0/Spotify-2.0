@@ -44,6 +44,11 @@ public class CollectionController {
         collectionService.updateCollection(id, request.getName(), request.getType(), request.getAvatarPath());
     }
 
+    @DeleteMapping("/{id}")
+    public void deleteCollection(@PathVariable Long id) {
+        collectionService.deleteCollection(id);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorMessageDto> entityNotFound(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorMessageDto(ex.getLocalizedMessage()));

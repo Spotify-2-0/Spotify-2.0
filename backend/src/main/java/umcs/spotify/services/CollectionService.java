@@ -47,11 +47,16 @@ public class CollectionService {
         return mapper.map(savedCollection, CollectionDto.class);
     }
 
+
     public void updateCollection(Long id, String name, CollectionType type, String avatarPath) {
         Collection collection = collectionRepository.getById(id);
         collection.setName(name);
         collection.setType(type);
         collection.setAvatarPath(avatarPath);
         collectionRepository.save(collection);
+    }
+  
+    public void deleteCollection(Long id) {
+        collectionRepository.deleteById(id);
     }
 }
