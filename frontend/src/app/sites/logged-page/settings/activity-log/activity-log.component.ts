@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import { ActivityResponse } from 'src/app/models/models';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-acitiity-log',
   templateUrl: './activity-log.component.html',
+  providers: [DatePipe]
 })
 export class ActivityLogComponent implements OnInit {
   nOfPages: number = 0;

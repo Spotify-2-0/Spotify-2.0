@@ -143,6 +143,9 @@ export class UserService {
         pageSize: size
       }
     }).pipe(map(response => {
+      response.content.forEach(activity => {
+        activity.occurrenceDate = new Date(activity.occurrenceDate);
+      })
       return { content: response.content, totalPages: response.totalPages };
     }));
   }

@@ -25,7 +25,7 @@
         {{ activity.activity }}
       </td>
       <td class="table__item">
-        {{ activity.occurrenceDate }}
+        {{ activity.occurrenceDate | date:'medium'}}
       </td>
       <td class="table__item">
         {{ activity.location?.city + ", " + activity.location?.country }}
