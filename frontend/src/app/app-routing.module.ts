@@ -18,6 +18,7 @@ import { PasswordResetComponent } from './sites/password-reset/password-reset.co
 import { AccountSettingsComponent } from './sites/logged-page/settings/account-settings/account-settings.component';
 import { SettingsComponent } from './sites/logged-page/settings/settings.component';
 import { ChangePasswordComponent } from './sites/logged-page/settings/change-password/change-password.component';
+import { ActivityLogComponent } from './sites/logged-page/settings/activity-log/activity-log.component';
 
 const initializer = (): (() => Promise<void>) => {
   let theme = localStorage.getItem('user_theme');
@@ -128,8 +129,17 @@ const routes: Routes = [
               emailRouteTo: '/setup',
             },
             component: ChangePasswordComponent,
+          },
+          //TODO: Notification settings
+          {
+            path: 'activity-log',
+            canActivate: [AuthGuard, EmailConfirmedGuard],
+            data: {
+              authRouteTo: '/app',
+              emailRouteTo: '/setup',
+            },
+            component: ActivityLogComponent,
           }
-          //TODO: Activity log etc.
         ],
       },
     ],

@@ -41,7 +41,7 @@ public class Mapper {
                 .addMappings(map -> map.using(durationConverter).map(AudioTrack::getDuration, AudioTrackDto::setDuration));
 
         mapper.createTypeMap(User.class, UserDto.UserDtoBuilder.class, builderConfiguration);
-        mapper.createTypeMap(UserActivityEntry.class, UserActivityEntryDto.class, builderConfiguration)
+        mapper.createTypeMap(UserActivityEntry.class, UserActivityEntryDto.class)
                 .addMappings(map -> map.using(dateToMillisConverter)
                                 .map(UserActivityEntry::getOccurrenceDate, UserActivityEntryDto::setOccurrenceDate));
         mapper.createTypeMap(Collection.class, CollectionDto.CollectionDtoBuilder.class, builderConfiguration)
