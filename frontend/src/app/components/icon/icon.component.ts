@@ -14,6 +14,7 @@ import { IconService } from '../../services/icon.service';
 })
 export class IconComponent implements OnInit, OnChanges {
   @Input() public icon!: string;
+  @Input() isBlack: boolean = false;
   public data!: SafeHtml;
 
   constructor(

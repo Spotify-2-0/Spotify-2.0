@@ -9,6 +9,14 @@ $text-size-medium: 2rem;
 $text-size-big: 4rem;
 $text-size-huge: 8rem;
 
+.svg-color-text {
+  fill: var(--color-text);
+}
+
+.svg-color-black {
+  fill: #000;
+}
+
 .text-default {
   color: var(--color-text);
 }

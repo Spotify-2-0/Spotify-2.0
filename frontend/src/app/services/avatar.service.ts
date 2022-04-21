@@ -6,8 +6,13 @@ import { Subject } from "rxjs";
 })
 export class AvatarService {
   delete: Subject<boolean> = new Subject();
+  change: Subject<void> = new Subject();
 
   emitDeleteImage(value: boolean){
     this.delete.next(value);
+  }
+
+  emitChangeImage(){
+    this.change.next();
   }
 }

@@ -1,0 +1,36 @@
+.logged-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background-color: transparent;
+  position: absolute;
+  width: 100%;
+  column-gap: 2rem;
+  padding: 1rem;
+
+  &__theme {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__notification {
+  }
+
+  &__avatar {
+  }
+
+  &__text {
+    font-size: var(--font-size-medium);
+    color: var(--color-text);
+  }
+
+  &__photo {
+  }
+
+  &__img {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+  }
+}
