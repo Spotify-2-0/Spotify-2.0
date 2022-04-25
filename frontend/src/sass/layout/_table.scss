@@ -30,6 +30,22 @@
     &--hidden {
     }
 
+    &--stretched {
+      min-width: 12em;
+
+      @media (max-width: 1700px) {
+          min-width: 10em;
+      }
+
+      @media (max-width: 1300px) {
+          min-width: 6em;
+      }
+
+      @media (max-width: 1000px) {
+          min-width: 0;
+      }
+    }
+
     &__image {
       width: 48px;
       height: 48px;
