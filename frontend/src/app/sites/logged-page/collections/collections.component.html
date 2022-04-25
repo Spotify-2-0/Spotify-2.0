@@ -1,0 +1,6 @@
+<div>
+    <h1 class="u-text-medium u-text--with-border collections_title u-margin-top-big"> Collections</h1>
+    <div class="table_conatiner u-margin-top-small" *ngIf="isLoaded">
+        <app-spoti-table tableType="collections" [data]="collections"></app-spoti-table>
+    </div>
+</div>

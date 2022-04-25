@@ -7,6 +7,10 @@
 
   &__row {
     border-bottom: 1px solid rgba(gray, 0.3);
+    &--hover {
+      cursor: pointer;
+    }
+
   }
 
   &__heading {
@@ -24,6 +28,11 @@
     text-align: center;
 
     &--hidden {
+    }
+
+    &__image {
+      width: 48px;
+      height: 48px;
     }
   }
 
