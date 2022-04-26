@@ -31,10 +31,10 @@
     }
 
     &--stretched {
-      min-width: 12em;
+      min-width: 14em;
 
       @media (max-width: 1700px) {
-          min-width: 10em;
+          min-width: 11em;
       }
 
       @media (max-width: 1300px) {

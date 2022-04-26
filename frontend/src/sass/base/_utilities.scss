@@ -41,7 +41,7 @@ $text-size-huge: 8rem;
   }
 
   &--with-border {
-    border-bottom: 2px solid black;
+    border-bottom: 2px solid var(--color-text);
   }
 }
 
