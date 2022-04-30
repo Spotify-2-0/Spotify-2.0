@@ -76,3 +76,12 @@ export interface User {
   email: string,
   emailConfirmed: boolean,
 }
+
+export interface Collection {
+  id: number,
+  name: string,
+  type: string,
+  avatarPath: string,
+  tracks: any[],
+  users: User[]
+}

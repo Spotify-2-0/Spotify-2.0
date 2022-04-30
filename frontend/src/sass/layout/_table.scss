@@ -7,6 +7,10 @@
 
   &__row {
     border-bottom: 1px solid rgba(gray, 0.3);
+    &--hover {
+      cursor: pointer;
+    }
+
   }
 
   &__heading {
@@ -24,6 +28,27 @@
     text-align: center;
 
     &--hidden {
+    }
+
+    &--stretched {
+      min-width: 14em;
+
+      @media (max-width: 1700px) {
+          min-width: 11em;
+      }
+
+      @media (max-width: 1300px) {
+          min-width: 6em;
+      }
+
+      @media (max-width: 1000px) {
+          min-width: 0;
+      }
+    }
+
+    &__image {
+      width: 48px;
+      height: 48px;
     }
   }
 

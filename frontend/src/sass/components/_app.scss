@@ -1,7 +1,7 @@
 .logged-page {
   display: flex;
   flex-direction: column;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
@@ -10,6 +10,7 @@
     flex-grow: 1;
     display: flex;
     background: var(--color-background-app);
+    overflow: auto;
   }
 
   &__sidebar {

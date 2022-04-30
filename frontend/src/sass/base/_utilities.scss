@@ -39,6 +39,10 @@ $text-size-huge: 8rem;
   &-huge {
     font-size: $text-size-huge;
   }
+
+  &--with-border {
+    border-bottom: 2px solid var(--color-text);
+  }
 }
 
 .u-center-text {

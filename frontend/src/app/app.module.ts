@@ -34,6 +34,8 @@ import { SettingsComponent } from './sites/logged-page/settings/settings.compone
 import { ChangePasswordComponent } from './sites/logged-page/settings/change-password/change-password.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ActivityLogComponent } from './sites/logged-page/settings/activity-log/activity-log.component';
+import { CollectionsComponent } from './sites/logged-page/collections/collections.component';
+import { SpotiTableComponent } from './components/spoti-table/spoti-table.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { ActivityLogComponent } from './sites/logged-page/settings/activity-log/
     AccountSettingsComponent,
     ChangePasswordComponent,
     ActivityLogComponent,
-    ModalComponent
+    ModalComponent,
+    CollectionsComponent,
+    SpotiTableComponent
   ],
   imports: [
     BrowserModule,

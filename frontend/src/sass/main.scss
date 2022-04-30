@@ -27,6 +27,7 @@
 @import "components/sidebar";
 @import "components/player";
 @import "components/selector";
+@import "components/spoti-table";
 
 @import "layout/header";
 @import "layout/navigation";
@@ -43,5 +44,6 @@
 @import "pages/setup";
 @import "pages/signin";
 @import "pages/signup";
+@import "pages/collections";
 
 @import "themes/icon";
