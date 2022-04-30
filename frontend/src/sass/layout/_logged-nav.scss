@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  background-color: transparent;
+  background-color: var(--color-background);
   position: absolute;
   width: 100%;
   column-gap: 2rem;
@@ -12,6 +12,30 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  &__search-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 25rem;
+    height: 3rem;
+    margin-left: 35rem;
+  }
+
+  &__search-bar {
+    position: relative;
+    flex-grow: 1;
+
+    & :focus{
+      border: 1px solid rgba(gray, 1);
+      transition: all .2s;
+    }
+  }
+
+  &__search-btn {
+    background-color: transparent;
+    border: none;
   }
 
   &__notification {
