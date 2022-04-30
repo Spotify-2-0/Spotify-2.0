@@ -1,0 +1,40 @@
+<table class="table">
+    <tr class="table__row table__row--head" *ngIf="tableType === 'collections'">
+      <ng-container *ngFor="let column of columns">
+        <th class="table__heading">
+          {{ column.toUpperCase() }}
+        </th>
+      </ng-container>
+    </tr>
+
+    <ng-container *ngIf="tableType === 'collections'">
+      <tr class="table__row table__row--hover" *ngFor="let collection of data; let i = index" routerLink="/collection/{{collection.id}}">
+        <td class="table__item ">
+          <div class="collection_index">
+            <p> {{i}} </p>
+            <img class="table__item__image"
+             src="{{ collection.avatarPath !== null ? collection.avatarPath : '/assets/medias/no_picture.png' }}" 
+             alt="collection avatar">
+          </div>
+        </td>
+        <td class="table__item table__item--stretched">
+          <div class="collection_description">
+            <p class="collection_title"> {{ collection.name }}</p>
+            <p class="collection_songs_count"> {{ collection.tracks.length }} songs </p>
+          </div>
+        </td>
+        <td class="table__item table__item--stretched">
+          {{ collection.type }}
+        </td>
+        <td class="table__item table__item--stretched">
+          {{ 0 }}
+        </td>
+        <td class="table__item table__item--stretched">
+          {{ 0 }}
+        </td>
+        <td class="table__item table__item--stretched">
+          {{ 0 }}
+        </td>
+      </tr>
+    </ng-container>
+  </table>

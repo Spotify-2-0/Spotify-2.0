@@ -9,7 +9,8 @@ import {
   SignUpRequest,
   UpdateRequest,
   User,
-  UserExistsByResponse
+  UserExistsByResponse,
+  ActivityResponse
 } from "../models/models";
 import { BehaviorSubject, EMPTY, Observable } from "rxjs";
 import { environment } from "../../environments/environment";
@@ -133,5 +134,19 @@ export class UserService {
       key: resetKey,
       password: password,
     })
+  }
+
+  public userActivity = (page: number, size: number): Observable<{ content: ActivityResponse[], totalPages: number }> => {
+    return this.http.get<{ content: ActivityResponse[], totalPages: number  }>(`${environment.serverURL}/user/activity`, {
+      params: {
+        page: page,
+        pageSize: size
+      }
+    }).pipe(map(response => {
+      response.content.forEach(activity => {
+        activity.occurrenceDate = new Date(activity.occurrenceDate);
+      })
+      return { content: response.content, totalPages: response.totalPages };
+    }));
   }
 }

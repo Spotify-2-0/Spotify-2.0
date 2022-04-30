@@ -9,6 +9,14 @@ $text-size-medium: 2rem;
 $text-size-big: 4rem;
 $text-size-huge: 8rem;
 
+.svg-color-text {
+  fill: var(--color-text);
+}
+
+.svg-color-black {
+  fill: #000;
+}
+
 .text-default {
   color: var(--color-text);
 }
@@ -30,6 +38,10 @@ $text-size-huge: 8rem;
   }
   &-huge {
     font-size: $text-size-huge;
+  }
+
+  &--with-border {
+    border-bottom: 2px solid var(--color-text);
   }
 }
 
@@ -126,4 +138,9 @@ $text-size-huge: 8rem;
     align-items: center;
     justify-content: center;
   }
+}
+
+.disabled {
+  opacity: 0.25;
+  cursor: auto;
 }

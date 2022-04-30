@@ -9,6 +9,8 @@
 
 @import "components/app";
 @import "components/not-found";
+@import "components/page-changer";
+@import "components/page-counter";
 @import "components/avatar-cropper";
 @import "components/checkbox";
 @import "components/error";
@@ -24,17 +26,24 @@
 @import "components/password-reset";
 @import "components/sidebar";
 @import "components/player";
+@import "components/selector";
+@import "components/spoti-table";
 
 @import "layout/header";
 @import "layout/navigation";
 @import "layout/logo";
+@import "layout/logged-nav";
 @import "layout/settings";
+@import "layout/table";
 
 @import "pages/account-settings";
+@import "pages/activity-log";
 @import "pages/change-password";
 @import "pages/home";
+@import "pages/logged-page";
 @import "pages/setup";
 @import "pages/signin";
 @import "pages/signup";
+@import "pages/collections";
 
 @import "themes/icon";

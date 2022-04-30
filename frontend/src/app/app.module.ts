@@ -10,7 +10,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SignupPageComponent } from './sites/signup-page/signup-page.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { FormInputTextComponent } from './components/form-input-text/form-input-text.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { AvatarCropperComponent } from './components/avatar-cropper/avatar-cropper.component';
@@ -33,6 +33,9 @@ import { AccountSettingsComponent } from './sites/logged-page/settings/account-s
 import { SettingsComponent } from './sites/logged-page/settings/settings.component';
 import { ChangePasswordComponent } from './sites/logged-page/settings/change-password/change-password.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { ActivityLogComponent } from './sites/logged-page/settings/activity-log/activity-log.component';
+import { CollectionsComponent } from './sites/logged-page/collections/collections.component';
+import { SpotiTableComponent } from './components/spoti-table/spoti-table.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +64,10 @@ import { ModalComponent } from './components/modal/modal.component';
     SettingsComponent,
     AccountSettingsComponent,
     ChangePasswordComponent,
-    ModalComponent
+    ActivityLogComponent,
+    ModalComponent,
+    CollectionsComponent,
+    SpotiTableComponent
   ],
   imports: [
     BrowserModule,
@@ -71,6 +77,7 @@ import { ModalComponent } from './components/modal/modal.component';
     ReactiveFormsModule,
     LoadingBarRouterModule,
     LoadingBarHttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

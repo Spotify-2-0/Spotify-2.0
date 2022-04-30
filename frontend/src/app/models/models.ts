@@ -45,6 +45,23 @@ export interface PasswordChangeRequest {
   repeatedNewPassword: string;
 }
 
+export interface GeoLocation {
+  city: string;
+  country: string;
+  continent: string;
+  latitude: number;
+  longitude: number;
+  radius: number;
+}
+
+export interface ActivityResponse {
+ activity: string;
+ occurrenceDate: Date;
+ location: GeoLocation;
+ ip: string;
+ hiddenIp: boolean;
+}
+
 export interface ApiError {
   statusCode: number,
   timestamp: number,
@@ -65,3 +82,13 @@ export enum PlayMode {
   Single,
   Playlist
 }
+
+export interface Collection {
+  id: number,
+  name: string,
+  type: string,
+  avatarPath: string,
+  tracks: any[],
+  users: User[]
+}
+

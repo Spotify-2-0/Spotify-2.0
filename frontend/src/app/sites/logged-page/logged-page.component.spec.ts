@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoggedPageComponent } from './logged-page.component';
@@ -8,7 +9,8 @@ describe('LoggedPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LoggedPageComponent ]
+      declarations: [ LoggedPageComponent ],
+      imports: [ HttpClientModule ]
     })
     .compileComponents();
   });

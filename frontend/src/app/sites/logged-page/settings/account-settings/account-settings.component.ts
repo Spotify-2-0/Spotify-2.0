@@ -28,6 +28,7 @@ export class AccountSettingsComponent implements OnInit {
   updateRequest: UpdateRequest = {};
   imgBlob: Blob | null = null;
   imgDeleted!: boolean;
+  theSameDetails: boolean = true;
 
   constructor(
     private readonly userService: UserService,
@@ -75,6 +76,7 @@ export class AccountSettingsComponent implements OnInit {
 
   onDeleteImg() {
     this.avatarService.emitDeleteImage(true);
+    this.imgBlob = null;
   }
 
   sendData() {
@@ -82,16 +84,17 @@ export class AccountSettingsComponent implements OnInit {
     this.updateLastNameIfNew();
     this.updateDisplayNameIfNew();
 
-    if (this.updateRequest) {
+    if (this.updateRequest && !this.theSameDetails) {
       this.userService.updateUserDetails(this.updateRequest).subscribe();
+      this.theSameDetails = true;
     }
 
     if (this.imgBlob != null) {
-      this.userService.uploadAvatar(this.imgBlob).subscribe();
+      this.userService.uploadAvatar(this.imgBlob).subscribe(() => this.avatarService.emitChangeImage());
     }
 
     if (this.imgDeleted) {
-      this.userService.setDefaultAvatarForCurrentUser().subscribe();
+      this.userService.setDefaultAvatarForCurrentUser().subscribe(() => this.avatarService.emitChangeImage());
       this.imgDeleted = false;
     }
   }
@@ -99,18 +102,21 @@ export class AccountSettingsComponent implements OnInit {
   updateFirstNameIfNew() {
     if (this.firstName !== this.originalUser.firstName) {
       this.updateRequest.firstName = this.firstName;
+      this.theSameDetails = false;
     }
   }
 
   updateLastNameIfNew() {
     if (this.lastName !== this.originalUser.lastName) {
       this.updateRequest.lastName = this.lastName;
+      this.theSameDetails = false;
     }
   }
 
   updateDisplayNameIfNew() {
     if (this.displayName !== this.originalUser.displayName) {
       this.updateRequest.displayName = this.displayName;
+      this.theSameDetails = false;
     }
   }
 }

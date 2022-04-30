@@ -10,7 +10,7 @@
         </div>
       <img class="avatar" alt="" *ngIf="cropped && !deleted" [src]="cropped.base64" />
       <label for="avatar">
-        <app-icon class="avatar__icon-change" icon="picture"></app-icon>
+        <app-icon class="avatar__icon-change" icon="picture" [isBlack]="true"></app-icon>
       </label>
     </div>
     <div class="avatar__info" style="margin-top: 30px">

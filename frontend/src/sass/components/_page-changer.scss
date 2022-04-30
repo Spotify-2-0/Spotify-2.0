@@ -1,0 +1,27 @@
+.page-changer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 12.5rem;
+
+  &__max-left {
+    transform: rotate(180deg);
+    cursor: pointer;
+  }
+
+  &__left {
+    transform: rotate(180deg);
+    cursor: pointer;
+  }
+
+  &__n-of-pages {
+  }
+
+  &__right {
+    cursor: pointer;
+  }
+
+  &__max-right {
+    cursor: pointer;
+  }
+}

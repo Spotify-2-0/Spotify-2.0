@@ -1,0 +1,33 @@
+.collection_index {
+    display: flex;
+    align-items: center;
+}
+
+.collection_index p {
+    display: flex;
+    margin-right: 2em;
+}
+
+.collection_description {
+    min-width: 18em;
+
+    @media (max-width: 1500px) {
+        min-width: 10em;
+    }
+
+    @media (max-width: 1200px) {
+        min-width: 5em;
+    }
+
+    @media (max-width: 1000px) {
+        min-width: 0;
+    }
+}
+
+.collection_description .collection_title {
+    padding-bottom: 0.3em;
+}
+
+.collection_description .collection_title, .collection_description .collection_songs_count{ 
+    text-align: left;
+}
