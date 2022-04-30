@@ -1,22 +1,25 @@
 .account-settings {
   margin-top: 10rem;
   display: flex;
-  column-gap: 15rem;
-  transform: scale(1.5);
-  transform-origin: top left;
 
-  @media (max-width: 1660px) {
-    transform: scale(1.25);
+  &__container {
+    display: flex;
+    column-gap: 15rem;
+    transform-origin: top left;
+    transform: scale(1.5);
+
+    @media (max-width: 1660px) {
+      transform: scale(1.25);
+    }
+
+    @media (max-width: 1450px) {
+      transform: scale(.9);
+    }
+
+    @media (max-width: 1120px) {
+      flex-direction: column;
+    }
   }
-
-  @media (max-width: 1450px) {
-    transform: scale(.9);
-  }
-
-  @media (max-width: 1120px) {
-    flex-direction: column;
-  }
-
 
   .form {
     display: flex;
