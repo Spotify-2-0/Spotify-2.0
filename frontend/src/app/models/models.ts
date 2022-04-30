@@ -77,6 +77,12 @@ export interface User {
   emailConfirmed: boolean,
 }
 
+export enum PlayMode {
+  Default,
+  Single,
+  Playlist
+}
+
 export interface Collection {
   id: number,
   name: string,
@@ -85,3 +91,4 @@ export interface Collection {
   tracks: any[],
   users: User[]
 }
+

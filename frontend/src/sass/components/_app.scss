@@ -19,6 +19,14 @@
     min-width: 30rem;
     display: flex;
     flex-direction: column;
+    @media (max-width: 1000px) {
+      min-width: 20rem;
+      max-width: 20rem;
+    }
+    @media (max-width: 768px) {
+      min-width: 100px;
+      max-width: 100px;
+    }
   }
 
 

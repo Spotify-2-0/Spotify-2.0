@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { fromEvent } from "rxjs";
-import { User } from "../../../models/models";
+import { PlayMode, User } from "../../../models/models";
 import { UserService } from "../../../services/user.service";
 
 @Component({
@@ -10,12 +10,15 @@ import { UserService } from "../../../services/user.service";
 export class PlayerComponent implements AfterViewInit, OnInit {
   @ViewChild('player') player!: ElementRef<HTMLAudioElement>;
 
+  PlayMode = PlayMode;
+  playMode: PlayMode = PlayMode.Default;
   user?: User;
   volume?: number;
   progress: number = 0;
   currentTime?: number;
   maxTime?: number;
   isPlaying: boolean = false;
+  isHoldingDownPlayer: boolean = false;
 
   constructor(
     private readonly userService: UserService,
@@ -23,6 +26,7 @@ export class PlayerComponent implements AfterViewInit, OnInit {
 
   public ngOnInit(): void {
     this.user = this.userService.currentUser()!;
+    this.volume = Number(localStorage.getItem('volume'));
   }
 
   public getTrackURL(): string {
@@ -30,19 +34,26 @@ export class PlayerComponent implements AfterViewInit, OnInit {
   }
 
   public ngAfterViewInit(): void {
-
+    this.player.nativeElement.volume = this.volume!;
     fromEvent(this.player.nativeElement, 'loadeddata').subscribe(event => {
       this.maxTime = this.player.nativeElement.duration;
       this.currentTime = this.player.nativeElement.currentTime;
       this.volume = this.player.nativeElement.volume;
-      console.log(this.volume)
     });
 
     fromEvent(this.player.nativeElement, 'timeupdate').subscribe(event => {
-      console.log(this.player.nativeElement.duration)
       const current = this.player.nativeElement.currentTime;
-      this.progress = current;
-      this.currentTime = current;
+      if (!this.isHoldingDownPlayer) {
+        this.progress = current;
+        this.currentTime = current;
+      }
+    });
+
+    fromEvent(this.player.nativeElement, 'ended').subscribe(event => {
+      if (PlayMode.Single === this.playMode) {
+        this.player.nativeElement.currentTime = 0;
+        this.player.nativeElement.play();
+      }
     });
   }
 
@@ -58,8 +69,6 @@ export class PlayerComponent implements AfterViewInit, OnInit {
   }
 
   public togglePlay(): void {
-    console.log("play")
-    console.log(this.player)
     if (this.isPlaying) {
       this.player.nativeElement.pause();
       this.isPlaying = false;
@@ -73,11 +82,25 @@ export class PlayerComponent implements AfterViewInit, OnInit {
   volumeChanged($event: Event) {
     this.volume = Number(($event.target as HTMLInputElement).value);
     this.player.nativeElement.volume = this.volume;
+    localStorage.setItem('volume', String(this.volume));
   }
 
   jumpTo($event: Event) {
     const second = Number(($event.target as HTMLInputElement).value);
     this.player.nativeElement.currentTime = second;
     this.progress = second
+  }
+
+  progressInput($event: Event) {
+    const second = Number(($event.target as HTMLInputElement).value);
+    this.currentTime = second;
+  }
+
+  switchPlayMode() {
+    switch (this.playMode) {
+      case PlayMode.Default:  this.playMode = PlayMode.Single;   break;
+      case PlayMode.Single:   this.playMode = PlayMode.Playlist; break;
+      case PlayMode.Playlist: this.playMode = PlayMode.Default;  break;
+    }
   }
 }
