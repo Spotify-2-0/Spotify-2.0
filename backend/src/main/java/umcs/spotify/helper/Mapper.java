@@ -44,12 +44,13 @@ public class Mapper {
         mapper.createTypeMap(UserActivityEntry.class, UserActivityEntryDto.class)
                 .addMappings(map -> map.using(dateToMillisConverter)
                                 .map(UserActivityEntry::getOccurrenceDate, UserActivityEntryDto::setOccurrenceDate));
-        mapper.createTypeMap(Collection.class, CollectionDto.CollectionDtoBuilder.class, builderConfiguration)
+        mapper.createTypeMap(Collection.class, CollectionDto.class)
+                .addMappings(map -> map.using(durationConverter).map(Collection::getDuration, CollectionDto::setDuration))
                 .addMappings(
-                    mapping -> mapping.using(new UsersListConverter()).map(Collection::getUsers, CollectionDto.CollectionDtoBuilder::users)
+                    mapping -> mapping.using(new UsersListConverter()).map(Collection::getUsers, CollectionDto::setUsers)
                 )
                 .addMappings(
-                    mapping -> mapping.using(new TracksListConverter()).map(Collection::getTracks, CollectionDto.CollectionDtoBuilder::tracks)
+                    mapping -> mapping.using(new TracksListConverter()).map(Collection::getTracks, CollectionDto::setTracks)
                 );
 
         return mapper;
@@ -64,7 +65,7 @@ public class Mapper {
     }
 
     public CollectionDto collectionToDto(Collection collection) {
-        return MAPPER.map(collection, CollectionDto.CollectionDtoBuilder.class).build();
+        return MAPPER.map(collection, CollectionDto.class);
     }
 
     public Page<UserActivityEntryDto> mapUserActivityPageToDto(Page<UserActivityEntry> entities) {
@@ -96,13 +97,24 @@ public class Mapper {
         protected List<AudioTrackDto> convert(List<AudioTrack> source) {
             return source.stream().map(audioTrack -> {
                 List<Genre> genres = audioTrack.getGenres();
+                List<User> artists = audioTrack.getArtists();
                 return new AudioTrackDto(
                         audioTrack.getId(),
                         audioTrack.getName(),
                         audioTrack.getDuration().toMillis(),
                         audioTrack.getViews(),
                         audioTrack.getPublishedDate(),
-                        genres.stream().map(genre -> new GenreDto(genre.getId(), genre.getName())).collect(Collectors.toList())
+                        audioTrack.getFileMongoRef(),
+                        audioTrack.getAvatarMongoRef(),
+                        genres.stream().map(genre -> new GenreDto(genre.getId(), genre.getName())).collect(Collectors.toList()),
+                        artists.stream().map(user -> new UserDto(
+                                user.getId(),
+                                user.getFirstName(),
+                                user.getLastName(),
+                                user.getDisplayName(),
+                                user.getEmail(),
+                                user.isEmailConfirmed()
+                        )).collect(Collectors.toList())
                 );
             }).collect(Collectors.toList());
         }

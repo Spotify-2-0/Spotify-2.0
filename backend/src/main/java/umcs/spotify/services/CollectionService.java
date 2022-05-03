@@ -4,28 +4,27 @@ import com.mongodb.Function;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import org.bson.types.ObjectId;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import umcs.spotify.Constants;
-import umcs.spotify.contract.AddTrackRequest;
+import umcs.spotify.contract.AddTrackToCollectionRequest;
 import umcs.spotify.contract.CollectionCreateRequest;
 import umcs.spotify.contract.UpdateCollectionRequest;
 import umcs.spotify.dto.AudioTrackDto;
 import umcs.spotify.dto.CollectionDto;
 import umcs.spotify.entity.AudioTrack;
 import umcs.spotify.entity.Collection;
-import umcs.spotify.entity.Genre;
 import umcs.spotify.entity.User;
 import umcs.spotify.exception.RestException;
-import umcs.spotify.helper.IOHelper;
 import umcs.spotify.helper.ContextUserAccessor;
-import umcs.spotify.entity.CollectionType;
 import umcs.spotify.helper.Mapper;
 import umcs.spotify.repository.AudioTrackRepository;
 import umcs.spotify.repository.CollectionRepository;
-import umcs.spotify.repository.GenreRepository;
 import umcs.spotify.repository.UserRepository;
 
 import java.io.*;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.BiFunction;
@@ -38,7 +37,6 @@ public class CollectionService {
 
     private final AudioTrackRepository audioTrackRepository;
     private final CollectionRepository collectionRepository;
-    private final GenreRepository genreRepository;
     private final UserRepository userRepository;
     private final UserService userService;
     private final MongoClient mongoClient;
@@ -47,15 +45,12 @@ public class CollectionService {
     public CollectionService(
             CollectionRepository collectionRepository,
             AudioTrackRepository audioTrackRepository,
-            GenreRepository genreRepository,
-            UserRepository userRepository,
-            UserService userService,
+            UserRepository userRepository, UserService userService,
             MongoClient mongoClient,
             Mapper mapper
     ) {
         this.collectionRepository = collectionRepository;
         this.audioTrackRepository = audioTrackRepository;
-        this.genreRepository = genreRepository;
         this.userRepository = userRepository;
         this.userService = userService;
         this.mongoClient = mongoClient;
@@ -90,6 +85,9 @@ public class CollectionService {
             collectionToSave.setTracks(List.of());
             collectionToSave.setUsers(List.of());
             collectionToSave.setOwner(user);
+            collectionToSave.setPublishedDate(LocalDateTime.now());
+            collectionToSave.setViews(0L);
+            collectionToSave.setDuration(Duration.ZERO);
 
             Collection savedCollection = collectionRepository.save(collectionToSave);
             return mapper.map(savedCollection, CollectionDto.class);
@@ -114,16 +112,13 @@ public class CollectionService {
         var track = audioTrackRepository.findById(trackId)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "Track not found"));
 
-        var db = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
-        var mp3Bucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_TRACKS);
-        mp3Bucket.delete(new ObjectId(track.getFileMongoRef()));
+        collection.setDuration(collection.getDuration().minus(track.getDuration()));
 
         collection.getTracks().remove(track);
         collectionRepository.save(collection);
-        audioTrackRepository.delete(track);
     }
 
-    public AudioTrackDto addTrack(long collectionId, AddTrackRequest request) {
+    public AudioTrackDto addTrack(long collectionId, AddTrackToCollectionRequest addTrackToCollectionRequest) {
         var collection = collectionRepository.findById(collectionId)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "Collection not found"));
 
@@ -135,48 +130,19 @@ public class CollectionService {
             throw new RestException(FORBIDDEN, "You are not owner of this collection");
         }
 
-        var genresIds = request.getGenres() == null ? new ArrayList<Long>() : request.getGenres();
-        var genres = genreRepository.findAllById(genresIds);
+        var audioTrack = audioTrackRepository.findById(addTrackToCollectionRequest.getId())
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Audio track not found"));
 
-        findMissing(genres, genresIds, (genre, ids) -> genre.getId().equals(ids), Genre::getId)
-                .ifPresent(missing -> { throw new RestException(NOT_FOUND, "Invalid genres ids: ({})", missing); });
+        List<AudioTrack> audioTracks = collection.getTracks();
+        audioTracks.add(audioTrack);
 
-        var artistsIds = request.getGenres() == null ? new ArrayList<Long>() : request.getArtists();
-        var artists = userRepository.findAllById(artistsIds);
+        collection.setDuration(collection.getDuration().plus(audioTrack.getDuration()));
 
-        findMissing(artists, artistsIds, (artist, ids) -> artist.getId().equals(ids), User::getId)
-                .ifPresent(missing -> { throw new RestException(NOT_FOUND, "Invalid artists ids: ({})", missing); });
+        collection.setTracks(audioTracks);
 
-        File tempFile = null;
-        try {
-            tempFile = IOHelper.multipartToTempFile(request.getTrack());
+        collectionRepository.save(collection);
 
-            var mp3Duration = IOHelper.getDurationOfMediaFile(tempFile)
-                    .orElseThrow(() -> new RestException(INTERNAL_SERVER_ERROR, "Failed to read mp3"));
-
-            var db = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
-            var mp3Bucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_TRACKS);
-
-            var mp3MongoRef = mp3Bucket.uploadFromStream("", new FileInputStream(tempFile));
-
-            var track = new AudioTrack();
-            track.setPublishedDate(LocalDateTime.now());
-            track.setDuration(mp3Duration);
-            track.setGenres(genres);
-            track.setArtists(artists);
-            track.setName(request.getName());
-            track.setFileMongoRef(mp3MongoRef.toString());
-
-            audioTrackRepository.save(track);
-            tempFile.delete();
-            return mapper.map(track, AudioTrackDto.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            if (tempFile != null) {
-                tempFile.delete();
-            }
-            throw new RestException(INTERNAL_SERVER_ERROR, "Error while saving files");
-        }
+        return mapper.map(audioTrack, AudioTrackDto.class);
     }
 
     public void updateCollection(long id, UpdateCollectionRequest request) {
@@ -209,7 +175,69 @@ public class CollectionService {
     }
 
     public void deleteCollection(Long id) {
-        collectionRepository.deleteById(id);
+        try {
+            collectionRepository.deleteById(id);
+        } catch (EmptyResultDataAccessException ex) {
+            throw new RestException(NOT_FOUND, ex.getLocalizedMessage());
+        } catch (Exception ex) {
+            throw new RestException(INTERNAL_SERVER_ERROR, ex.getLocalizedMessage());
+        }
+    }
+
+
+    public InputStreamResource getCollectionAvatar(long id) {
+        var collection = collectionRepository.findById(id)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "collection not found"));
+
+        var database = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
+        var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_AVATARS);
+        var stream = bucket.openDownloadStream(new ObjectId(collection.getImageMongoRef()));
+
+        return new InputStreamResource(stream);
+    }
+    public void followCollection(long collectionId) {
+        var collection = collectionRepository.findById(collectionId)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "collection not found"));
+        var email = ContextUserAccessor.getCurrentUserEmail();
+        var user = userService.findUserByEmail(email);
+
+        List<Collection> collections = user.getCollections();
+
+        if(collections.stream().anyMatch(collectionInList -> collectionInList.getId() == collectionId)) {
+            throw new RestException(UNPROCESSABLE_ENTITY, "you're already following this collection");
+        }
+
+        collections.add(collection);
+        userRepository.save(user);
+    }
+
+    public void unfollowCollection(long collectionId) {
+        collectionRepository.findById(collectionId)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "collection not found"));
+        var email = ContextUserAccessor.getCurrentUserEmail();
+        var user = userService.findUserByEmail(email);
+
+        List<Collection> collections = user.getCollections();
+
+        if (collections.stream().noneMatch(collectionInList -> collectionInList.getId() == collectionId)) {
+            throw new RestException(UNPROCESSABLE_ENTITY, "you're not following this collection");
+        }
+
+        collections = collections.stream()
+                .filter(collectionInList -> collectionInList.getId() != collectionId)
+                .collect(Collectors.toList());
+
+        user.setCollections(collections);
+        userRepository.save(user);
+    }
+
+    public void addVisitToCollection(long collectionId) {
+        var collection = collectionRepository.findById(collectionId)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "collection not found"));
+
+        collection.setViews(collection.getViews()+1);
+
+        collectionRepository.save(collection);
     }
 
     private <A, B> Optional<String> findMissing(
@@ -227,5 +255,4 @@ public class CollectionService {
             .map(e -> sup.apply(e).toString())
             .collect(Collectors.joining(", ")));
     }
-
 }

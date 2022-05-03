@@ -1,9 +1,12 @@
 package umcs.spotify.controller;
 
+import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.AddTrackRequest;
+import umcs.spotify.contract.AddTrackToCollectionRequest;
 import umcs.spotify.contract.CollectionCreateRequest;
 import umcs.spotify.dto.AudioTrackDto;
 import umcs.spotify.contract.UpdateCollectionRequest;
@@ -35,14 +38,37 @@ public class CollectionController {
         return collectionService.getCollectionById(id);
     }
 
+    @GetMapping("/{id}/avatar")
+    public ResponseEntity<InputStreamResource> getCollectionAvatar(@PathVariable long id) {
+        return ResponseEntity
+                .ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(collectionService.getCollectionAvatar(id));
+    }
+
     @PostMapping
-    public ResponseEntity<CollectionDto> addCollection(@Valid @RequestBody CollectionCreateRequest collectionCreateRequest) {
+    public ResponseEntity<CollectionDto> addCollection(@Valid @ModelAttribute CollectionCreateRequest collectionCreateRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(collectionService.addCollection(collectionCreateRequest));
     }
 
+    @PostMapping("/{collectionId}/addVisit")
+    public void addVisitToCollection(@PathVariable long collectionId) {
+        collectionService.addVisitToCollection(collectionId);
+    }
+
+    @PostMapping("/{collectionId}/follow")
+    public void followCollection(@PathVariable long collectionId) {
+        collectionService.followCollection(collectionId);
+    }
+
+    @PostMapping("/{collectionId}/unfollow")
+    public void unfollowCollection(@PathVariable long collectionId) {
+        collectionService.unfollowCollection(collectionId);
+    }
+
     @PostMapping("/{collectionId}/track")
-    public AudioTrackDto addTrackToCollection(@PathVariable long collectionId, @ModelAttribute AddTrackRequest addTrackRequest) {
-        return collectionService.addTrack(collectionId, addTrackRequest);
+    public ResponseEntity<AudioTrackDto> addTrackToCollection(@PathVariable long collectionId, @RequestBody AddTrackToCollectionRequest addTrackToCollectionRequest) {
+        return ResponseEntity.ok(collectionService.addTrack(collectionId, addTrackToCollectionRequest));
     }
 
     @DeleteMapping("/{collectionId}/track/{trackId}")

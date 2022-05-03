@@ -3,6 +3,7 @@ package umcs.spotify.dto;
 import lombok.*;
 import umcs.spotify.entity.CollectionType;
 
+import java.time.Duration;
 import java.util.List;
 
 @Data
@@ -13,7 +14,9 @@ public class CollectionDto {
     Long id;
     String name;
     CollectionType type;
-    String avatarPath;
+    String imageMongoRef;
+    Long duration;
+    Long views;
     List<AudioTrackDto> tracks;
     List<UserDto> users;
 }
