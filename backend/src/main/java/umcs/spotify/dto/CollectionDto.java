@@ -4,6 +4,7 @@ import lombok.*;
 import umcs.spotify.entity.CollectionType;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,6 +18,7 @@ public class CollectionDto {
     String imageMongoRef;
     Long duration;
     Long views;
+    LocalDateTime publishedDate;
     List<AudioTrackDto> tracks;
     List<UserDto> users;
 }

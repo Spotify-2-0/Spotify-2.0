@@ -51,7 +51,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/user/sendEmailConfirmationCode",
                     "/user/sendEmailPasswordReset",
                     "/user/passwordResetKeyFromPinCode",
-                    "/user/resetPassword"
+                    "/user/resetPassword",
+                    "/avatar/*"
                 ).permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(authenticationJwtTokenFilter, UsernamePasswordAuthenticationFilter.class);

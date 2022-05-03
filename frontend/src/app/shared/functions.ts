@@ -1,3 +1,5 @@
+import { environment } from "src/environments/environment";
+
 export const image2base64 = (file: any, callback: any) => {
   if (!/image\/(png|jpg|jpeg|bmp|gif|tiff|webp)/.test(file.type))
     throw 'Not Valid Image';
@@ -24,3 +26,7 @@ export const b64toBlob = (dataURI: any, type: any) => {
   }
   return new Blob([ab], { type });
 };
+
+export const getAvatarUrlByMongoRef = (mongoRef: string): string => {
+  return `${environment.serverURL}/avatar/${mongoRef}`;
+}
