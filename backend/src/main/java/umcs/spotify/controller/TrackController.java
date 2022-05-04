@@ -36,24 +36,6 @@ public class TrackController {
         return trackService.getTrackChunked(id, token, range);
     }
 
-    @GetMapping("/{id}/avatar")
-    public ResponseEntity<InputStreamResource> getTrackAvatar(@PathVariable long id) {
-        return ResponseEntity
-                .ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(trackService.getTrackAvatar(id));
-    }
-
-    @PostMapping("/")
-    public ResponseEntity<AudioTrackDto> addTrack(@ModelAttribute AddTrackRequest addTrackRequest) {
-        return ResponseEntity.ok(trackService.addTrack(addTrackRequest));
-    }
-
-    @DeleteMapping("/{id}")
-    public void removeTrack(@PathVariable Long id) {
-        trackService.removeTrack(id);
-    }
-
     @GetMapping("/{id}/details")
     public ResponseEntity<AudioTrackDto> getAudioTrackDetails(@PathVariable Long id) {
         return ResponseEntity.ok(trackService.getAudioTrackDetails(id));

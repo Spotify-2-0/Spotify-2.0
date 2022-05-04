@@ -67,8 +67,8 @@ public class CollectionController {
     }
 
     @PostMapping("/{collectionId}/track")
-    public ResponseEntity<AudioTrackDto> addTrackToCollection(@PathVariable long collectionId, @RequestBody AddTrackToCollectionRequest addTrackToCollectionRequest) {
-        return ResponseEntity.ok(collectionService.addTrack(collectionId, addTrackToCollectionRequest));
+    public ResponseEntity<AudioTrackDto> addTrackToCollection(@PathVariable long collectionId, @ModelAttribute AddTrackRequest addTrackRequest) {
+        return ResponseEntity.ok(collectionService.addTrack(collectionId, addTrackRequest));
     }
 
     @DeleteMapping("/{collectionId}/track/{trackId}")

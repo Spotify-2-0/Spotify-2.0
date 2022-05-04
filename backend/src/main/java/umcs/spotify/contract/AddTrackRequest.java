@@ -13,7 +13,6 @@ import java.util.List;
 @AllArgsConstructor
 public class AddTrackRequest {
     MultipartFile track;
-    MultipartFile trackAvatar;
     String name;
     List<Long> genres;
     List<Long> artists;

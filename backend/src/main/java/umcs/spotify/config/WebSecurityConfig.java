@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     "/user/sendEmailPasswordReset",
                     "/user/passwordResetKeyFromPinCode",
                     "/user/resetPassword",
+                    "/collection/*/avatar",
                     "/avatar/*"
                 ).permitAll()
                 .anyRequest().authenticated();

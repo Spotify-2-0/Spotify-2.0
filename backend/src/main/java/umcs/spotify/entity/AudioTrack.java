@@ -22,7 +22,6 @@ public class AudioTrack {
     private String name;
     private Duration duration;
     private String fileMongoRef;
-    private String avatarMongoRef;
     private Long views = 0L;
     private LocalDateTime publishedDate;
 

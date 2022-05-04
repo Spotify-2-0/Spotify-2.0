@@ -51,25 +51,18 @@ public class TrackService {
     private final UserDetailsService userDetailsService;
     private final AudioTrackRepository audioTrackRepository;
     private final CollectionRepository collectionRepository;
-    private final GenreRepository genreRepository;
-    private final UserRepository userRepository;
-    private final UserService userService;
-
     private final Mapper mapper;
 
     public TrackService(
             JwtService jwtService,
             MongoClient mongoClient,
             UserDetailsService userDetailsService,
-            AudioTrackRepository audioTrackRepository, CollectionRepository collectionRepository, GenreRepository genreRepository, UserRepository userRepository, UserService userService, Mapper mapper) {
+            AudioTrackRepository audioTrackRepository, CollectionRepository collectionRepository, Mapper mapper) {
         this.jwtService = jwtService;
         this.mongoClient = mongoClient;
         this.userDetailsService = userDetailsService;
         this.audioTrackRepository = audioTrackRepository;
         this.collectionRepository = collectionRepository;
-        this.genreRepository = genreRepository;
-        this.userRepository = userRepository;
-        this.userService = userService;
         this.mapper = mapper;
     }
 
@@ -118,68 +111,6 @@ public class TrackService {
         return mapper.map(track, AudioTrackDto.class);
     }
 
-    public AudioTrackDto addTrack(AddTrackRequest request) {
-
-        var genresIds = request.getGenres() == null ? new ArrayList<Long>() : request.getGenres();
-        var genres = genreRepository.findAllById(genresIds);
-
-        findMissing(genres, genresIds, (genre, ids) -> genre.getId().equals(ids), Genre::getId)
-                .ifPresent(missing -> { throw new RestException(NOT_FOUND, "Invalid genres ids: ({})", missing); });
-
-        var artistsIds = request.getGenres() == null ? new ArrayList<Long>() : request.getArtists();
-        var artists = userRepository.findAllById(artistsIds);
-
-        findMissing(artists, artistsIds, (artist, ids) -> artist.getId().equals(ids), User::getId)
-                .ifPresent(missing -> { throw new RestException(NOT_FOUND, "Invalid artists ids: ({})", missing); });
-
-
-        File tempFile = null;
-        try {
-            tempFile = IOHelper.multipartToTempFile(request.getTrack());
-
-            var mp3Duration = IOHelper.getDurationOfMediaFile(tempFile)
-                    .orElseThrow(() -> new RestException(INTERNAL_SERVER_ERROR, "Failed to read mp3"));
-
-            var db = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
-            var mp3Bucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_TRACKS);
-            var imgBucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_AVATARS);
-
-            var mp3MongoRef = mp3Bucket.uploadFromStream("", new FileInputStream(tempFile));
-            var imgMongoRef = imgBucket.uploadFromStream("", request.getTrackAvatar().getInputStream());
-
-            var track = new AudioTrack();
-            track.setPublishedDate(LocalDateTime.now());
-            track.setDuration(mp3Duration);
-            track.setGenres(genres);
-            track.setArtists(artists);
-            track.setName(request.getName());
-            track.setFileMongoRef(mp3MongoRef.toString());
-            track.setAvatarMongoRef(imgMongoRef.toString());
-
-            audioTrackRepository.save(track);
-            tempFile.delete();
-            return mapper.map(track, AudioTrackDto.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            if (tempFile != null) {
-                tempFile.delete();
-            }
-            throw new RestException(INTERNAL_SERVER_ERROR, "Error while saving files");
-        }
-    }
-
-    public void removeTrack(Long id) {
-
-        var track = audioTrackRepository.findById(id)
-                .orElseThrow(() -> new RestException(NOT_FOUND, "Track not found"));
-
-        var db = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
-        var mp3Bucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_TRACKS);
-        mp3Bucket.delete(new ObjectId(track.getFileMongoRef()));
-
-
-        audioTrackRepository.delete(track);
-    }
     public List<AudioTrackDto> getTracks(Long collectionId) {
         if(Objects.isNull(collectionId)) {
             return audioTrackRepository.findAll().stream()
@@ -192,32 +123,5 @@ public class TrackService {
         return collection.getTracks().stream()
                 .map(audioTrack -> mapper.map(audioTrack, AudioTrackDto.class))
                 .collect(Collectors.toList());
-    }
-
-    private <A, B> Optional<String> findMissing(
-            List<A> src,
-            List<B> dst,
-            BiFunction<A, B, Boolean> cmp,
-            Function<A, ?> sup
-    ) {
-        if (src.size() == dst.size()) {
-            return Optional.empty();
-        }
-
-        return Optional.of(src.stream()
-                .filter(e -> dst.stream().noneMatch(s -> cmp.apply(e, s)))
-                .map(e -> sup.apply(e).toString())
-                .collect(Collectors.joining(", ")));
-    }
-
-    public InputStreamResource getTrackAvatar(long id) {
-        var track = audioTrackRepository.findById(id)
-                .orElseThrow(() -> new RestException(NOT_FOUND, "track not found"));
-
-        var database = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
-        var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_AVATARS);
-        var stream = bucket.openDownloadStream(new ObjectId(track.getAvatarMongoRef()));
-
-        return new InputStreamResource(stream);
     }
 }

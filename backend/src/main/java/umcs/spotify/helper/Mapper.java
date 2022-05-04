@@ -105,7 +105,6 @@ public class Mapper {
                         audioTrack.getViews(),
                         audioTrack.getPublishedDate(),
                         audioTrack.getFileMongoRef(),
-                        audioTrack.getAvatarMongoRef(),
                         genres.stream().map(genre -> new GenreDto(genre.getId(), genre.getName())).collect(Collectors.toList()),
                         artists.stream().map(user -> new UserDto(
                                 user.getId(),
