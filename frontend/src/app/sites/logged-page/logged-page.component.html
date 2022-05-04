@@ -1,33 +1,41 @@
 <section class="logged-page">
   <header class="logged-page__nav">
     <nav class="logged-nav">
-      <span class="logged-nav__theme">
+      <div class="logged-nav__search-bar">
+        <div class="logged-nav__search-container">
+          <button class="logged-nav__search-btn">
+            <app-icon class="search-bar__icon" icon="search"></app-icon>
+          </button>
+          <input
+            type="search"
+            class="search-bar"
+            placeholder="Artists, songs or podcasts"
+          />
+        </div>
+      </div>
+      <div class="logged-nav__theme">
         <app-icon
-        class="icon--theme"
-        icon="theme"
-        (click)="toggleTheme()"
-      ></app-icon>
-      </span>
-      <span class="logged-nav__notification">
+          class="icon--theme"
+          icon="theme"
+          (click)="toggleTheme()"
+        ></app-icon>
+      </div>
+      <div class="logged-nav__notification">
         <app-icon icon="notifications" class="logged-nav__photo"></app-icon>
-      </span>
-      <span class="logged-nav__avatar">
-        <img
-        class="logged-nav__img"
-        alt="avatar"
-        [src]="this.avatarBlob"
-        >
-      </span>
+      </div>
+      <div class="logged-nav__avatar">
+        <img class="logged-nav__img" alt="avatar" [src]="this.avatarBlob" />
+      </div>
       <span class="logged-nav__text">
         {{ this.firstName + " " + this.lastName }}
       </span>
     </nav>
   </header>
-    <main class="logged-page__main">
-      <app-sidebar class="logged-page__sidebar"></app-sidebar>
-      <router-outlet></router-outlet>
-    </main>
-    <footer class="logged-page__footer">
-      <app-player class="logged-page__player"></app-player>
-    </footer>
+  <main class="logged-page__main">
+    <app-sidebar class="logged-page__sidebar"></app-sidebar>
+    <router-outlet></router-outlet>
+  </main>
+  <footer class="logged-page__footer">
+    <app-player class="logged-page__player"></app-player>
+  </footer>
 </section>
