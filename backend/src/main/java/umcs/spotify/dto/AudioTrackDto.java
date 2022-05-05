@@ -16,5 +16,7 @@ public class AudioTrackDto {
     Long duration;
     Long views;
     LocalDateTime publishedDate;
+    String fileMongoRef;
     List<GenreDto> genres;
+    List<UserDto> artists;
 }

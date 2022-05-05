@@ -12,7 +12,7 @@ import java.util.Optional;
 
 public class IOHelper {
 
-   public static final String TEMP_DIR = System.getProperty("java.io.tmpdir") + "spotify/";
+   public static final String TEMP_DIR = System.getProperty("java.io.tmpdir") + "/spotify2/";
 
    public static Optional<Duration> getDurationOfMediaFile(File file) {
       try {

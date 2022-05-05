@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -34,4 +36,9 @@ public class Collection {
     private List<AudioTrack> tracks;
 
     private String imageMongoRef;
+
+    private LocalDateTime publishedDate;
+
+    private Long views;
+    private Duration duration;
 }

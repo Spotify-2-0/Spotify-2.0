@@ -87,8 +87,11 @@ export interface Collection {
   id: number,
   name: string,
   type: string,
-  avatarPath: string,
-  tracks: any[],
+  imageMongoRef: string,
+  duration: number,
+  views: number,
+  publishedDate: string,
+  tracks: User[],
   users: User[]
 }
 

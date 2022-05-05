@@ -1,17 +1,40 @@
 package umcs.spotify.services;
 
+import com.mongodb.Function;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import org.bson.types.ObjectId;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import umcs.spotify.Constants;
+import umcs.spotify.contract.AddTrackRequest;
+import umcs.spotify.dto.AudioTrackDto;
+import umcs.spotify.dto.GenreDto;
+import umcs.spotify.dto.UserDto;
+import umcs.spotify.entity.AudioTrack;
+import umcs.spotify.entity.Genre;
+import umcs.spotify.entity.User;
 import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.IOHelper;
+import umcs.spotify.helper.Mapper;
+import umcs.spotify.repository.AudioTrackRepository;
+import umcs.spotify.repository.CollectionRepository;
+import umcs.spotify.repository.GenreRepository;
+import umcs.spotify.repository.UserRepository;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.*;
 import static org.springframework.http.HttpHeaders.CONTENT_RANGE;
@@ -26,15 +49,21 @@ public class TrackService {
     private final JwtService jwtService;
     private final MongoClient mongoClient;
     private final UserDetailsService userDetailsService;
+    private final AudioTrackRepository audioTrackRepository;
+    private final CollectionRepository collectionRepository;
+    private final Mapper mapper;
 
     public TrackService(
-        JwtService jwtService,
-        MongoClient mongoClient,
-        UserDetailsService userDetailsService
-    ) {
+            JwtService jwtService,
+            MongoClient mongoClient,
+            UserDetailsService userDetailsService,
+            AudioTrackRepository audioTrackRepository, CollectionRepository collectionRepository, Mapper mapper) {
         this.jwtService = jwtService;
         this.mongoClient = mongoClient;
         this.userDetailsService = userDetailsService;
+        this.audioTrackRepository = audioTrackRepository;
+        this.collectionRepository = collectionRepository;
+        this.mapper = mapper;
     }
 
     public ResponseEntity<?> getTrackChunked(String id, String token, String range) {
@@ -73,5 +102,26 @@ public class TrackService {
                throw new RestException(INTERNAL_SERVER_ERROR, "Failed to get chunked data");
             }
         }
+    }
+
+    public AudioTrackDto getAudioTrackDetails(Long id) {
+        var track = audioTrackRepository.findById(id)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Track not found"));
+
+        return mapper.map(track, AudioTrackDto.class);
+    }
+
+    public List<AudioTrackDto> getTracks(Long collectionId) {
+        if(Objects.isNull(collectionId)) {
+            return audioTrackRepository.findAll().stream()
+                    .map(audioTrack -> mapper.map(audioTrack, AudioTrackDto.class))
+                    .collect(Collectors.toList());
+        }
+        var collection = collectionRepository.findById(collectionId)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Collection not found"));
+
+        return collection.getTracks().stream()
+                .map(audioTrack -> mapper.map(audioTrack, AudioTrackDto.class))
+                .collect(Collectors.toList());
     }
 }
