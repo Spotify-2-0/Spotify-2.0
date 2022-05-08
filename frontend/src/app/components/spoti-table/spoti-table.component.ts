@@ -27,6 +27,8 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   public currentlySelectedTrackId?: number;
   public currentlyHoveredTrackId?: number;
   public isPlaying = false;
+  public userFavorites?: Collection;
+  public isFavoritesLoaded = false;
 
   private destroy = new Subject<void>();
 
@@ -40,19 +42,21 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
       this.columns = ['#', 'title', 'type', 'plays', 'duration', 'published'];
       this.data = this.data as Collection[];
       console.log('collections: ', this.data);
+      this.updateTableSub = this.collectionService.updateTable.subscribe((_) => {
+        this.collectionService.getCollections().subscribe((data) => {
+          this.data = data;
+          console.log(data);
+        });
+      });
     } else {
       this.data = this.data as Collection;
       this.columns = ['#', 'title', 'plays', 'Duration', 'published'];
+      this.collectionService.getFavorites().subscribe(response => {
+        this.userFavorites = response;
+        this.isFavoritesLoaded = true;
+      });
     }
 
-    this.updateTableSub = this.collectionService.updateTable.subscribe((_) => {
-
-
-      this.collectionService.getCollections().subscribe((data) => {
-        this.data = data;
-        console.log(data);
-      });
-    });
   }
 
   ngAfterViewInit(): void {

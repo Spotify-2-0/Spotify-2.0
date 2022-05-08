@@ -23,15 +23,15 @@ export class CollectionsService {
     this.pauseSongFromCollection = this.pauseSound.asObservable();
   }
 
-  announceSoundSelection(selectedEvent: SelectedSongInCollectionEvent) {
+  public announceSoundSelection(selectedEvent: SelectedSongInCollectionEvent) {
     this.selected.next(selectedEvent);
   }
 
-  announcePlaySongFromCollection(playingFromCollectionEvent: playingSongFromCollectionEvent) {
+  public announcePlaySongFromCollection(playingFromCollectionEvent: playingSongFromCollectionEvent) {
     this.playSound.next(playingFromCollectionEvent);
   }
 
-  announcePauseSongFromCollection(pausingFromCollectionEvent: pausingSongFromCollectionEvent) {
+  public announcePauseSongFromCollection(pausingFromCollectionEvent: pausingSongFromCollectionEvent) {
     this.pauseSound.next(pausingFromCollectionEvent);
   }
 
@@ -51,8 +51,8 @@ export class CollectionsService {
   public deleteTrackFromCollection(collectionId: string, trackId: string): Observable<void> {
     return this.http.delete<void>(`${environment.serverURL}/collection/${collectionId}/track/${trackId}`);
   }
-  
-    public addCollection(request: CollectionRequest) {
+
+  public addCollection(request: CollectionRequest) {
     const formData = new FormData();
     formData.append('name', request.name);
     if (request.image != null) {
@@ -65,7 +65,19 @@ export class CollectionsService {
       .subscribe(_ => this.emitUpdateTable());
   }
 
-  getCollectionTypes(): Observable<string[]> {
+  public getCollectionTypes(): Observable<string[]> {
     return this.http.get<string[]>(`${environment.serverURL}/collection/types`);
+  }
+
+  public getFavorites(): Observable<Collection> {
+    return this.http.get<Collection>(`${environment.serverURL}/collection/favourites`);
+  }
+
+  public addTrackToFavorites(trackId: string): Observable<Collection> {
+    return this.http.post<Collection>(`${environment.serverURL}/collection/favourites/${trackId}`, null);
+  }
+
+  public removeTrackFromFavorites(trackId: string): Observable<void> {
+    return this.http.delete<void>(`${environment.serverURL}/collection/favourites/${trackId}`);
   }
 }
