@@ -12,6 +12,7 @@ import umcs.spotify.dto.AudioTrackDto;
 import umcs.spotify.contract.UpdateCollectionRequest;
 import umcs.spotify.dto.CollectionDto;
 import umcs.spotify.dto.ErrorMessageDto;
+import umcs.spotify.entity.CollectionType;
 import umcs.spotify.services.CollectionService;
 
 import javax.persistence.EntityNotFoundException;
@@ -44,6 +45,11 @@ public class CollectionController {
                 .ok()
                 .contentType(MediaType.IMAGE_JPEG)
                 .body(collectionService.getCollectionAvatar(id));
+    }
+
+    @GetMapping("/types")
+    public ResponseEntity<CollectionType[]> getCollectionsTypes() {
+        return ResponseEntity.ok(this.collectionService.getCollectionTypes());
     }
 
     @PostMapping

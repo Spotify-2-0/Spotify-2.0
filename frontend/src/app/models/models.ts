@@ -95,3 +95,8 @@ export interface Collection {
   users: User[]
 }
 
+export interface CollectionRequest {
+  name: string,
+  image: Blob | null,
+  type: string,
+}

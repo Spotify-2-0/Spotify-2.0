@@ -36,6 +36,7 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ActivityLogComponent } from './sites/logged-page/settings/activity-log/activity-log.component';
 import { CollectionsComponent } from './sites/logged-page/collections/collections.component';
 import { SpotiTableComponent } from './components/spoti-table/spoti-table.component';
+import { CollectionCreateComponent } from './sites/logged-page/collections/collection-create/collection-create.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import { SpotiTableComponent } from './components/spoti-table/spoti-table.compon
     ActivityLogComponent,
     ModalComponent,
     CollectionsComponent,
-    SpotiTableComponent
+    SpotiTableComponent,
+    CollectionCreateComponent
   ],
   imports: [
     BrowserModule,

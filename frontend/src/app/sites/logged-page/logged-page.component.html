@@ -1,4 +1,5 @@
 <section class="logged-page">
+  <app-collection-create *ngIf="this.createCollectionPopOut" class="collection-create" (closeCollectionCreateForm)="this.createCollectionPopOut = false"></app-collection-create>
   <header class="logged-page__nav">
     <nav class="logged-nav">
       <div class="logged-nav__search-bar">
@@ -33,7 +34,7 @@
   </header>
   <main class="logged-page__main">
     <app-sidebar class="logged-page__sidebar"></app-sidebar>
-    <router-outlet></router-outlet>
+    <router-outlet (activate)="subscribeToCollectionPopout($event)"></router-outlet>
   </main>
   <footer class="logged-page__footer">
     <app-player class="logged-page__player"></app-player>

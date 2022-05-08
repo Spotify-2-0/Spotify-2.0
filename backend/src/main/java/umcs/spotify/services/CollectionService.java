@@ -13,10 +13,8 @@ import umcs.spotify.contract.CollectionCreateRequest;
 import umcs.spotify.contract.UpdateCollectionRequest;
 import umcs.spotify.dto.AudioTrackDto;
 import umcs.spotify.dto.CollectionDto;
-import umcs.spotify.entity.AudioTrack;
+import umcs.spotify.entity.*;
 import umcs.spotify.entity.Collection;
-import umcs.spotify.entity.Genre;
-import umcs.spotify.entity.User;
 import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.ContextUserAccessor;
 import umcs.spotify.helper.IOHelper;
@@ -76,6 +74,10 @@ public class CollectionService {
         return mapper.map(collection, CollectionDto.class);
     }
 
+    public CollectionType[] getCollectionTypes() {
+        return CollectionType.values();
+    }
+
     public CollectionDto addCollection(CollectionCreateRequest request) {
         var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
         var user = userService.findUserByEmail(currentUserEmail);
@@ -83,11 +85,16 @@ public class CollectionService {
         var db = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
         var imgBucket = GridFSBuckets.create(db, Constants.MONGO_BUCKET_NAME_AVATARS);
         try {
-            var imgMongoRef = imgBucket.uploadFromStream("", request.getImage().getInputStream());
+            var img = request.getImage();
             var collectionToSave = new Collection();
+            if(img != null) {
+                var imgMongoRef = imgBucket.uploadFromStream("", img.getInputStream());
+                collectionToSave.setImageMongoRef(imgMongoRef.toString());
+            }else {
+                collectionToSave.setImageMongoRef(null);
+            }
             collectionToSave.setName(request.getName());
             collectionToSave.setType(request.getType());
-            collectionToSave.setImageMongoRef(imgMongoRef.toString());
             collectionToSave.setTracks(List.of());
             collectionToSave.setUsers(List.of());
             collectionToSave.setOwner(user);

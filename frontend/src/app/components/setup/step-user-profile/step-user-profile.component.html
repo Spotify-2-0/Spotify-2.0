@@ -4,10 +4,15 @@
       <img
         alt=""
         [src]="getUserProfileUrl()"
-        class="avatar" *ngIf="!cropped && !deleted" />
-        <div class="avatar avatar--default" *ngIf="deleted">
+        class="avatar" *ngIf="userAvatarPhoto && !cropped && !deleted" />
+        <div class="avatar avatar--default" *ngIf="userAvatarPhoto && deleted">
           <span class="avatar__text">{{ this.user?.firstName?.charAt(0) + "" + this.user?.lastName?.charAt(0) }}</span>
         </div>
+        <img
+        *ngIf="(!userAvatarPhoto && !cropped) || (!userAvatarPhoto && deleted)"
+        alt=""
+        src="/assets/medias/no_picture.png"
+        class="avatar" />
       <img class="avatar" alt="" *ngIf="cropped && !deleted" [src]="cropped.base64" />
       <label for="avatar">
         <app-icon class="avatar__icon-change" icon="picture" [isBlack]="true"></app-icon>
