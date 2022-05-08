@@ -94,6 +94,10 @@
     margin-left: 24px;
     margin-right: 24px;
   }
+
+  &__hide {
+    visibility: hidden;
+  }
 }
 
 .loop-button {

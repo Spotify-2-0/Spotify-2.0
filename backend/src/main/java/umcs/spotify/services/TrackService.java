@@ -1,39 +1,26 @@
 package umcs.spotify.services;
 
-import com.mongodb.Function;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import org.bson.types.ObjectId;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 import umcs.spotify.Constants;
-import umcs.spotify.contract.AddTrackRequest;
 import umcs.spotify.dto.AudioTrackDto;
-import umcs.spotify.dto.GenreDto;
 import umcs.spotify.dto.UserDto;
-import umcs.spotify.entity.AudioTrack;
-import umcs.spotify.entity.Genre;
 import umcs.spotify.entity.User;
 import umcs.spotify.exception.RestException;
 import umcs.spotify.helper.IOHelper;
 import umcs.spotify.helper.Mapper;
 import umcs.spotify.repository.AudioTrackRepository;
 import umcs.spotify.repository.CollectionRepository;
-import umcs.spotify.repository.GenreRepository;
 import umcs.spotify.repository.UserRepository;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpHeaders.*;
@@ -51,18 +38,20 @@ public class TrackService {
     private final UserDetailsService userDetailsService;
     private final AudioTrackRepository audioTrackRepository;
     private final CollectionRepository collectionRepository;
+    private final UserRepository userRepository;
     private final Mapper mapper;
 
     public TrackService(
             JwtService jwtService,
             MongoClient mongoClient,
             UserDetailsService userDetailsService,
-            AudioTrackRepository audioTrackRepository, CollectionRepository collectionRepository, Mapper mapper) {
+            AudioTrackRepository audioTrackRepository, CollectionRepository collectionRepository, UserRepository userRepository, Mapper mapper) {
         this.jwtService = jwtService;
         this.mongoClient = mongoClient;
         this.userDetailsService = userDetailsService;
         this.audioTrackRepository = audioTrackRepository;
         this.collectionRepository = collectionRepository;
+        this.userRepository = userRepository;
         this.mapper = mapper;
     }
 
@@ -77,7 +66,7 @@ public class TrackService {
         var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_TRACKS);
 
         // TODO: Ignore ID for now as there is no upload mechanism, get first track seeded
-        id = bucket.find().first().getObjectId().toString();
+//        id = bucket.find().first().getObjectId().toString();
 
         try (var stream = bucket.openDownloadStream(new ObjectId(id))) {
             var ranges = range.split("-");
@@ -123,5 +112,44 @@ public class TrackService {
         return collection.getTracks().stream()
                 .map(audioTrack -> mapper.map(audioTrack, AudioTrackDto.class))
                 .collect(Collectors.toList());
+    }
+
+    public UserDto addArtistToTrack(Long trackId, Long userId) {
+        var track = audioTrackRepository.findById(trackId)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Track not found"));
+
+        var user = userRepository.findById(userId)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "user not found"));
+
+        List<User> artists = track.getArtists();
+
+        if(artists.stream().anyMatch(userInList -> Objects.equals(userInList.getId(), userId))) {
+            throw new RestException(UNPROCESSABLE_ENTITY, "This user is already an artist");
+        }
+
+        artists.add(user);
+        track.setArtists(artists);
+        audioTrackRepository.save(track);
+        return mapper.userToDto(user);
+    }
+
+    public void removeArtistFromTrack(Long trackId, Long userId) {
+        var track = audioTrackRepository.findById(trackId)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Track not found"));
+
+        userRepository.findById(userId)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "user not found"));
+
+        List<User> artists = track.getArtists();
+
+        if(artists.stream().noneMatch(userInList -> Objects.equals(userInList.getId(), userId))) {
+            throw new RestException(UNPROCESSABLE_ENTITY, "This user is not the artist of this track");
+        }
+
+        artists = artists.stream()
+                .filter(userInList -> !Objects.equals(userInList.getId(), userId))
+                .collect(Collectors.toList());
+        track.setArtists(artists);
+        audioTrackRepository.save(track);
     }
 }
