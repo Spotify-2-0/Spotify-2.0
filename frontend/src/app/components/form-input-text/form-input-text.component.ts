@@ -13,6 +13,8 @@ export class FormInputTextComponent {
   @Input() public triggerValidationOnLostFocus?: boolean = false;
   @Input() public value?: string;
   @Input() public disable: boolean = false;
+  @Input() public isSelector: boolean = false;
+  @Input() public selectorData: string[] = [];
 
   constructor() {}
 
@@ -24,7 +26,6 @@ export class FormInputTextComponent {
   public getErrorMessage(): string {
     const control = this.formGroup.controls[this.formName];
     const errors: ValidationErrors = control.errors!;
-    console.log(errors)
     return errors[Object.keys(errors)[0]];
   }
 

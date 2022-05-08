@@ -1,0 +1,53 @@
+<section class="collection-create__form">
+  <form
+    class="form"
+    [formGroup]="this.collectionCreateForm"
+    (ngSubmit)="onSubmit()"
+  >
+    <div class="collection-create__fields">
+      <div class="collection-create__fields--text">
+        <div class="form__group">
+          <app-form-input-text
+            class="form__input"
+            label="Collection Title"
+            [formGroup]="this.collectionCreateForm"
+            formName="collectionTitle"
+          >
+          </app-form-input-text>
+        </div>
+        <div class="form__group">
+          <app-form-input-text
+            [isSelector]="true"
+            [selectorData]="this.collectionTypes"
+            class="form__input"
+            label="Collection Type"
+            [formGroup]="this.collectionCreateForm"
+            formName="collectionType"
+          >
+          </app-form-input-text>
+        </div>
+      </div>
+      <div class="collection-create__fields--img">
+        <app-step-user-profile
+          (imageApplied)="this.imgBlob = $event"
+          [userAvatarPhoto]="false"
+        ></app-step-user-profile>
+        <button
+          type="button"
+          class="form__button btn btn--redlight btn--animated-bg"
+          (click)="onDelete()"
+        >
+          Delete
+        </button>
+      </div>
+    </div>
+    <div class="collection-create__button--submit">
+      <button
+        type="submit"
+        class="form__button btn btn--violetdark btn--animated-bg u-margin-top-medium"
+      >
+        Create Collection
+      </button>
+    </div>
+  </form>
+</section>
