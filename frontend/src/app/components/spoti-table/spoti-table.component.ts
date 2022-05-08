@@ -49,17 +49,25 @@ export class SpotiTableComponent implements OnInit, OnDestroy {
     // 1- Convert to seconds:
     let seconds = ms / 1000;
     // 2- Extract hours:
-    const hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
+    let hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
     seconds = seconds % 3600; // seconds remaining after extracting hours
     // 3- Extract minutes:
-    const minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
+    let minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
     // 4- Keep only seconds not extracted to minutes:
     seconds = Math.floor(seconds % 60);
 
+
     if (hours === 0) {
-      return minutes + ':' + seconds;
+      return this.formatNumber(minutes) + ':' + this.formatNumber(seconds);
     }
-    return hours + ':' + minutes + ':' + seconds;
+    return this.formatNumber(hours) + ':' + this.formatNumber(minutes) + ':' + this.formatNumber(seconds);
+  }
+
+  formatNumber(n: number){
+    if(Math.floor(n / 10) === 0){
+      return "0" + (n.toString()).slice(-2);
+    }
+    return n;
   }
 
   convertDate(dateString: string): string {
