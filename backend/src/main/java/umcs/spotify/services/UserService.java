@@ -51,6 +51,7 @@ public class UserService {
     private final EmailService emailService;
     private final MongoClient mongoClient;
     private final Mapper mapper;
+    private final FavouritesService favouritesService;
 
     public UserService(
             UserActivityService activityService,
@@ -58,14 +59,14 @@ public class UserService {
             UserRepository userRepository,
             EmailService emailService,
             MongoClient mongoClient,
-            Mapper mapper
-    ) {
+            Mapper mapper, FavouritesService favouritesService) {
         this.activityService = activityService;
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
         this.emailService = emailService;
         this.mongoClient = mongoClient;
         this.mapper = mapper;
+        this.favouritesService = favouritesService;
     }
 
     public boolean existsByEmail(String email) {
@@ -113,6 +114,7 @@ public class UserService {
         if (currentUser.getEmailConfirmationCode().equals(code)) {
             currentUser.setEmailConfirmed(true);
             userRepository.save(currentUser);
+            favouritesService.createFavourites();
             return true;
         }
         return false;
