@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Subject, Subscription } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import { Collection, Track, User } from 'src/app/models/models';
 import { CollectionsService } from 'src/app/services/collections.service';
@@ -9,7 +9,7 @@ import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-spoti-table',
-  templateUrl: './spoti-table.component.html'
+  templateUrl: './spoti-table.component.html',
 })
 export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -21,6 +21,8 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public columns: string[] = [];
   public getAvatarUrlByMongoRef = getAvatarUrlByMongoRef;
+  public updateTableSub!: Subscription;
+
 
   public currentlySelectedTrackId?: number;
   public currentlyHoveredTrackId?: number;
@@ -29,18 +31,28 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   private destroy = new Subject<void>();
 
   constructor(
-    private collectionService: CollectionsService,
-    private playerService: PlayerService
+    private readonly collectionService: CollectionsService,
+    private readonly playerService: PlayerService
   ) {}
   
   ngOnInit(): void {
-    if(this.tableType === "collections") {
+    if (this.tableType === 'collections') {
       this.columns = ['#', 'title', 'type', 'plays', 'duration', 'published'];
       this.data = this.data as Collection[];
+      console.log('collections: ', this.data);
     } else {
       this.data = this.data as Collection;
       this.columns = ['#', 'title', 'plays', 'Duration', 'published'];
     }
+
+    this.updateTableSub = this.collectionService.updateTable.subscribe((_) => {
+
+
+      this.collectionService.getCollections().subscribe((data) => {
+        this.data = data;
+        console.log(data);
+      });
+    });
   }
 
   ngAfterViewInit(): void {
@@ -64,6 +76,7 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
+    this.updateTableSub.unsubscribe();
     this.destroy.next();
     this.destroy.complete();
   }
@@ -72,21 +85,33 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
     // 1- Convert to seconds:
     let seconds = ms / 1000;
     // 2- Extract hours:
-    const hours = Math.floor( seconds / 3600 ); // 3,600 seconds in 1 hour
+    let hours = Math.floor(seconds / 3600); // 3,600 seconds in 1 hour
     seconds = seconds % 3600; // seconds remaining after extracting hours
     // 3- Extract minutes:
-    const minutes = Math.floor( seconds / 60 ); // 60 seconds in 1 minute
+    let minutes = Math.floor(seconds / 60); // 60 seconds in 1 minute
     // 4- Keep only seconds not extracted to minutes:
     seconds = Math.floor(seconds % 60);
 
-    if(hours === 0) {
-      return minutes+":"+seconds;  
+
+    if (hours === 0) {
+      return this.formatNumber(minutes) + ':' + this.formatNumber(seconds);
     }
-    return hours+":"+minutes+":"+seconds;
+    return this.formatNumber(hours) + ':' + this.formatNumber(minutes) + ':' + this.formatNumber(seconds);
+  }
+
+  formatNumber(n: number){
+    if(Math.floor(n / 10) === 0){
+      return "0" + (n.toString()).slice(-2);
+    }
+    return n;
   }
 
   convertDate(dateString: string): string {
-    return new Date(dateString).toLocaleString(undefined, {year: 'numeric', month: 'short', day: '2-digit'})
+    return new Date(dateString).toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit',
+    });
   }
 
   artistsToText(users: User[]): string {
@@ -145,5 +170,4 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
     }
     return 'play';
   }
-
 }

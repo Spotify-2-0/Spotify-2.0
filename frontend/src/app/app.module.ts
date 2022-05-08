@@ -38,6 +38,7 @@ import { CollectionsComponent } from './sites/logged-page/collections/collection
 import { SpotiTableComponent } from './components/spoti-table/spoti-table.component';
 import { SingleCollectionComponent } from './sites/logged-page/single-collection/single-collection.component';
 import { HeartBtnComponent } from './components/heart-btn/heart-btn.component';
+import { CollectionCreateComponent } from './sites/logged-page/collections/collection-create/collection-create.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import { HeartBtnComponent } from './components/heart-btn/heart-btn.component';
     CollectionsComponent,
     SpotiTableComponent,
     SingleCollectionComponent,
-    HeartBtnComponent
+    HeartBtnComponent,
+    CollectionCreateComponent
   ],
   imports: [
     BrowserModule,

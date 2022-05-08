@@ -130,3 +130,8 @@ export interface PausingSongEvent {
   selectedTrackId: number,
   collectionId: number;
 }
+export interface CollectionRequest {
+  name: string,
+  image: Blob | null,
+  type: string,
+}

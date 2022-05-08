@@ -1,13 +1,20 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { Step } from '../../stepper/step';
 import { image2base64 } from '../../../shared/functions';
 import { CropResult } from '../../avatar-cropper/avatar-cropper.component';
-import { User } from "../../../models/models";
-import { UserService } from "../../../services/user.service";
-import { Observable, Subject } from "rxjs";
-import { map } from "rxjs/operators";
+import { User } from '../../../models/models';
+import { UserService } from '../../../services/user.service';
+import { Observable, Subject } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { AvatarService } from 'src/app/services/avatar.service';
-import { ModalComponent } from "../../modal/modal.component";
+import { ModalComponent } from '../../modal/modal.component';
 
 @Component({
   selector: 'app-step-user-profile',
@@ -23,6 +30,7 @@ export class StepUserProfileComponent implements Step, OnInit {
   deleted!: boolean;
 
   @Input() settings: boolean = false;
+  @Input() userAvatarPhoto: boolean = true;
 
   @Output() imageApplied: EventEmitter<Blob | null> = new EventEmitter();
 
@@ -32,19 +40,17 @@ export class StepUserProfileComponent implements Step, OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.user = this.userService.currentUser()!;
-
-    if(this.settings) {
-      this.getUserProfileUrl();
+    if (this.userAvatarPhoto) {
+      this.user = this.userService.currentUser()!;
     }
+    
+    this.avatarService.delete.subscribe((value) => {
+      this.deleted = value;
 
-    this.avatarService.delete.subscribe(value => {
-      this.deleted = value
-
-      if(value){
+      if (value) {
         this.cropped = null;
       }
-    })
+    });
   }
 
   public selectFile($event: Event): void {
@@ -60,7 +66,7 @@ export class StepUserProfileComponent implements Step, OnInit {
     });
   }
 
-  public emitImageApplied(){
+  public emitImageApplied() {
     this.imageApplied.emit(this.cropped?.blob);
     this.modal.close();
     this.deleted = false;
@@ -70,10 +76,11 @@ export class StepUserProfileComponent implements Step, OnInit {
     return this.userService.getUserProfileUrl(this.user!.id);
   }
 
-  public canProceed(): boolean | Observable<boolean>  {
+  public canProceed(): boolean | Observable<boolean> {
     if (this.cropped) {
-      return this.userService.uploadAvatar(this.cropped.blob)
-        .pipe(map(_ => true)); // todo: ?
+      return this.userService
+        .uploadAvatar(this.cropped.blob)
+        .pipe(map((_) => true)); // todo: ?
     }
     return true;
   }
