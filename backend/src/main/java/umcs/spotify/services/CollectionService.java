@@ -257,6 +257,13 @@ public class CollectionService {
         var collection = collectionRepository.findById(id)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "Collection not found"));
 
+        var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
+        var user = userService.findUserByEmail(currentUserEmail);
+
+        if (!collection.getOwner().getId().equals(user.getId())) {
+            throw new RestException(FORBIDDEN, "You are not owner of this collection");
+        }
+
         if(collection.getType() == CollectionType.FAVORITES) {
             throw new RestException(FORBIDDEN, "You cannot delete favourites");
         }
@@ -332,6 +339,16 @@ public class CollectionService {
         collection.setViews(collection.getViews()+1);
 
         collectionRepository.save(collection);
+    }
+
+    public List<CollectionDto> getUserCollections() {
+        var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
+        var user = userService.findUserByEmail(currentUserEmail);
+
+        return user.getCollections().stream()
+                .filter(collection -> collection.getType() != CollectionType.FAVORITES)
+                .map(mapper::collectionToDto)
+                .collect(Collectors.toList());
     }
 
     private <A, B> Optional<String> findMissing(

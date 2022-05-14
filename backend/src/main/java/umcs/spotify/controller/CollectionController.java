@@ -36,6 +36,11 @@ public class CollectionController {
         return collectionService.getCollections();
     }
 
+    @GetMapping("/me")
+    public List<CollectionDto> getUserCollections() {
+        return collectionService.getUserCollections();
+    }
+
     @GetMapping("/{id}")
     public CollectionDto getCollectionById(@PathVariable Long id) {
         return collectionService.getCollectionById(id);

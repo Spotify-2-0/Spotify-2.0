@@ -31,6 +31,7 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   public isFavoritesLoaded = false;
 
   private destroy = new Subject<void>();
+  private firstPlay: boolean = false;
 
   constructor(
     private readonly collectionService: CollectionsService,
@@ -50,7 +51,7 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
       });
     } else {
       this.data = this.data as Collection;
-      this.columns = ['#', 'title', 'plays', 'Duration', 'published'];
+      this.columns = ['#', 'title', 'plays', 'Duration', 'published', ''];
       this.collectionService.getFavorites().subscribe(response => {
         this.userFavorites = response;
         this.isFavoritesLoaded = true;
@@ -77,6 +78,15 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isPlaying = false;
       }
     })
+
+    this.collectionService.playingCollection.pipe(
+      takeUntil(this.destroy),
+      filter(event => event !== null)
+    ).subscribe(event => {
+      if(this.data.tracks.length > 0 && event.collectionId === this.data.id) {
+        this.togglePlay(this.data.tracks[0].id, 0);
+      }
+    });
   }
 
   ngOnDestroy(): void {

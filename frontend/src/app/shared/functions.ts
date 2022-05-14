@@ -30,3 +30,6 @@ export const b64toBlob = (dataURI: any, type: any) => {
 export const getAvatarUrlByMongoRef = (mongoRef: string): string => {
   return `${environment.serverURL}/avatar/${mongoRef}`;
 }
+export const getUserProfileUrl = (userId: number) => {
+  return `${environment.serverURL}/user/profile/${userId}/avatar`
+}

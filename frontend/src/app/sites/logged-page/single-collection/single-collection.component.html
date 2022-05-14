@@ -1,4 +1,33 @@
 <div class="singleCollections_container">
+    <div class="collection_info_container u-margin-top-big" *ngIf="isLoaded">
+        <img [src]=" collection.imageMongoRef !== null ? getAvatarUrlByMongoRef(collection.imageMongoRef) : '/assets/medias/no_picture.png'" alt="collection avatar">
+        <div class="collection_info">
+            <p class="collection_name"> {{ collection.name }}</p>
+            <p class="collection_stats"> {{ collection.type.charAt(0).toUpperCase() + collection.type.substring(1).toLowerCase() }} {{ collection.tracks.length }} songs, {{ msToHMS(collection.duration) }}</p>
+            <div class="collection_owner">
+                <img [src]="getUserProfileUrl(collection.owner.id)" alt="collection owner avatar">
+                <p>{{ collection.owner.displayName }}</p>
+            </div>
+            <div class="collection_play_follow_btn_conatiner">
+                <div class="play_btn" (click)="playCollection()">
+                    <div class="icon_container">
+                        <app-icon icon="play"></app-icon>
+                    </div>
+                    <span>Play</span>
+                </div>
+                <div class="follow_btn" (click)="toggleFollow()">
+                    <div class="icon_container">
+                        <app-icon icon="heart"></app-icon>
+                    </div>
+                    <span>{{ isFollowing ? "Unfollow" : "Follow" }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="addTrack_deleteCollection_btns_container">
+            <button class="add_track_btn">Add track</button>
+            <button class="delete_collection_btn" (click)="deleteCollection()">Delete Collection</button>
+        </div>
+    </div>
     <div class="table_conatiner u-margin-top-big" *ngIf="isLoaded">
         <app-spoti-table tableType="singleCollection" [data]="collection"></app-spoti-table>
     </div>

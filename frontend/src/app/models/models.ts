@@ -103,7 +103,8 @@ export interface Collection {
   views: number,
   publishedDate: string,
   tracks: Track[],
-  users: User[]
+  users: User[],
+  owner: User
 }
 
 export interface SelectedSongInCollectionEvent {
@@ -130,6 +131,11 @@ export interface PausingSongEvent {
   selectedTrackId: number,
   collectionId: number;
 }
+
+export interface PlayCollectionEvent {
+  collectionId: number
+}
+
 export interface CollectionRequest {
   name: string,
   image: Blob | null,

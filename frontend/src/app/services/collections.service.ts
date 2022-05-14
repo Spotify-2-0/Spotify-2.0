@@ -2,7 +2,7 @@ import { HttpClient, HttpResponse, HttpResponseBase } from '@angular/common/http
 import { environment } from "../../environments/environment";
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Collection, CollectionRequest, pausingSongFromCollectionEvent, playingSongFromCollectionEvent, SelectedSongInCollectionEvent } from '../models/models';
+import { Collection, CollectionRequest, pausingSongFromCollectionEvent, PlayCollectionEvent, playingSongFromCollectionEvent, SelectedSongInCollectionEvent } from '../models/models';
 
 @Injectable({
   providedIn: 'root',
@@ -13,14 +13,17 @@ export class CollectionsService {
   private selected = new BehaviorSubject<SelectedSongInCollectionEvent>(null as any);
   private playSound = new BehaviorSubject<playingSongFromCollectionEvent>(null as any);
   private pauseSound = new BehaviorSubject<pausingSongFromCollectionEvent>(null as any);
+  private playCollection = new BehaviorSubject<PlayCollectionEvent>(null as any);
   selectedSongInCollection: Observable<SelectedSongInCollectionEvent>;
   playSongFromCollection: Observable<playingSongFromCollectionEvent>;
   pauseSongFromCollection: Observable<playingSongFromCollectionEvent>;
+  playingCollection: Observable<PlayCollectionEvent>;
 
   constructor(private readonly http: HttpClient) { 
     this.selectedSongInCollection = this.selected.asObservable();
     this.playSongFromCollection = this.playSound.asObservable();
     this.pauseSongFromCollection = this.pauseSound.asObservable();
+    this.playingCollection = this.playCollection.asObservable();
   }
 
   public announceSoundSelection(selectedEvent: SelectedSongInCollectionEvent) {
@@ -35,6 +38,10 @@ export class CollectionsService {
     this.pauseSound.next(pausingFromCollectionEvent);
   }
 
+  public announcePlayCollection(playCollectionEvent: PlayCollectionEvent) {
+    this.playCollection.next(playCollectionEvent);
+  }
+
 
   public emitUpdateTable() {
     this.updateTable.next();
@@ -42,6 +49,10 @@ export class CollectionsService {
 
   public getCollections(): Observable<Collection[]> {
     return this.http.get<Collection[]>(`${environment.serverURL}/collection`);
+  }
+
+  public getUserCollections(): Observable<Collection[]> {
+    return this.http.get<Collection[]>(`${environment.serverURL}/collection/me`);
   }
 
   public getCollectionById(id: string): Observable<Collection> {
@@ -79,5 +90,21 @@ export class CollectionsService {
 
   public removeTrackFromFavorites(trackId: string): Observable<void> {
     return this.http.delete<void>(`${environment.serverURL}/collection/favourites/${trackId}`);
+  }
+
+  public followCollection(collectionId: string): Observable<void> {
+    return this.http.post<void>(`${environment.serverURL}/collection/${collectionId}/follow`, null);
+  }
+
+  public unfollowCollection(collectionId: string): Observable<void> {
+    return this.http.post<void>(`${environment.serverURL}/collection/${collectionId}/unfollow`, null);
+  }
+
+  public addVisitToCollection(collectionId: string): Observable<void> {
+    return this.http.post<void>(`${environment.serverURL}/collection/${collectionId}/addVisit`, null);
+  }
+
+  public deleteCollection(collectionId: string): Observable<void> {
+    return this.http.delete<void>(`${environment.serverURL}/collection/${collectionId}`);
   }
 }

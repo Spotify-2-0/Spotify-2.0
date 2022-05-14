@@ -53,14 +53,16 @@
           (mouseout)="currentlyHoveredTrackId=undefined"
           *ngFor="let track of data.tracks; let i = index">
           <td class="table__item ">
-            <div class="collection_index">
-              <p> {{i}} </p>
-            </div>
-            <!-- play-button__hide -->
-            <div [class]="isControlButtonShouldBeHide(track.id) ? ' control-button play-button play-button__hide' : 'control-button play-button'"
-              #controlButton [id]="'ctrl_btn_track_'+track.id"
-              (click)="togglePlay(track.id, i)">
-              <app-icon #controlButtonIcon [id]="'icon_track_'+track.id" class="icon" [icon]="getControlButtonType(track.id)"></app-icon>
+            <div class="index_column_container">
+              <div class="collection_index">
+                <p>{{i}} </p>
+              </div>
+              <!-- play-button__hide -->
+              <div [class]="isControlButtonShouldBeHide(track.id) ? 'spoti_table_play-button spoti_table_play-button__hide' : 'spoti_table_play-button'"
+                #controlButton [id]="'ctrl_btn_track_'+track.id"
+                (click)="togglePlay(track.id, i)">
+                <app-icon #controlButtonIcon [id]="'icon_track_'+track.id" class="icon" [icon]="getControlButtonType(track.id)"></app-icon>
+              </div>
             </div>
           </td>
           <td class="table__item">
@@ -69,19 +71,21 @@
               <p class="track_artists">{{ artistsToText(track.artists) }}</p>
             </div>
           </td>
-          <td class="table__item">
+          <td class="table__item table__item--stretched">
             {{ track.views }}
           </td>
-          <td class="table__item">
+          <td class="table__item table__item--stretched">
             {{ msToHMS(track.duration) }}
           </td>
           <td class="table__item table__item--stretched">
-            <div class="published_column_container">
-              <div class="published">{{convertDate(track.publishedDate) }} </div>
-              <div class="follow_delete_btns_container">
-                <div><app-heart-btn [favorites]="userFavorites!" [trackId]="track.id"></app-heart-btn></div>
-                <button class="delete-btn" (click)="deleteBtn(track.id)">Delete</button>
+            <div class="published">{{convertDate(track.publishedDate) }} </div>
+          </td>
+          <td class="table__item">
+            <div class="btns_column_container">
+              <div class="follow-btn">
+                <app-heart-btn [favorites]="userFavorites!" [trackId]="track.id"></app-heart-btn>
               </div>
+              <button class="delete-btn" (click)="deleteBtn(track.id)">Delete</button>
             </div>
           </td>
         </tr>
