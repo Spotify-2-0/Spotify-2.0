@@ -66,26 +66,31 @@
       "ownerId": 1,
       "tracks": [
         {
+          "name": "Intro",
           "mp3": "Divine Profits/Intro.mp3",
           "tags": [""],
           "artistsIds": [1]
         },
         {
+          "name": "Beaker",
           "mp3": "Divine Profits/Beaker.mp3",
           "tags": [""],
           "artistsIds": [1]
         },
         {
+          "name": "Cypher Pattern",
           "mp3": "Divine Profits/Cypher Pattern.mp3",
           "tags": [""],
           "artistsIds": [1]
         },
         {
+          "name": "Dab Lab",
           "mp3": "Divine Profits/Dab Lab.mp3",
           "tags": [""],
           "artistsIds": [1]
         },
         {
+          "name": "Epicentre",
           "mp3": "Divine Profits/Epicentre.mp3",
           "tags": [""],
           "artistsIds": [1]
@@ -99,21 +104,25 @@
       "ownerId": 2,
       "tracks": [
         {
+          "name": "Suspended",
           "mp3": "Suspended/Suspended.mp3",
           "tags": [""],
           "artistsIds": [2]
         },
         {
+          "name": "You & Me",
           "mp3": "Suspended/You & Me.mp3",
           "tags": [""],
           "artistsIds": [2]
         },
         {
+          "name": "Bad Boys",
           "mp3": "Suspended/Bad Boys.mp3",
           "tags": [""],
           "artistsIds": [2]
         },
         {
+          "name": "Hurricane",
           "mp3": "Suspended/Hurricane.mp3",
           "tags": [""],
           "artistsIds": [2]
@@ -127,51 +136,61 @@
       "ownerId": 3,
       "tracks": [
         {
+          "name": "Lose Control",
           "mp3": "Lose Control/Lose Control.mp3",
           "tags": [""],
           "artistsIds": [3]
         },
         {
+          "name": "How",
           "mp3": "Lose Control/How.mp3",
           "tags": [""],
           "artistsIds": [3, 4]
         },
         {
+          "name": "Deep Inside",
           "mp3": "Lose Control/Deep Inside.mp3",
           "tags": [""],
           "artistsIds": [3]
         },
         {
+          "name": "What is it",
           "mp3": "Lose Control/What is it.mp3",
           "tags": [""],
           "artistsIds": [3, 5]
         },
         {
+          "name": "Ascencion",
           "mp3": "Lose Control/Ascencion.mp3",
           "tags": [""],
           "artistsIds": [3]
         },
         {
+          "name": "Tonight",
           "mp3": "Lose Control/Tonight.mp3",
           "tags": [""],
           "artistsIds": [3]
         },
         {
+          "name": "Science Fiction",
           "mp3": "Lose Control/Science Fiction.mp3",
           "tags": [""],
           "artistsIds": [3]
         },
         {
+          "name": "Let Me Down",
           "mp3": "Lose Control/Let Me Down.mp3",
           "tags": [""],
           "artistsIds": [3, 6]
         },
         {
+          "name": "Levels",
           "mp3": "Lose Control/Levels.mp3",
           "tags": [""],
           "artistsIds": [3]
         },
         {
+          "name": "All 4 Myself",
           "mp3": "Lose Control/All 4 Myself.mp3",
           "tags": [""],
           "artistsIds": [3]
