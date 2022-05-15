@@ -64,11 +64,6 @@ public class CollectionController {
         return ResponseEntity.status(HttpStatus.CREATED).body(collectionService.addCollection(collectionCreateRequest));
     }
 
-    @PostMapping("/{collectionId}/addVisit")
-    public void addVisitToCollection(@PathVariable long collectionId) {
-        collectionService.addVisitToCollection(collectionId);
-    }
-
     @PostMapping("/{collectionId}/follow")
     public void followCollection(@PathVariable long collectionId) {
         collectionService.followCollection(collectionId);

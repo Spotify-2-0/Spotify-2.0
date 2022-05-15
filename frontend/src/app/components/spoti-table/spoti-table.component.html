@@ -55,7 +55,7 @@
           <td class="table__item ">
             <div class="index_column_container">
               <div class="collection_index">
-                <p>{{i}} </p>
+                <p>{{i + 1}} </p>
               </div>
               <!-- play-button__hide -->
               <div [class]="isControlButtonShouldBeHide(track.id) ? 'spoti_table_play-button spoti_table_play-button__hide' : 'spoti_table_play-button'"
@@ -85,7 +85,7 @@
               <div class="follow-btn">
                 <app-heart-btn [favorites]="userFavorites!" [trackId]="track.id"></app-heart-btn>
               </div>
-              <button class="delete-btn" (click)="deleteBtn(track.id)">Delete</button>
+              <button class="delete-btn" *ngIf="isOwner()" (click)="deleteBtn(track.id)">Delete</button>
             </div>
           </td>
         </tr>

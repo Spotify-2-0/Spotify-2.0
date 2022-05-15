@@ -38,4 +38,7 @@ public class AudioTrack {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> artists;
 
+    public void addView() {
+        this.views++;
+    }
 }

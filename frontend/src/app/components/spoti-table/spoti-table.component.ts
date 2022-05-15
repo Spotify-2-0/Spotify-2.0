@@ -6,6 +6,7 @@ import { CollectionsService } from 'src/app/services/collections.service';
 import { PlayerService } from 'src/app/services/player.service';
 import { getAvatarUrlByMongoRef } from 'src/app/shared/functions';
 import { IconComponent } from '../icon/icon.component';
+import { UserService } from "../../services/user.service";
 
 @Component({
   selector: 'app-spoti-table',
@@ -21,8 +22,6 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public columns: string[] = [];
   public getAvatarUrlByMongoRef = getAvatarUrlByMongoRef;
-  public updateTableSub!: Subscription;
-
 
   public currentlySelectedTrackId?: number;
   public currentlyHoveredTrackId?: number;
@@ -32,23 +31,27 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private destroy = new Subject<void>();
   private firstPlay: boolean = false;
+  private user?: User;
+  private subs = new Subscription();
 
   constructor(
     private readonly collectionService: CollectionsService,
-    private readonly playerService: PlayerService
+    private readonly playerService: PlayerService,
+    private readonly userService: UserService
   ) {}
-  
+
   ngOnInit(): void {
+    this.user = this.userService.currentUser()!;
     if (this.tableType === 'collections') {
       this.columns = ['#', 'title', 'type', 'plays', 'duration', 'published'];
       this.data = this.data as Collection[];
       console.log('collections: ', this.data);
-      this.updateTableSub = this.collectionService.updateTable.subscribe((_) => {
+      this.subs.add(this.collectionService.updateTable.subscribe((_) => {
         this.collectionService.getCollections().subscribe((data) => {
           this.data = data;
           console.log(data);
         });
-      });
+      }));
     } else {
       this.data = this.data as Collection;
       this.columns = ['#', 'title', 'plays', 'Duration', 'published', ''];
@@ -90,7 +93,7 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this.updateTableSub.unsubscribe();
+    this.subs.unsubscribe();
     this.destroy.next();
     this.destroy.complete();
   }
@@ -129,16 +132,7 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   artistsToText(users: User[]): string {
-    let text = ``;
-    for(let i = 0; i < users.length; i++) {
-      if(i === users.length - 1) {
-        text += `${users[i].firstName} ${users[i].lastName}`;
-      } else {
-        text += `${users[i].firstName} ${users[i].lastName}, `;
-      }
-    }
-
-    return text;
+    return users.map(u => u.displayName).join(', ');
   }
 
   deleteBtn(trackId: number) {
@@ -169,6 +163,10 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
       })
     }
 
+  }
+
+  isOwner(): boolean {
+    return this.data.owner.id === this.user?.id;
   }
 
   isControlButtonShouldBeHide(trackId: number): boolean {

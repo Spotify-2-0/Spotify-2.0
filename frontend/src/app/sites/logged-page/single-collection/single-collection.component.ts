@@ -18,7 +18,7 @@ export class SingleCollectionComponent implements OnInit {
   public isFollowing: boolean = false;
   public getAvatarUrlByMongoRef = getAvatarUrlByMongoRef;
   public getUserProfileUrl = getUserProfileUrl;
-  
+
   private collectionId: string = "";
 
   constructor(
@@ -26,7 +26,7 @@ export class SingleCollectionComponent implements OnInit {
     private router: Router,
     private collectionsService: CollectionsService
   ) { }
-  
+
   ngOnInit(): void {
     this.route.paramMap
     .pipe(
@@ -92,5 +92,6 @@ export class SingleCollectionComponent implements OnInit {
       this.router.navigate(['/app'], {queryParams: {'id': null}, queryParamsHandling: 'merge'});
     })
   }
+
 
 }

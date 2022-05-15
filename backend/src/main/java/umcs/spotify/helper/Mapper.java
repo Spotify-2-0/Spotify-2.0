@@ -46,6 +46,7 @@ public class Mapper {
                                 .map(UserActivityEntry::getOccurrenceDate, UserActivityEntryDto::setOccurrenceDate));
         mapper.createTypeMap(Collection.class, CollectionDto.class)
                 .addMappings(map -> map.using(durationConverter).map(Collection::getDuration, CollectionDto::setDuration))
+                .addMappings(map -> map.map(Collection::getViews, CollectionDto::setViews))
                 .addMappings(
                     mapping -> mapping.using(new UsersListConverter()).map(Collection::getUsers, CollectionDto::setUsers)
                 )
@@ -104,7 +105,6 @@ public class Mapper {
                         audioTrack.getDuration().toMillis(),
                         audioTrack.getViews(),
                         audioTrack.getPublishedDate(),
-                        audioTrack.getFileMongoRef(),
                         genres.stream().map(genre -> new GenreDto(genre.getId(), genre.getName())).collect(Collectors.toList()),
                         artists.stream().map(user -> new UserDto(
                                 user.getId(),
