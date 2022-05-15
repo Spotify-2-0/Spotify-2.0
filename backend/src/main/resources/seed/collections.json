@@ -1,0 +1,182 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "firstName": "Killbox",
+      "lastName": "Killbox",
+      "displayName": "Killbox",
+      "avatar": "Divine Profits/killbox.jpg",
+      "email": "killbox@spotify2.com"
+    },
+    {
+      "id": 2,
+      "firstName": "Formula",
+      "lastName": "Formula",
+      "displayName": "Formula",
+      "avatar": "Suspended/Formula.jpg",
+      "email": "formula@spotify2.com"
+    },
+    {
+      "id": 3,
+      "firstName": "Fourward",
+      "lastName": "Fourward",
+      "displayName": "Fourward",
+      "avatar": "Lose Control/Fourward.jpg",
+      "email": "fourward@spotify2.com"
+    },
+    {
+      "id": 3,
+      "firstName": "Fourward",
+      "lastName": "Fourward",
+      "displayName": "Fourward",
+      "avatar": "Lose Control/Fourward.jpg",
+      "email": "fourward@spotify2.com"
+    },
+    {
+      "id": 4,
+      "firstName": "Dakota Sixx",
+      "lastName": "Dakota Sixx",
+      "displayName": "Dakota Sixx",
+      "avatar": "Lose Control/Dakota Sixx.jpg",
+      "email": "dakota_sixx@spotify2.com"
+    },
+    {
+      "id": 5,
+      "firstName": "Jakes",
+      "lastName": "Jakes",
+      "displayName": "Jakes",
+      "avatar": "Lose Control/Jakes.jpg",
+      "email": "jakes@spotify2.com"
+    },
+    {
+      "id": 6,
+      "firstName": "Charlotte",
+      "lastName": "Haining",
+      "displayName": "Charlotte Haining",
+      "avatar": "Lose Control/Charlotte Haining.jpg",
+      "email": "charlotte_haining@spotify2.com"
+    }
+  ],
+  "collections":
+  [
+    {
+      "name": "Divine Profits",
+      "image": "Divine Profits/image.jpg",
+      "type": "ALBUM",
+      "ownerId": 1,
+      "tracks": [
+        {
+          "mp3": "Divine Profits/Intro.mp3",
+          "tags": [""],
+          "artistsIds": [1]
+        },
+        {
+          "mp3": "Divine Profits/Beaker.mp3",
+          "tags": [""],
+          "artistsIds": [1]
+        },
+        {
+          "mp3": "Divine Profits/Cypher Pattern.mp3",
+          "tags": [""],
+          "artistsIds": [1]
+        },
+        {
+          "mp3": "Divine Profits/Dab Lab.mp3",
+          "tags": [""],
+          "artistsIds": [1]
+        },
+        {
+          "mp3": "Divine Profits/Epicentre.mp3",
+          "tags": [""],
+          "artistsIds": [1]
+        }
+      ]
+    },
+    {
+      "name": "Suspended",
+      "image": "Suspended/Suspended.jpg",
+      "type": "EXTENDED_PLAY",
+      "ownerId": 2,
+      "tracks": [
+        {
+          "mp3": "Suspended/Suspended.mp3",
+          "tags": [""],
+          "artistsIds": [2]
+        },
+        {
+          "mp3": "Suspended/You & Me.mp3",
+          "tags": [""],
+          "artistsIds": [2]
+        },
+        {
+          "mp3": "Suspended/Bad Boys.mp3",
+          "tags": [""],
+          "artistsIds": [2]
+        },
+        {
+          "mp3": "Suspended/Hurricane.mp3",
+          "tags": [""],
+          "artistsIds": [2]
+        }
+      ]
+    },
+    {
+      "name": "Lose Control",
+      "image": "Lose Control/Lose Control.jpg",
+      "type": "ALBUM",
+      "ownerId": 3,
+      "tracks": [
+        {
+          "mp3": "Lose Control/Lose Control.mp3",
+          "tags": [""],
+          "artistsIds": [3]
+        },
+        {
+          "mp3": "Lose Control/How.mp3",
+          "tags": [""],
+          "artistsIds": [3, 4]
+        },
+        {
+          "mp3": "Lose Control/Deep Inside.mp3",
+          "tags": [""],
+          "artistsIds": [3]
+        },
+        {
+          "mp3": "Lose Control/What is it.mp3",
+          "tags": [""],
+          "artistsIds": [3, 5]
+        },
+        {
+          "mp3": "Lose Control/Ascencion.mp3",
+          "tags": [""],
+          "artistsIds": [3]
+        },
+        {
+          "mp3": "Lose Control/Tonight.mp3",
+          "tags": [""],
+          "artistsIds": [3]
+        },
+        {
+          "mp3": "Lose Control/Science Fiction.mp3",
+          "tags": [""],
+          "artistsIds": [3]
+        },
+        {
+          "mp3": "Lose Control/Let Me Down.mp3",
+          "tags": [""],
+          "artistsIds": [3, 6]
+        },
+        {
+          "mp3": "Lose Control/Levels.mp3",
+          "tags": [""],
+          "artistsIds": [3]
+        },
+        {
+          "mp3": "Lose Control/All 4 Myself.mp3",
+          "tags": [""],
+          "artistsIds": [3]
+        }
+      ]
+    }
+  ]
+}
