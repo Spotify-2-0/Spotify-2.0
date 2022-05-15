@@ -85,7 +85,7 @@
               <div class="follow-btn">
                 <app-heart-btn [favorites]="userFavorites!" [trackId]="track.id"></app-heart-btn>
               </div>
-              <button class="delete-btn" (click)="deleteBtn(track.id)">Delete</button>
+              <button class="delete-btn" *ngIf="isOwner()" (click)="deleteBtn(track.id)">Delete</button>
             </div>
           </td>
         </tr>
