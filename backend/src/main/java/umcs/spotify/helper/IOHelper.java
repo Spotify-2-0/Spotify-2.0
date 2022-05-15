@@ -7,8 +7,11 @@ import ws.schild.jave.MultimediaObject;
 import java.awt.*;
 import java.io.*;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class IOHelper {
 
@@ -74,5 +77,42 @@ public class IOHelper {
       } catch (IOException | FontFormatException e) {
          throw new RuntimeException("Could not load " + resourceName, e);
       }
+   }
+
+   public static InputStream getResource(String resourceName) throws IOException {
+      return Thread.currentThread().getContextClassLoader().getResourceAsStream(resourceName);
+   }
+
+   public static boolean deleteDir(File file) {
+      var contents = file.listFiles();
+      if (contents != null) {
+         for (var f : contents) {
+            deleteDir(f);
+         }
+      }
+      return file.delete();
+   }
+
+
+   public static byte[] readAllBytesResource(String resource) {
+      try (var stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource)) {
+         return stream.readAllBytes();
+      } catch (IOException e) {
+         throw new RuntimeException("Could not load " + resource, e);
+      }
+   }
+
+   public static List<String> readAllLinesResource(String resource) {
+      try (var stream = Thread.currentThread().getContextClassLoader().getResourceAsStream(resource)) {
+         return readAllLines(stream);
+      } catch (IOException e) {
+         throw new RuntimeException("Could not load " + resource, e);
+      }
+   }
+
+   public static List<String> readAllLines(InputStream stream) {
+      return new BufferedReader(new InputStreamReader(stream, StandardCharsets.UTF_8))
+              .lines()
+              .collect(Collectors.toList());
    }
 }
