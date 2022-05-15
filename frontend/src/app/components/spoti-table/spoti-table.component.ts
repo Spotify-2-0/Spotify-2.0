@@ -37,7 +37,7 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
     private readonly collectionService: CollectionsService,
     private readonly playerService: PlayerService
   ) {}
-  
+
   ngOnInit(): void {
     if (this.tableType === 'collections') {
       this.columns = ['#', 'title', 'type', 'plays', 'duration', 'published'];
@@ -129,16 +129,7 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   artistsToText(users: User[]): string {
-    let text = ``;
-    for(let i = 0; i < users.length; i++) {
-      if(i === users.length - 1) {
-        text += `${users[i].firstName} ${users[i].lastName}`;
-      } else {
-        text += `${users[i].firstName} ${users[i].lastName}, `;
-      }
-    }
-
-    return text;
+    return users.map(u => u.displayName).join(', ');
   }
 
   deleteBtn(trackId: number) {
