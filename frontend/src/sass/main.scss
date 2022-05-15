@@ -29,6 +29,8 @@
 @import "components/search-bar";
 @import "components/selector";
 @import "components/spoti-table";
+@import "components/heart-btn";
+@import "components/delete-btn";
 
 @import "layout/header";
 @import "layout/navigation";
@@ -46,5 +48,6 @@
 @import "pages/signin";
 @import "pages/signup";
 @import "pages/collections";
+@import "pages/single-collection";
 
 @import "themes/icon";

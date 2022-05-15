@@ -83,6 +83,17 @@ export enum PlayMode {
   Playlist
 }
 
+export interface Track {
+  id: number,
+  name: string,
+  duration: number,
+  views: number,
+  publishedDate: string,
+  fileMongoRef: String
+  genres: any[],
+  artists: User[]
+}
+
 export interface Collection {
   id: number,
   name: string,
@@ -91,8 +102,38 @@ export interface Collection {
   duration: number,
   views: number,
   publishedDate: string,
-  tracks: User[],
-  users: User[]
+  tracks: Track[],
+  users: User[],
+  owner: User
+}
+
+export interface SelectedSongInCollectionEvent {
+  collection: Collection,
+  selectedTrackId: number,
+  selectedTrackIndex: number
+}
+
+export interface playingSongFromCollectionEvent {
+  selectedTrackId: number,
+  collectionId: number;
+}
+
+export interface pausingSongFromCollectionEvent {
+  selectedTrackId: number,
+  collectionId: number;
+}
+
+export interface PlayingSongEvent {
+  selectedTrackId: number,
+  collectionId: number;
+}
+export interface PausingSongEvent {
+  selectedTrackId: number,
+  collectionId: number;
+}
+
+export interface PlayCollectionEvent {
+  collectionId: number
 }
 
 export interface CollectionRequest {

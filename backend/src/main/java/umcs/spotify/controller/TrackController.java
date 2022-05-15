@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.contract.AddTrackRequest;
 import umcs.spotify.dto.AudioTrackDto;
 import umcs.spotify.dto.ErrorMessageDto;
+import umcs.spotify.dto.UserDto;
 import umcs.spotify.repository.GenreRepository;
 import umcs.spotify.repository.UserRepository;
 import umcs.spotify.services.TrackService;
@@ -35,6 +36,17 @@ public class TrackController {
     ) {
         return trackService.getTrackChunked(id, token, range);
     }
+
+    @PostMapping("/{trackId}/artist/{userId}")
+    public ResponseEntity<UserDto> addArtistsToTrack(@PathVariable Long trackId, @PathVariable Long userId) {
+        return ResponseEntity.ok(trackService.addArtistToTrack(trackId, userId));
+    }
+
+    @DeleteMapping("/{trackId}/artist/{userId}")
+    public void removeArtistsFromTrack(@PathVariable Long trackId, @PathVariable Long userId) {
+        trackService.removeArtistFromTrack(trackId, userId);
+    }
+
 
     @GetMapping("/{id}/details")
     public ResponseEntity<AudioTrackDto> getAudioTrackDetails(@PathVariable Long id) {

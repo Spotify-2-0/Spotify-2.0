@@ -64,21 +64,34 @@ public class CollectionService {
     public List<CollectionDto> getCollections() {
         List<Collection> collections = collectionRepository.findAll();
         return collections.stream()
+                .filter(collection -> collection.getType() != CollectionType.FAVORITES)
                 .map(mapper::collectionToDto)
                 .collect(Collectors.toList());
     }
 
     public CollectionDto getCollectionById(Long id) {
-        Collection collection = collectionRepository.getById(id);
+        var collection = collectionRepository.findById(id)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Collection not found"));
+
+        if(collection.getType() == CollectionType.FAVORITES) {
+            throw new RestException(FORBIDDEN, "you cannot get favourites from here");
+        }
 
         return mapper.map(collection, CollectionDto.class);
     }
 
-    public CollectionType[] getCollectionTypes() {
-        return CollectionType.values();
+    public List<CollectionType> getCollectionTypes() {
+        return Arrays.stream(CollectionType.values())
+                .filter(collectionType -> collectionType != CollectionType.FAVORITES)
+                .collect(Collectors.toList());
     }
 
     public CollectionDto addCollection(CollectionCreateRequest request) {
+
+        if(request.getType() == CollectionType.FAVORITES) {
+            throw new RestException(FORBIDDEN, "You cannot create favourites");
+        }
+
         var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
         var user = userService.findUserByEmail(currentUserEmail);
 
@@ -217,6 +230,10 @@ public class CollectionService {
             throw new RestException(FORBIDDEN, "You are not owner of this collection");
         }
 
+        if(request.getType() == CollectionType.FAVORITES) {
+            throw new RestException(FORBIDDEN, "You cannot change collection type to favourites");
+        }
+
         if (request.getName() != null)
             collection.setName(request.getName());
         if (request.getType() != null)
@@ -237,10 +254,22 @@ public class CollectionService {
     }
 
     public void deleteCollection(Long id) {
+        var collection = collectionRepository.findById(id)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Collection not found"));
+
+        var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
+        var user = userService.findUserByEmail(currentUserEmail);
+
+        if (!collection.getOwner().getId().equals(user.getId())) {
+            throw new RestException(FORBIDDEN, "You are not owner of this collection");
+        }
+
+        if(collection.getType() == CollectionType.FAVORITES) {
+            throw new RestException(FORBIDDEN, "You cannot delete favourites");
+        }
+
         try {
             collectionRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException ex) {
-            throw new RestException(NOT_FOUND, ex.getLocalizedMessage());
         } catch (Exception ex) {
             throw new RestException(INTERNAL_SERVER_ERROR, ex.getLocalizedMessage());
         }
@@ -260,6 +289,11 @@ public class CollectionService {
     public void followCollection(long collectionId) {
         var collection = collectionRepository.findById(collectionId)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "collection not found"));
+
+        if(collection.getType() == CollectionType.FAVORITES) {
+            throw new RestException(FORBIDDEN, "You cannot follow favourites");
+        }
+
         var email = ContextUserAccessor.getCurrentUserEmail();
         var user = userService.findUserByEmail(email);
 
@@ -274,8 +308,13 @@ public class CollectionService {
     }
 
     public void unfollowCollection(long collectionId) {
-        collectionRepository.findById(collectionId)
+        var collection = collectionRepository.findById(collectionId)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "collection not found"));
+
+        if(collection.getType() == CollectionType.FAVORITES) {
+            throw new RestException(FORBIDDEN, "You cannot unfollow favourites");
+        }
+
         var email = ContextUserAccessor.getCurrentUserEmail();
         var user = userService.findUserByEmail(email);
 
@@ -300,6 +339,16 @@ public class CollectionService {
         collection.setViews(collection.getViews()+1);
 
         collectionRepository.save(collection);
+    }
+
+    public List<CollectionDto> getUserCollections() {
+        var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
+        var user = userService.findUserByEmail(currentUserEmail);
+
+        return user.getCollections().stream()
+                .filter(collection -> collection.getType() != CollectionType.FAVORITES)
+                .map(mapper::collectionToDto)
+                .collect(Collectors.toList());
     }
 
     private <A, B> Optional<String> findMissing(

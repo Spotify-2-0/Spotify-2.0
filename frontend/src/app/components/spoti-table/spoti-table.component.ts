@@ -1,48 +1,98 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
-import { Subscription } from 'rxjs';
-import { Collection } from 'src/app/models/models';
+import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+import { filter, takeUntil } from 'rxjs/operators';
+import { Collection, Track, User } from 'src/app/models/models';
 import { CollectionsService } from 'src/app/services/collections.service';
+import { PlayerService } from 'src/app/services/player.service';
 import { getAvatarUrlByMongoRef } from 'src/app/shared/functions';
+import { IconComponent } from '../icon/icon.component';
 
 @Component({
   selector: 'app-spoti-table',
   templateUrl: './spoti-table.component.html',
 })
-export class SpotiTableComponent implements OnInit, OnDestroy {
+export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
+
   @Input() tableType!: string;
   @Input() data: any;
+
+  @ViewChildren('controlButton') controlButtons!: QueryList<ElementRef>;
+  @ViewChildren('controlButtonIcon') controlButtonsIcons!: QueryList<IconComponent>;
 
   public columns: string[] = [];
   public getAvatarUrlByMongoRef = getAvatarUrlByMongoRef;
   public updateTableSub!: Subscription;
 
-  constructor(
-    private readonly collectionService: CollectionsService
-  ) {}
 
+  public currentlySelectedTrackId?: number;
+  public currentlyHoveredTrackId?: number;
+  public isPlaying = false;
+  public userFavorites?: Collection;
+  public isFavoritesLoaded = false;
+
+  private destroy = new Subject<void>();
+  private firstPlay: boolean = false;
+
+  constructor(
+    private readonly collectionService: CollectionsService,
+    private readonly playerService: PlayerService
+  ) {}
+  
   ngOnInit(): void {
     if (this.tableType === 'collections') {
       this.columns = ['#', 'title', 'type', 'plays', 'duration', 'published'];
       this.data = this.data as Collection[];
       console.log('collections: ', this.data);
+      this.updateTableSub = this.collectionService.updateTable.subscribe((_) => {
+        this.collectionService.getCollections().subscribe((data) => {
+          this.data = data;
+          console.log(data);
+        });
+      });
     } else {
-      this.columns = ['#', 'title', 'plays', 'Duration', 'published', '', ''];
+      this.data = this.data as Collection;
+      this.columns = ['#', 'title', 'plays', 'Duration', 'published', ''];
+      this.collectionService.getFavorites().subscribe(response => {
+        this.userFavorites = response;
+        this.isFavoritesLoaded = true;
+      });
     }
 
-    this.updateTableSub = this.collectionService.updateTable.subscribe((_) => {
+  }
 
+  ngAfterViewInit(): void {
+    this.playerService.playingSound.pipe(
+      takeUntil(this.destroy),
+      filter(playingEvent => playingEvent !== null)
+    ).subscribe(playingEvent => {
+      if(this.tableType !== "collections" && playingEvent.collectionId === this.data.id) {
+        this.isPlaying = true;
+      }
+    })
 
-      this.collectionService.getCollections().subscribe((data) => {
-        this.data = data;
-        console.log(data);
-      });
+    this.playerService.pausingSong.pipe(
+      takeUntil(this.destroy),
+      filter(pausingEvent => pausingEvent !== null)
+    ).subscribe(playingEvent => {
+      if(this.tableType !== "collections" && playingEvent.collectionId === this.data.id) {
+        this.isPlaying = false;
+      }
+    })
+
+    this.collectionService.playingCollection.pipe(
+      takeUntil(this.destroy),
+      filter(event => event !== null)
+    ).subscribe(event => {
+      if(this.data.tracks.length > 0 && event.collectionId === this.data.id) {
+        this.togglePlay(this.data.tracks[0].id, 0);
+      }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.updateTableSub.unsubscribe();
+    this.destroy.next();
+    this.destroy.complete();
   }
 
   msToHMS(ms: number): string {
@@ -78,7 +128,60 @@ export class SpotiTableComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnDestroy(): void {
-    this.updateTableSub.unsubscribe();
+  artistsToText(users: User[]): string {
+    let text = ``;
+    for(let i = 0; i < users.length; i++) {
+      if(i === users.length - 1) {
+        text += `${users[i].firstName} ${users[i].lastName}`;
+      } else {
+        text += `${users[i].firstName} ${users[i].lastName}, `;
+      }
+    }
+
+    return text;
+  }
+
+  deleteBtn(trackId: number) {
+    this.collectionService.deleteTrackFromCollection(this.data.id, trackId.toString())
+      .subscribe(response => {
+        this.data.tracks = this.data.tracks
+              .filter((track: Track) => track.id !== trackId)
+      })
+  }
+
+  togglePlay(trackId: number, index: number) {
+    if((this.currentlySelectedTrackId !== trackId || this.currentlySelectedTrackId === undefined)) {
+      this.currentlySelectedTrackId = trackId;
+      this.collectionService.announceSoundSelection({
+        collection: this.data,
+        selectedTrackId: trackId,
+        selectedTrackIndex: index
+      })
+    } else if(this.currentlySelectedTrackId === trackId && this.isPlaying === false) {
+      this.collectionService.announcePlaySongFromCollection({
+        collectionId: this.data.id,
+        selectedTrackId: this.currentlySelectedTrackId
+      })
+    } else {
+      this.collectionService.announcePauseSongFromCollection({
+        collectionId: this.data.id,
+        selectedTrackId: this.currentlySelectedTrackId!
+      })
+    }
+
+  }
+
+  isControlButtonShouldBeHide(trackId: number): boolean {
+    if(trackId === this.currentlySelectedTrackId || trackId === this.currentlyHoveredTrackId) {
+      return false;
+    }
+    return true;
+  }
+
+  getControlButtonType(trackId: number) {
+    if(trackId === this.currentlySelectedTrackId && this.isPlaying) {
+      return 'pause';
+    }
+    return 'play';
   }
 }

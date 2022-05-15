@@ -19,6 +19,7 @@ public class CollectionDto {
     Long duration;
     Long views;
     LocalDateTime publishedDate;
+    UserDto owner;
     List<AudioTrackDto> tracks;
     List<UserDto> users;
 }

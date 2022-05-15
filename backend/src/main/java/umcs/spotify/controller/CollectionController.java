@@ -6,7 +6,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.AddTrackRequest;
-import umcs.spotify.contract.AddTrackToCollectionRequest;
 import umcs.spotify.contract.CollectionCreateRequest;
 import umcs.spotify.dto.AudioTrackDto;
 import umcs.spotify.contract.UpdateCollectionRequest;
@@ -14,6 +13,7 @@ import umcs.spotify.dto.CollectionDto;
 import umcs.spotify.dto.ErrorMessageDto;
 import umcs.spotify.entity.CollectionType;
 import umcs.spotify.services.CollectionService;
+import umcs.spotify.services.FavouritesService;
 
 import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
@@ -24,14 +24,21 @@ import java.util.List;
 public class CollectionController {
 
     private final CollectionService collectionService;
+    private final FavouritesService favouritesService;
 
-    public CollectionController(CollectionService collectionService) {
+    public CollectionController(CollectionService collectionService, FavouritesService favouritesService) {
         this.collectionService = collectionService;
+        this.favouritesService = favouritesService;
     }
 
     @GetMapping
     public List<CollectionDto> getCollections() {
         return collectionService.getCollections();
+    }
+
+    @GetMapping("/me")
+    public List<CollectionDto> getUserCollections() {
+        return collectionService.getUserCollections();
     }
 
     @GetMapping("/{id}")
@@ -48,7 +55,7 @@ public class CollectionController {
     }
 
     @GetMapping("/types")
-    public ResponseEntity<CollectionType[]> getCollectionsTypes() {
+    public ResponseEntity<List<CollectionType>> getCollectionsTypes() {
         return ResponseEntity.ok(this.collectionService.getCollectionTypes());
     }
 
@@ -75,6 +82,21 @@ public class CollectionController {
     @PostMapping("/{collectionId}/track")
     public ResponseEntity<AudioTrackDto> addTrackToCollection(@PathVariable long collectionId, @ModelAttribute AddTrackRequest addTrackRequest) {
         return ResponseEntity.ok(collectionService.addTrack(collectionId, addTrackRequest));
+    }
+
+    @GetMapping("/favourites")
+    public ResponseEntity<CollectionDto> getFavourites() {
+        return ResponseEntity.ok(favouritesService.getFavourites());
+    }
+
+    @PostMapping("/favourites/{trackId}")
+    public ResponseEntity<CollectionDto> addTrackToFavourites(@PathVariable long trackId) {
+        return ResponseEntity.ok(favouritesService.addTrackToFavourites(trackId));
+    }
+
+    @DeleteMapping("/favourites/{trackId}")
+    public void removeTrackFromFavourites(@PathVariable long trackId) {
+        favouritesService.removeTrackFromFavourites(trackId);
     }
 
     @DeleteMapping("/{collectionId}/track/{trackId}")

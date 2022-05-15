@@ -20,6 +20,7 @@ import { SettingsComponent } from './sites/logged-page/settings/settings.compone
 import { ChangePasswordComponent } from './sites/logged-page/settings/change-password/change-password.component';
 import { ActivityLogComponent } from './sites/logged-page/settings/activity-log/activity-log.component';
 import { CollectionsComponent } from './sites/logged-page/collections/collections.component';
+import { SingleCollectionComponent } from './sites/logged-page/single-collection/single-collection.component';
 
 const initializer = (): (() => Promise<void>) => {
   let theme = localStorage.getItem('user_theme');
@@ -112,6 +113,15 @@ const routes: Routes = [
           emailRouteTo: '/setup',
         },
         component: CollectionsComponent,
+      },
+      {
+        path: 'collection/:id',
+        canActivate: [AuthGuard, EmailConfirmedGuard],
+        data: {
+          authRouteTo: '/app',
+          emailRouteTo: '/setup',
+        },
+        component: SingleCollectionComponent,
       },
       {
         path: 'settings',
