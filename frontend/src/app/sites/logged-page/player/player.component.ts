@@ -37,15 +37,15 @@ export class PlayerComponent implements AfterViewInit, OnInit, OnDestroy {
     private readonly userService: UserService,
     private readonly collectionService: CollectionsService,
     private readonly playerService: PlayerService
-  ) { 
+  ) {
   }
-  
-  
+
+
   public ngOnInit(): void {
     this.user = this.userService.currentUser()!;
     this.volume = Number(localStorage.getItem('volume'));
   }
-  
+
   public ngOnDestroy(): void {
     this.destroy.next();
     this.destroy.complete();
@@ -63,7 +63,7 @@ export class PlayerComponent implements AfterViewInit, OnInit, OnDestroy {
         filter(selectedEvent => selectedEvent !== null)
       ).subscribe(selectedEvent => {
         console.log("selected event: ", selectedEvent)
-      const newAudioTrackId = selectedEvent.collection.tracks[selectedEvent.selectedTrackIndex].fileMongoRef;
+      const newAudioTrackId = selectedEvent.collection.tracks[selectedEvent.selectedTrackIndex].id;
       this.audioTrackUrl = `http://localhost:8080/track/${newAudioTrackId}?token=${localStorage.getItem('access_token')}`;
       this.currentlyCollection = selectedEvent.collection;
       this.currentlyTrackId = selectedEvent.selectedTrackId;

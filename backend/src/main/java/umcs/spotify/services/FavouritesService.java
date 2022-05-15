@@ -48,8 +48,6 @@ public class FavouritesService {
         collectionToSave.setUsers(List.of());
         collectionToSave.setOwner(user);
         collectionToSave.setPublishedDate(LocalDateTime.now());
-        collectionToSave.setViews(0L);
-        collectionToSave.setDuration(Duration.ZERO);
         collectionToSave.setImageMongoRef(null);
 
         collectionRepository.save(collectionToSave);

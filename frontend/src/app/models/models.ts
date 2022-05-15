@@ -89,7 +89,6 @@ export interface Track {
   duration: number,
   views: number,
   publishedDate: string,
-  fileMongoRef: String
   genres: any[],
   artists: User[]
 }

@@ -30,7 +30,7 @@ public class TrackController {
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
     public ResponseEntity<?> streamAudio(
-            @PathVariable String id,
+            @PathVariable Long id,
             @RequestParam("token") String token,
             @RequestHeader("Range") String range
     ) {

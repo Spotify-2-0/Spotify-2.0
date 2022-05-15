@@ -39,6 +39,15 @@ public class Collection {
 
     private LocalDateTime publishedDate;
 
-    private Long views;
-    private Duration duration;
+    public long getViews() {
+        return tracks.stream()
+                .map(AudioTrack::getViews)
+                .reduce(0L, Long::sum);
+    }
+
+    public Duration getDuration() {
+        return tracks.stream()
+                .map(AudioTrack::getDuration)
+                .reduce(Duration.ZERO, Duration::plus);
+    }
 }

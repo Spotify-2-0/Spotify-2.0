@@ -112,8 +112,6 @@ public class CollectionService {
             collectionToSave.setUsers(List.of());
             collectionToSave.setOwner(user);
             collectionToSave.setPublishedDate(LocalDateTime.now());
-            collectionToSave.setViews(0L);
-            collectionToSave.setDuration(Duration.ZERO);
 
             Collection savedCollection = collectionRepository.save(collectionToSave);
             return mapper.map(savedCollection, CollectionDto.class);
@@ -146,7 +144,6 @@ public class CollectionService {
                 .collect(Collectors.toList());
 
         collection.setTracks(tracks);
-        collection.setDuration(collection.getDuration().minus(track.getDuration()));
         collectionRepository.save(collection);
 
         var db = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
@@ -206,7 +203,6 @@ public class CollectionService {
             List<AudioTrack> tracks= collection.getTracks();
             tracks.add(track);
             collection.setTracks(tracks);
-            collection.setDuration(collection.getDuration().plus(track.getDuration()));
             collectionRepository.save(collection);
 
             tempFile.delete();
@@ -330,15 +326,6 @@ public class CollectionService {
 
         user.setCollections(collections);
         userRepository.save(user);
-    }
-
-    public void addVisitToCollection(long collectionId) {
-        var collection = collectionRepository.findById(collectionId)
-                .orElseThrow(() -> new RestException(NOT_FOUND, "collection not found"));
-
-        collection.setViews(collection.getViews()+1);
-
-        collectionRepository.save(collection);
     }
 
     public List<CollectionDto> getUserCollections() {

@@ -55,20 +55,20 @@ public class TrackService {
         this.mapper = mapper;
     }
 
-    public ResponseEntity<?> getTrackChunked(String id, String token, String range) {
+    public ResponseEntity<?> getTrackChunked(Long id, String token, String range) {
         var userName = jwtService.extractUsername(token);
         var userDetails = userDetailsService.loadUserByUsername(userName);
         if (!jwtService.isTokenValid(token, userDetails)) {
             throw new RestException(FORBIDDEN, "You do not have access to this resource");
         }
 
+        var track = audioTrackRepository.findById(id)
+                .orElseThrow(() -> new RestException(NOT_FOUND, "Track not found"));
+
         var database = mongoClient.getDatabase(Constants.MONGO_DB_NAME);
         var bucket = GridFSBuckets.create(database, Constants.MONGO_BUCKET_NAME_TRACKS);
 
-        // TODO: Ignore ID for now as there is no upload mechanism, get first track seeded
-//        id = bucket.find().first().getObjectId().toString();
-
-        try (var stream = bucket.openDownloadStream(new ObjectId(id))) {
+        try (var stream = bucket.openDownloadStream(new ObjectId(track.getFileMongoRef()))) {
             var ranges = range.split("-");
             var fileSize = stream.getGridFSFile().getLength();
             var start = Long.parseLong(ranges[0].substring(6));
@@ -76,6 +76,9 @@ public class TrackService {
             if (ranges.length > 1) {
                 end = Long.parseLong(ranges[1]);
             } else {
+                // first request so we can add view here
+                track.addView();
+                audioTrackRepository.save(track);
                 end = Math.min(start + MAX_CHUNK, fileSize - 1);
             }
 
