@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 import static org.springframework.http.HttpStatus.UNPROCESSABLE_ENTITY;
+import static umcs.spotify.Constants.FAVOURITES_COLLECTION_PREFIX;
 
 @Service
 public class FavouritesService {
@@ -41,7 +42,7 @@ public class FavouritesService {
         var user = findUserByEmail(currentUserEmail);
 
         var collectionToSave = new Collection();
-        collectionToSave.setName("favourites_user_" + user.getId());
+        collectionToSave.setName(FAVOURITES_COLLECTION_PREFIX + user.getId());
         collectionToSave.setType(CollectionType.FAVORITES);
         collectionToSave.setTracks(List.of());
         collectionToSave.setUsers(List.of());
@@ -58,7 +59,7 @@ public class FavouritesService {
         var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
         var user = findUserByEmail(currentUserEmail);
 
-        var collection = collectionRepository.findByNameAndType("favourites_user_" + user.getId(), CollectionType.FAVORITES)
+        var collection = collectionRepository.findByNameAndType(FAVOURITES_COLLECTION_PREFIX + user.getId(), CollectionType.FAVORITES)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "favourites not found"));
 
         return mapper.map(collection, CollectionDto.class);
@@ -68,7 +69,7 @@ public class FavouritesService {
         var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
         var user = findUserByEmail(currentUserEmail);
 
-        var collection = collectionRepository.findByNameAndType("favourites_user_" + user.getId(), CollectionType.FAVORITES)
+        var collection = collectionRepository.findByNameAndType(FAVOURITES_COLLECTION_PREFIX + user.getId(), CollectionType.FAVORITES)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "favourites not found"));
 
         var track = audioTrackRepository.findById(trackId)
@@ -89,7 +90,7 @@ public class FavouritesService {
         var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
         var user = findUserByEmail(currentUserEmail);
 
-        var collection = collectionRepository.findByNameAndType("favourites_user_" + user.getId(), CollectionType.FAVORITES)
+        var collection = collectionRepository.findByNameAndType(FAVOURITES_COLLECTION_PREFIX + user.getId(), CollectionType.FAVORITES)
                 .orElseThrow(() -> new RestException(NOT_FOUND, "favourites not found"));
 
         audioTrackRepository.findById(trackId)
