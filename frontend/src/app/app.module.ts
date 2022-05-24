@@ -36,9 +36,10 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ActivityLogComponent } from './sites/logged-page/settings/activity-log/activity-log.component';
 import { CollectionsComponent } from './sites/logged-page/collections/collections.component';
 import { SpotiTableComponent } from './components/spoti-table/spoti-table.component';
-import { SingleCollectionComponent } from './sites/logged-page/single-collection/single-collection.component';
+import { SingleCollectionComponent } from './sites/logged-page/collections/single-collection/single-collection.component';
 import { HeartBtnComponent } from './components/heart-btn/heart-btn.component';
 import { CollectionCreateComponent } from './sites/logged-page/collections/collection-create/collection-create.component';
+import { TrackAddComponent } from './sites/logged-page/collections/track-add/track-add.component';
 
 @NgModule({
   declarations: [
@@ -73,7 +74,8 @@ import { CollectionCreateComponent } from './sites/logged-page/collections/colle
     SpotiTableComponent,
     SingleCollectionComponent,
     HeartBtnComponent,
-    CollectionCreateComponent
+    CollectionCreateComponent,
+    TrackAddComponent
   ],
   imports: [
     BrowserModule,

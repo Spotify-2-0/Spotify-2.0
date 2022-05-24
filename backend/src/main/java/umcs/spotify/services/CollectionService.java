@@ -5,10 +5,10 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.gridfs.GridFSBuckets;
 import org.bson.types.ObjectId;
 import org.springframework.core.io.InputStreamResource;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import umcs.spotify.Constants;
 import umcs.spotify.contract.AddTrackRequest;
+import umcs.spotify.dto.AddTrackDataToSelectDto;
 import umcs.spotify.contract.CollectionCreateRequest;
 import umcs.spotify.contract.UpdateCollectionRequest;
 import umcs.spotify.dto.AudioTrackDto;
@@ -24,9 +24,7 @@ import umcs.spotify.repository.CollectionRepository;
 import umcs.spotify.repository.GenreRepository;
 import umcs.spotify.repository.UserRepository;
 
-import javax.transaction.Transactional;
 import java.io.*;
-import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.function.BiFunction;
@@ -123,7 +121,7 @@ public class CollectionService {
 
     public void removeTrack(long collectionId, long trackId) {
         var collection = collectionRepository.findById(collectionId)
-                .orElseThrow(() -> new RestException(NOT_FOUND, "Collection not found"));
+                .orElseThrow(() -> new RestException(NOT_FOUND, " Collection not found"));
 
         var currentUserEmail = ContextUserAccessor.getCurrentUserEmail();
 
@@ -171,7 +169,7 @@ public class CollectionService {
         findMissing(genres, genresIds, (genre, ids) -> genre.getId().equals(ids), Genre::getId)
                 .ifPresent(missing -> { throw new RestException(NOT_FOUND, "Invalid genres ids: ({})", missing); });
 
-        var artistsIds = request.getGenres() == null ? new ArrayList<Long>() : request.getArtists();
+        var artistsIds = request.getArtists() == null ? new ArrayList<Long>() : request.getArtists();
         var artists = userRepository.findAllById(artistsIds);
 
         findMissing(artists, artistsIds, (artist, ids) -> artist.getId().equals(ids), User::getId)
@@ -352,5 +350,17 @@ public class CollectionService {
             .filter(e -> dst.stream().noneMatch(s -> cmp.apply(e, s)))
             .map(e -> sup.apply(e).toString())
             .collect(Collectors.joining(", ")));
+    }
+
+    public List<AddTrackDataToSelectDto> getUserLoggedCollections() {
+        final String loggedUserEmail = ContextUserAccessor.getCurrentUserEmail();
+        final User user = userRepository.findByEmail(loggedUserEmail).orElseThrow(
+                () -> new RestException(NOT_FOUND, String.format("User with email %s not found", loggedUserEmail))
+        );
+
+        return  collectionRepository.findByOwner(user).stream()
+                .filter(collection -> collection.getType() != CollectionType.FAVORITES)
+                .map(mapper::collectionToAddTrackUserResponse)
+                .collect(Collectors.toList());
     }
 }

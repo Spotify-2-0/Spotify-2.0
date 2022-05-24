@@ -140,3 +140,8 @@ export interface CollectionRequest {
   image: Blob | null,
   type: string,
 }
+
+export interface IdAndNameDTO {
+  id: number,
+  name: string
+}

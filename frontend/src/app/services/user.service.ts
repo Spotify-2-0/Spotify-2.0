@@ -10,7 +10,8 @@ import {
   UpdateRequest,
   User,
   UserExistsByResponse,
-  ActivityResponse
+  ActivityResponse,
+  IdAndNameDTO
 } from "../models/models";
 import { BehaviorSubject, EMPTY, Observable } from "rxjs";
 import { environment } from "../../environments/environment";
@@ -148,5 +149,11 @@ export class UserService {
       })
       return { content: response.content, totalPages: response.totalPages };
     }));
+  }
+
+  public getUsersByNameStartingWith = (str: string): Observable<IdAndNameDTO[]> => {
+    return this.http.get<IdAndNameDTO[]>(`${environment.serverURL}/user/startingWith`, { params: {
+      name: str
+    }})
   }
 }

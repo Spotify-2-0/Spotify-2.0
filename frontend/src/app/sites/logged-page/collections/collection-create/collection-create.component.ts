@@ -15,7 +15,7 @@ export class CollectionCreateComponent implements OnInit {
   });
   collectionTypes: string[] = [];
   imgBlob: Blob | null = null;
-  @Output() closeCollectionCreateForm: EventEmitter<boolean> =
+  @Output() openCollectionCreateForm: EventEmitter<boolean> =
     new EventEmitter();
 
   constructor(
@@ -47,7 +47,7 @@ export class CollectionCreateComponent implements OnInit {
         image: this.imgBlob,
         type: this.collectionCreateForm.controls['collectionType'].value,
       });
-      this.closeCollectionCreateForm.emit(false);
+      this.openCollectionCreateForm.emit(false);
     }
   }
 

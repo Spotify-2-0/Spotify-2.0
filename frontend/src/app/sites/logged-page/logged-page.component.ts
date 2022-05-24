@@ -3,8 +3,8 @@ import { Subscription } from 'rxjs';
 import { AvatarService } from 'src/app/services/avatar.service';
 import { ThemeService } from 'src/app/services/theme.service';
 import { UserService } from 'src/app/services/user.service';
-import { CollectionCreateComponent } from './collections/collection-create/collection-create.component';
 import { CollectionsComponent } from './collections/collections.component';
+import { SingleCollectionComponent } from './collections/single-collection/single-collection.component';
 
 @Component({
   selector: 'app-logged-page',
@@ -14,7 +14,8 @@ export class LoggedPageComponent implements OnInit, OnDestroy {
   avatarBlob!: string;
   userId!: number;
   firstName!: string;
-  lastName!: string
+  lastName!: string;
+  addTrackPopOut = false;
   createCollectionPopOut = false;
 
   collectionPoput!: Subscription;
@@ -28,35 +29,51 @@ export class LoggedPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.userService
-      .me()
-      .subscribe(user => {
-        this.userId = user.id;
-        this.avatarBlob = this.userService.getUserProfileUrl(this.userId)
-        this.firstName = user.firstName;
-        this.lastName = user.lastName;
-      });
-      this.avatarService.change.subscribe(() => {
-      this.avatarBlob = this.userService.getUserProfileUrl(this.userId)
-      });
+    this.userService.me().subscribe((user) => {
+      this.userId = user.id;
+      this.avatarBlob = this.userService.getUserProfileUrl(this.userId);
+      this.firstName = user.firstName;
+      this.lastName = user.lastName;
+    });
+    this.avatarService.change.subscribe(() => {
+      this.avatarBlob = this.userService.getUserProfileUrl(this.userId);
+    });
 
-      this.clickListenFunction = this.renderer.listen('document', 'click', (e: Event) => {
-        if(this.createCollectionPopOut){
-          if((e.composedPath()[0] as HTMLElement).className == 'collection-create'){
+    this.clickListenFunction = this.renderer.listen(
+      'document',
+      'click',
+      (e: Event) => {
+        if (this.createCollectionPopOut) {
+          if (
+            (e.composedPath()[0] as HTMLElement).className ==
+            'collection-create'
+          ) {
             this.createCollectionPopOut = false;
           }
         }
-      })
+
+        if (this.addTrackPopOut) {
+          if ((e.composedPath()[0] as HTMLElement).className == 'add-track') {
+            this.addTrackPopOut = false;
+          }
+        }
+      }
+    );
   }
 
-  public subscribeToCollectionPopout(componentRef: any) {
-    if(!(componentRef instanceof CollectionsComponent)){
-      return;
-    }
-    const child: CollectionsComponent = componentRef;
-    child.collectionPopout.subscribe( value => {
-      this.createCollectionPopOut = value;
-    })
+  public subscribeToCollectionPopouts(componentRef: any) {
+    if(componentRef instanceof CollectionsComponent){
+      const collectionChildElem: CollectionsComponent = componentRef;
+
+        collectionChildElem.collectionPopout.subscribe((value) => {
+          this.createCollectionPopOut = value;
+        });
+    } else if (componentRef instanceof SingleCollectionComponent){
+        const trackAddChildElem: SingleCollectionComponent = componentRef;
+        trackAddChildElem.addTrackPopOut.subscribe((value) => {
+          this.addTrackPopOut = value;
+        })
+      }
   }
 
   public toggleTheme(): void {
@@ -64,12 +81,10 @@ export class LoggedPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-      if(this.collectionPoput){
-        this.collectionPoput.unsubscribe();
-      }
+    if (this.collectionPoput) {
+      this.collectionPoput.unsubscribe();
+    }
 
-      this.clickListenFunction();
+    this.clickListenFunction();
   }
-
-
 }

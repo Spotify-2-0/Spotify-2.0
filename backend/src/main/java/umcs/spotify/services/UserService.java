@@ -14,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.Errors;
 import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.Constants;
+import umcs.spotify.dto.AddTrackDataToSelectDto;
 import umcs.spotify.contract.PasswordChangeRequest;
 import umcs.spotify.contract.PasswordResetPinToKeyRequest;
 import umcs.spotify.contract.PasswordResetRequest;
@@ -25,9 +26,11 @@ import umcs.spotify.helper.*;
 import umcs.spotify.repository.UserRepository;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -281,5 +284,14 @@ public class UserService {
             "Password changed",
             ContextUserAccessor.getRemoteAddres()
         );
+    }
+
+    public List<AddTrackDataToSelectDto> findAllStartingWith(final String str) {
+        final String loggedUserEmail = ContextUserAccessor.getCurrentUserEmail();
+
+        return this.userRepository.findAllByDisplayNameStartingWithIgnoreCase(str).stream()
+                .filter(user -> !user.getEmail().equals(loggedUserEmail) && user.isEmailConfirmed())
+                .map(user -> new AddTrackDataToSelectDto(user.getId(), user.getDisplayName()))
+                .collect(Collectors.toList());
     }
 }

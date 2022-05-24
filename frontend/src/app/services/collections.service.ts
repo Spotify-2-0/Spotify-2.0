@@ -2,14 +2,14 @@ import { HttpClient, HttpResponse, HttpResponseBase } from '@angular/common/http
 import { environment } from "../../environments/environment";
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { Collection, CollectionRequest, pausingSongFromCollectionEvent, PlayCollectionEvent, playingSongFromCollectionEvent, SelectedSongInCollectionEvent } from '../models/models';
+import { Collection, CollectionRequest, IdAndNameDTO, pausingSongFromCollectionEvent, PlayCollectionEvent, playingSongFromCollectionEvent, SelectedSongInCollectionEvent } from '../models/models';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CollectionsService {
   updateTable: Subject<void> = new Subject();
-  
+
   private selected = new BehaviorSubject<SelectedSongInCollectionEvent>(null as any);
   private playSound = new BehaviorSubject<playingSongFromCollectionEvent>(null as any);
   private pauseSound = new BehaviorSubject<pausingSongFromCollectionEvent>(null as any);
@@ -19,7 +19,7 @@ export class CollectionsService {
   pauseSongFromCollection: Observable<playingSongFromCollectionEvent>;
   playingCollection: Observable<PlayCollectionEvent>;
 
-  constructor(private readonly http: HttpClient) { 
+  constructor(private readonly http: HttpClient) {
     this.selectedSongInCollection = this.selected.asObservable();
     this.playSongFromCollection = this.playSound.asObservable();
     this.pauseSongFromCollection = this.pauseSound.asObservable();
@@ -53,6 +53,10 @@ export class CollectionsService {
 
   public getUserCollections(): Observable<Collection[]> {
     return this.http.get<Collection[]>(`${environment.serverURL}/collection/me`);
+  }
+
+  public getLoggedUserColections(): Observable<IdAndNameDTO[]> {
+    return this.http.get<IdAndNameDTO[]>(`${environment.serverURL}/collection/loggedUser`)
   }
 
   public getCollectionById(id: string): Observable<Collection> {
