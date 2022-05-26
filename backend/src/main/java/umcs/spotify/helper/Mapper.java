@@ -8,6 +8,7 @@ import org.modelmapper.convention.NameTransformers;
 import org.modelmapper.convention.NamingConventions;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Component;
+import umcs.spotify.dto.AddTrackDataToSelectDto;
 import umcs.spotify.dto.*;
 import umcs.spotify.entity.*;
 import java.time.Duration;
@@ -53,6 +54,9 @@ public class Mapper {
                 .addMappings(
                     mapping -> mapping.using(new TracksListConverter()).map(Collection::getTracks, CollectionDto::setTracks)
                 );
+        mapper.createTypeMap(Collection.class, AddTrackDataToSelectDto.class)
+                .addMappings(map -> map.map(Collection::getId, AddTrackDataToSelectDto::setId))
+                .addMappings(map -> map.map(Collection::getName, AddTrackDataToSelectDto::setName));
 
         return mapper;
     }
@@ -67,6 +71,10 @@ public class Mapper {
 
     public CollectionDto collectionToDto(Collection collection) {
         return MAPPER.map(collection, CollectionDto.class);
+    }
+
+    public AddTrackDataToSelectDto collectionToAddTrackUserResponse(final Collection collection) {
+        return MAPPER.map(collection, AddTrackDataToSelectDto.class);
     }
 
     public Page<UserActivityEntryDto> mapUserActivityPageToDto(Page<UserActivityEntry> entities) {

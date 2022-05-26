@@ -1,11 +1,13 @@
 package umcs.spotify.contract;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Value;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Value
@@ -14,6 +16,6 @@ import java.util.List;
 public class AddTrackRequest {
     MultipartFile track;
     String name;
-    List<Long> genres;
-    List<Long> artists;
+    ArrayList<Long> genres;
+    ArrayList<Long> artists;
 }

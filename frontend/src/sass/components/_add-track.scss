@@ -1,29 +1,4 @@
-.collections_title {
-  display: inline-block;
-}
-
-.add_collection_container {
-  display: flex;
-  justify-content: center;
-}
-
-.add_collection_container button {
-  background: url("/assets/svgs/plus_btn.svg") center no-repeat,
-    var(--color-violet-dark);
-  color: var(--color-text);
-  text-decoration: none;
-  border: none;
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-
-  &:hover {
-    cursor: pointer;
-    background-color: var(--color-violet-darker);
-  }
-}
-
-.collection-create {
+.add-track {
   position: absolute;
   background-color: transparent;
   backdrop-filter: blur(1px);
@@ -35,11 +10,11 @@
   &__form {
     @include centerAbsolute;
     padding: 3rem;
-    border-radius: 1rem;
     background-color: var(--color-background);
     -webkit-box-shadow: 0rem 0rem 4.8rem -1rem rgba(66, 68, 90, 1);
     -moz-box-shadow: 0rem 0rem 4.8rem -1rem rgba(66, 68, 90, 1);
     box-shadow: 0rem 0rem 4.8rem -1rem rgba(66, 68, 90, 1);
+    border-radius: 1rem;
 
     display: flex;
     align-items: center;
@@ -48,8 +23,6 @@
     @media only screen and (max-width: 650px), (max-height: 400px){
       width: 35rem;
       height: 70rem;
-
-
     }
   }
 

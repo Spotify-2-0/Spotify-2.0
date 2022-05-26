@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, map, takeUntil } from 'rxjs/operators';
@@ -18,6 +18,8 @@ export class SingleCollectionComponent implements OnInit {
   public isFollowing: boolean = false;
   public getAvatarUrlByMongoRef = getAvatarUrlByMongoRef;
   public getUserProfileUrl = getUserProfileUrl;
+
+  @Output() addTrackPopOut: EventEmitter<boolean> = new EventEmitter();
 
   private collectionId: string = "";
 
@@ -48,6 +50,10 @@ export class SingleCollectionComponent implements OnInit {
         })
       });
     });
+  }
+
+  emitPopout() {
+    this.addTrackPopOut.emit(true);
   }
 
   msToHMS(ms: number): string {
@@ -92,6 +98,5 @@ export class SingleCollectionComponent implements OnInit {
       this.router.navigate(['/app'], {queryParams: {'id': null}, queryParamsHandling: 'merge'});
     })
   }
-
 
 }

@@ -1,11 +1,15 @@
 package umcs.spotify.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.AddTrackRequest;
+import umcs.spotify.dto.AddTrackDataToSelectDto;
 import umcs.spotify.contract.CollectionCreateRequest;
 import umcs.spotify.dto.AudioTrackDto;
 import umcs.spotify.contract.UpdateCollectionRequest;
@@ -39,6 +43,11 @@ public class CollectionController {
     @GetMapping("/me")
     public List<CollectionDto> getUserCollections() {
         return collectionService.getUserCollections();
+    }
+
+    @GetMapping("/loggedUser")
+    public ResponseEntity<List<AddTrackDataToSelectDto>> getUserLoggedCollections() {
+        return ResponseEntity.ok(collectionService.getUserLoggedCollections());
     }
 
     @GetMapping("/{id}")
@@ -75,7 +84,9 @@ public class CollectionController {
     }
 
     @PostMapping("/{collectionId}/track")
-    public ResponseEntity<AudioTrackDto> addTrackToCollection(@PathVariable long collectionId, @ModelAttribute AddTrackRequest addTrackRequest) {
+    public ResponseEntity<AudioTrackDto> addTrackToCollection(
+            @PathVariable long collectionId,
+            @ModelAttribute AddTrackRequest addTrackRequest) {
         return ResponseEntity.ok(collectionService.addTrack(collectionId, addTrackRequest));
     }
 

@@ -2,7 +2,7 @@
   <div class="label--form-input">{{ label }}</div>
   <div class="input--form-input">
     <input
-    *ngIf="!this.isSelector"
+      *ngIf="!this.isSelector"
       (focusout)="onFocusOut()"
       [formControlName]="formName"
       [value]="value"
@@ -10,18 +10,23 @@
       [type]="hideInput ? 'password' : 'text'"
       [readonly]="disable"
       class="form-input"
-      [ngClass]="{'form-input--disabled': this.disable}"
+      [ngClass]="{ 'form-input--disabled': this.disable }"
     />
-    <select
-    *ngIf="this.isSelector"
+    <select #selector
+      *ngIf="this.isSelector"
       (focusout)="onFocusOut()"
       [formControlName]="formName"
       [value]="value"
       [class.input-error]="isError()"
       class="form-input form-selector"
-      [ngClass]="{'form-input--disabled': this.disable}"
+      [ngClass]="{ 'form-input--disabled': this.disable }"
     >
-      <option class="form-selector__option" *ngFor="let option of this.selectorData">{{ option }}</option>
+      <option
+        class="form-selector__option"
+        *ngFor="let option of this.selectorData"
+      >
+        {{ option }}
+      </option>
     </select>
     <app-icon *ngIf="isError()" class="error__icon" icon="invalid"></app-icon>
   </div>

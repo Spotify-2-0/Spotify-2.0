@@ -2,6 +2,7 @@ package umcs.spotify.controller;
 
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.data.domain.Page;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import umcs.spotify.contract.ChangeUserPreferencesRequest;
 import umcs.spotify.contract.EmailConfirmRequest;
 import umcs.spotify.contract.UserExistsByEmail;
+import umcs.spotify.dto.AddTrackDataToSelectDto;
 import umcs.spotify.dto.UserPreferencesDto;
 import org.springframework.web.multipart.MultipartFile;
 import umcs.spotify.contract.*;
@@ -18,6 +20,7 @@ import umcs.spotify.services.UserActivityService;
 import umcs.spotify.services.UserService;
 
 import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -106,5 +109,10 @@ public class UserController {
     @PostMapping("/resetPassword")
     public void resetPassword(@Validated @RequestBody PasswordResetRequest request, Errors errors) {
         userService.resetPassword(request, errors);
+    }
+
+    @GetMapping("/startingWith")
+    public ResponseEntity<List<AddTrackDataToSelectDto>> getUsersStartingWith(@Param("name") final String name) {
+        return ResponseEntity.ok(this.userService.findAllStartingWith(name));
     }
 }
