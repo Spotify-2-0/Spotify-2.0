@@ -31,7 +31,7 @@ import static umcs.spotify.helper.Formatter.format;
 @Service
 public class TrackService {
 
-    private static final int MAX_CHUNK = 1024 * 1024;
+    private static final int MAX_CHUNK = 1024 * 1024 * 10;
 
     private final JwtService jwtService;
     private final MongoClient mongoClient;

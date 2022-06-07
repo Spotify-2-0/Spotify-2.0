@@ -1,14 +1,21 @@
 .collection_index {
     display: flex;
     align-items: center;
+    width: 2rem;
+
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
 }
 
 .collection_index p {
     display: flex;
-    margin-right: 2em;
 }
 
 .collection_description {
+    display: inline-block;
+    @include margin(left, small);
     min-width: 18em;
 
     @media (max-width: 1500px) {
@@ -82,6 +89,6 @@
 }
 
 
-.collection_description .collection_title, .collection_description .collection_songs_count, .track_description { 
+.collection_description .collection_title, .collection_description .collection_songs_count, .track_description {
     text-align: left;
 }

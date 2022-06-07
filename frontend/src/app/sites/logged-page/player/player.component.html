@@ -1,34 +1,28 @@
-<audio style="display: none" controls #player>
-  <source [src]="audioTrackUrl" type="audio/mpeg">
-  Your browser does not support the audio element.
-</audio>
-
-
 <div class="player-container">
     <div class="current-song">
-        <img [src]="collectionAvatarUrl" alt="test image" class="cover-art-image">
+        <img [src]="getCurrentTrackImageURL()" alt="test image" class="cover-art-image">
         <div class="song-details">
-            <h2 class="title">{{ trackName }}</h2>
-            <p class="author">{{ trackAuthors }}</p>
+            <h2 class="title">{{ player.currentTrack?.name ?? '-' }}</h2>
+            <p class="author">{{ authors() }}</p>
         </div>
     </div>
     <div class="player-controls">
         <div class="player-controls-buttons">
             <div class="control-button loop-button small-button">
-              <ng-container [ngSwitch]="playMode">
+              <ng-container [ngSwitch]="player.playMode">
                 <app-icon *ngSwitchCase="PlayMode.Default"  (click)="switchPlayMode()" class="icon" icon="loop"></app-icon>
                 <app-icon *ngSwitchCase="PlayMode.Playlist" (click)="switchPlayMode()" class="icon active" icon="loop"></app-icon>
                 <app-icon *ngSwitchCase="PlayMode.Single"   (click)="switchPlayMode()" class="icon active" icon="loop-single"></app-icon>
               </ng-container>
             </div>
             <div class="control-button medium-button">
-                <app-icon class="icon" icon="prev"></app-icon>
+                <app-icon class="icon" icon="prev" (click)="player.queuePreviousFromCollection()"></app-icon>
             </div>
             <div class="control-button play-button" (click)="togglePlay()">
-                <app-icon class="icon" [icon]="isPlaying ? 'pause' : 'play'"></app-icon>
+                <app-icon class="icon" [icon]="!player.isPaused() ? 'pause' : 'play'"></app-icon>
             </div>
             <div class="control-button medium-button">
-                <app-icon class="icon" icon="next"></app-icon>
+                <app-icon class="icon" icon="next"  (click)="player.queueNextFromCollection()"></app-icon>
             </div>
             <div class="control-button random-button small-button">
                 <app-icon class="icon" icon="random"></app-icon>
@@ -64,7 +58,7 @@
           <input class="volumebar"
                  type="range"
                  (input)="volumeChanged($event)"
-                 [value]="volume"
+                 [value]="player.volume"
                  min="0"
                  step="0.01"
                  max="1">

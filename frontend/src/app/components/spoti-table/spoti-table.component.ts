@@ -36,14 +36,14 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private readonly collectionService: CollectionsService,
-    private readonly playerService: PlayerService,
+    public readonly playerService: PlayerService,
     private readonly userService: UserService
   ) {}
 
   ngOnInit(): void {
     this.user = this.userService.currentUser()!;
     if (this.tableType === 'collections') {
-      this.columns = ['#', 'title', 'type', 'plays', 'duration', 'published'];
+      this.columns = ['title', 'type', 'plays', 'duration', 'published'];
       this.data = this.data as Collection[];
       console.log('collections: ', this.data);
       this.subs.add(this.collectionService.updateTable.subscribe((_) => {
@@ -54,7 +54,7 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
       }));
     } else {
       this.data = this.data as Collection;
-      this.columns = ['#', 'title', 'plays', 'Duration', 'published', ''];
+      this.columns = ['title', 'plays', 'Duration', 'published', ''];
       this.collectionService.getFavorites().subscribe(response => {
         this.userFavorites = response;
         this.isFavoritesLoaded = true;
@@ -64,32 +64,33 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.playerService.playingSound.pipe(
-      takeUntil(this.destroy),
-      filter(playingEvent => playingEvent !== null)
-    ).subscribe(playingEvent => {
-      if(this.tableType !== "collections" && playingEvent.collectionId === this.data.id) {
-        this.isPlaying = true;
-      }
-    })
-
-    this.playerService.pausingSong.pipe(
-      takeUntil(this.destroy),
-      filter(pausingEvent => pausingEvent !== null)
-    ).subscribe(playingEvent => {
-      if(this.tableType !== "collections" && playingEvent.collectionId === this.data.id) {
-        this.isPlaying = false;
-      }
-    })
-
-    this.collectionService.playingCollection.pipe(
-      takeUntil(this.destroy),
-      filter(event => event !== null)
-    ).subscribe(event => {
-      if(this.data.tracks.length > 0 && event.collectionId === this.data.id) {
-        this.togglePlay(this.data.tracks[0].id, 0);
-      }
-    });
+    console.log(1)
+    // this.playerService.playingSound.pipe(
+    //   takeUntil(this.destroy),
+    //   filter(playingEvent => playingEvent !== null)
+    // ).subscribe(playingEvent => {
+    //   if(this.tableType !== "collections" && playingEvent.collectionId === this.data.id) {
+    //     this.isPlaying = true;
+    //   }
+    // })
+    //
+    // this.playerService.pausingSong.pipe(
+    //   takeUntil(this.destroy),
+    //   filter(pausingEvent => pausingEvent !== null)
+    // ).subscribe(playingEvent => {
+    //   if(this.tableType !== "collections" && playingEvent.collectionId === this.data.id) {
+    //     this.isPlaying = false;
+    //   }
+    // })
+    //
+    // this.collectionService.playingCollection.pipe(
+    //   takeUntil(this.destroy),
+    //   filter(event => event !== null)
+    // ).subscribe(event => {
+    //   if(this.data.tracks.length > 0 && event.collectionId === this.data.id) {
+    //     this.togglePlay(this.data.tracks[0].id, 0);
+    //   }
+    // });
   }
 
   ngOnDestroy(): void {
@@ -181,5 +182,23 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
       return 'pause';
     }
     return 'play';
+  }
+
+  plej(track: Track) {
+    console.log("plej")
+    const idx = this.data.tracks.findIndex((t: any) => t.id == track.id)
+    this.playerService.playCollection(this.data, idx);
+  }
+
+  isTrackActive(track: any) {
+    return this.playerService.currentTrack?.id == track.id;
+  }
+
+  isTrackBeingPlayed(track: any) {
+    return this.playerService.currentTrack?.id == track.id && !this.playerService.isPaused();
+  }
+
+  isHovered(track: any) {
+    return this.currentlyHoveredTrackId === track.id;
   }
 }

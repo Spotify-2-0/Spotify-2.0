@@ -43,7 +43,7 @@ export class SingleCollectionComponent implements OnInit {
 
       this.collectionsService.getUserCollections().subscribe(collections => {
         collections.forEach(collection => {
-          if(collection.id === this.collection.id) {
+          if(collection.id === this.collection?.id) {
             this.isFollowing = true;
             return;
           }

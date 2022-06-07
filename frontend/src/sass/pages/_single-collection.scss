@@ -1,18 +1,6 @@
 .singleCollections_container {
-    // width: 100%;
-    width: 80vw;
-
-    @media (max-width: 1600px) {
-        width: 75vw;
-    }
-
-    @media (max-width: 1300px) {
-        width: 70vw;
-    }
-
-    @media (max-width: 1250px) {
-        width: 100%;
-    }
+    width: 100%;
+    @include padding(all, medium)
 }
 
 .collection_info_container {
@@ -97,6 +85,10 @@
     &:hover {
         background-color: #a198ff;
     }
+}
+
+.table_conatiner {
+  @include margin(top, medium);
 }
 
 .icon_container{

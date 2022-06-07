@@ -1,5 +1,5 @@
 <div class="singleCollections_container">
-    <div class="collection_info_container u-margin-top-big" *ngIf="isLoaded">
+    <div class="collection_info_container" *ngIf="isLoaded">
         <img [src]=" collection.imageMongoRef !== null ? getAvatarUrlByMongoRef(collection.imageMongoRef) : '/assets/medias/no_picture.png'" alt="collection avatar">
         <div class="collection_info">
             <p class="collection_name"> {{ collection.name }}</p>
@@ -28,7 +28,7 @@
             <button class="delete_collection_btn" (click)="deleteCollection()">Delete Collection</button>
         </div>
     </div>
-    <div class="table_conatiner u-margin-top-big" *ngIf="isLoaded">
+    <div class="table_conatiner" *ngIf="isLoaded">
         <app-spoti-table tableType="singleCollection" [data]="collection"></app-spoti-table>
     </div>
 </div>
