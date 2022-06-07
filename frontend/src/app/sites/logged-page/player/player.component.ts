@@ -10,31 +10,20 @@ import { UserService } from "../../../services/user.service";
   templateUrl: './player.component.html',
 })
 export class PlayerComponent implements AfterViewInit, OnInit, OnDestroy {
-  //@ViewChild('player') player!: ElementRef<HTMLAudioElement>;
-
   PlayMode = PlayMode;
-  playMode: PlayMode = PlayMode.Default;
   user?: User;
   volume?: number;
   progress: number = 0;
   currentTime?: number;
   maxTime?: number;
-  isPlaying: boolean = false;
   isHoldingDownPlayer: boolean = false;
-  audioTrackUrl?: string;
-  trackName: string = "no song selected";
-  trackAuthors: string = "no song selected";
   collectionAvatarUrl: string = "https://images.genius.com/d95e4b9e5949a632ba9486d3b5404ec1.1000x1000x1.jpg";
 
   private destroy = new Subject<void>();
-  private currentlyTrackId?: number;
-  private currentlyCollection?: Collection;
-  private currentlyTrackIndex!: number;
 
   constructor(
     public readonly player: PlayerService,
     private readonly userService: UserService,
-    private readonly collectionService: CollectionsService,
   ) {
   }
 
@@ -62,50 +51,6 @@ export class PlayerComponent implements AfterViewInit, OnInit, OnDestroy {
 
   public ngAfterViewInit(): void {
     this.registerPlayerEvents();
-
-    // this.collectionService.selectedSongInCollection.pipe(
-    //     takeUntil(this.destroy),
-    //     filter(selectedEvent => selectedEvent !== null)
-    //   ).subscribe(selectedEvent => {
-    //     console.log("selected event: ", selectedEvent)
-    //   const newAudioTrackId = selectedEvent.collection.tracks[selectedEvent.selectedTrackIndex].id;
-    //   this.audioTrackUrl = `http://localhost:8080/track/${newAudioTrackId}?token=${localStorage.getItem('access_token')}`;
-    //   this.currentlyCollection = selectedEvent.collection;
-    //   this.currentlyTrackId = selectedEvent.selectedTrackId;
-    //   this.currentlyTrackIndex = selectedEvent.selectedTrackIndex;
-    //
-    //   this.collectionAvatarUrl = getAvatarUrlByMongoRef(selectedEvent.collection.imageMongoRef);
-    //   this.trackName = selectedEvent.collection.tracks[selectedEvent.selectedTrackIndex].name;
-    //   this.authorsText();
-    //   this.player.nativeElement.load();
-    //   this.player.nativeElement.currentTime = 0;
-    //   this.isPlaying = true;
-    //   this.player.nativeElement.play();
-    //   this.playerService.announcePlaySound({collectionId: this.currentlyCollection.id, selectedTrackId: this.currentlyTrackId});
-    // })
-
-    // this.collectionService.playSongFromCollection.pipe(
-    //   takeUntil(this.destroy),
-    //   filter(event => event !== null)
-    // ).subscribe(event => {
-    //   this.isPlaying = true;
-    //   this.player.nativeElement.play();
-    //   if(this.currentlyCollection != undefined && this.currentlyTrackId != undefined) {
-    //     this.playerService.announcePlaySound({collectionId: this.currentlyCollection.id, selectedTrackId: this.currentlyTrackId});
-    //   }
-    // });
-
-    // this.collectionService.pauseSongFromCollection.pipe(
-    //   takeUntil(this.destroy),
-    //   filter(event => event !== null)
-    // ).subscribe(event => {
-    //   this.isPlaying = false;
-    //   this.player.nativeElement.pause();
-    //   if(this.currentlyCollection != undefined && this.currentlyTrackId != undefined) {
-    //     this.playerService.announcePauseSound({collectionId: this.currentlyCollection.id, selectedTrackId: this.currentlyTrackId});
-    //   }
-    // });
-
   }
 
   public formatPlayerTime(total: number | undefined): string {
@@ -135,7 +80,6 @@ export class PlayerComponent implements AfterViewInit, OnInit, OnDestroy {
         this.currentTime = current;
       }
     });
-
   }
 
   private formatNumber(number: number): string {

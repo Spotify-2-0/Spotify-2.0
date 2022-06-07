@@ -57,7 +57,7 @@
           (mouseover)="currentlyHoveredTrackId=track.id"
           (mouseout)="currentlyHoveredTrackId=undefined"
           *ngFor="let track of data.tracks; let i = index">
-          <td class="table__item" (click)="plej(track)">
+          <td class="table__item" (click)="play(track)">
             <div class="index_column_container">
               <div class="collection_index">
                 <div *ngIf="isTrackActive(track); else index">

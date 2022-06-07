@@ -1,6 +1,5 @@
-import { AfterViewInit, Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, QueryList, ViewChildren } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
 import { Collection, Track, User } from 'src/app/models/models';
 import { CollectionsService } from 'src/app/services/collections.service';
 import { PlayerService } from 'src/app/services/player.service';
@@ -12,7 +11,7 @@ import { UserService } from "../../services/user.service";
   selector: 'app-spoti-table',
   templateUrl: './spoti-table.component.html',
 })
-export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SpotiTableComponent implements OnInit, OnDestroy {
 
   @Input() tableType!: string;
   @Input() data: any;
@@ -25,12 +24,10 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
   public currentlySelectedTrackId?: number;
   public currentlyHoveredTrackId?: number;
-  public isPlaying = false;
   public userFavorites?: Collection;
   public isFavoritesLoaded = false;
 
   private destroy = new Subject<void>();
-  private firstPlay: boolean = false;
   private user?: User;
   private subs = new Subscription();
 
@@ -60,37 +57,6 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
         this.isFavoritesLoaded = true;
       });
     }
-
-  }
-
-  ngAfterViewInit(): void {
-    console.log(1)
-    // this.playerService.playingSound.pipe(
-    //   takeUntil(this.destroy),
-    //   filter(playingEvent => playingEvent !== null)
-    // ).subscribe(playingEvent => {
-    //   if(this.tableType !== "collections" && playingEvent.collectionId === this.data.id) {
-    //     this.isPlaying = true;
-    //   }
-    // })
-    //
-    // this.playerService.pausingSong.pipe(
-    //   takeUntil(this.destroy),
-    //   filter(pausingEvent => pausingEvent !== null)
-    // ).subscribe(playingEvent => {
-    //   if(this.tableType !== "collections" && playingEvent.collectionId === this.data.id) {
-    //     this.isPlaying = false;
-    //   }
-    // })
-    //
-    // this.collectionService.playingCollection.pipe(
-    //   takeUntil(this.destroy),
-    //   filter(event => event !== null)
-    // ).subscribe(event => {
-    //   if(this.data.tracks.length > 0 && event.collectionId === this.data.id) {
-    //     this.togglePlay(this.data.tracks[0].id, 0);
-    //   }
-    // });
   }
 
   ngOnDestroy(): void {
@@ -147,55 +113,20 @@ export class SpotiTableComponent implements OnInit, OnDestroy, AfterViewInit {
   togglePlay(trackId: number, index: number) {
     if((this.currentlySelectedTrackId !== trackId || this.currentlySelectedTrackId === undefined)) {
       this.currentlySelectedTrackId = trackId;
-      this.collectionService.announceSoundSelection({
-        collection: this.data,
-        selectedTrackId: trackId,
-        selectedTrackIndex: index
-      })
-    } else if(this.currentlySelectedTrackId === trackId && this.isPlaying === false) {
-      this.collectionService.announcePlaySongFromCollection({
-        collectionId: this.data.id,
-        selectedTrackId: this.currentlySelectedTrackId
-      })
-    } else {
-      this.collectionService.announcePauseSongFromCollection({
-        collectionId: this.data.id,
-        selectedTrackId: this.currentlySelectedTrackId!
-      })
     }
-
   }
 
   isOwner(): boolean {
     return this.data.owner.id === this.user?.id;
   }
 
-  isControlButtonShouldBeHide(trackId: number): boolean {
-    if(trackId === this.currentlySelectedTrackId || trackId === this.currentlyHoveredTrackId) {
-      return false;
-    }
-    return true;
-  }
-
-  getControlButtonType(trackId: number) {
-    if(trackId === this.currentlySelectedTrackId && this.isPlaying) {
-      return 'pause';
-    }
-    return 'play';
-  }
-
-  plej(track: Track) {
-    console.log("plej")
+  play(track: Track) {
     const idx = this.data.tracks.findIndex((t: any) => t.id == track.id)
     this.playerService.playCollection(this.data, idx);
   }
 
   isTrackActive(track: any) {
     return this.playerService.currentTrack?.id == track.id;
-  }
-
-  isTrackBeingPlayed(track: any) {
-    return this.playerService.currentTrack?.id == track.id && !this.playerService.isPaused();
   }
 
   isHovered(track: any) {

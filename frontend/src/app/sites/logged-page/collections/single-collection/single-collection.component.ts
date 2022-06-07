@@ -6,6 +6,7 @@ import { Collection } from 'src/app/models/models';
 import { CollectionsService } from 'src/app/services/collections.service';
 import { getUserProfileUrl } from 'src/app/shared/functions';
 import { getAvatarUrlByMongoRef } from 'src/app/shared/functions';
+import { PlayerService } from "../../../../services/player.service";
 
 @Component({
   selector: 'app-single-collection',
@@ -26,7 +27,8 @@ export class SingleCollectionComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private collectionsService: CollectionsService
+    private collectionsService: CollectionsService,
+    private player: PlayerService
   ) { }
 
   ngOnInit(): void {
@@ -86,11 +88,7 @@ export class SingleCollectionComponent implements OnInit {
   }
 
   playCollection() {
-    if(this.collection.tracks.length > 0) {
-      this.collectionsService.announcePlayCollection({
-        collectionId: this.collection.id
-      });
-    }
+    this.player.playCollection(this.collection)
   }
 
   deleteCollection() {
