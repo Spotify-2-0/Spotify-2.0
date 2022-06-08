@@ -19,6 +19,8 @@
     min-width: 30rem;
     display: flex;
     flex-direction: column;
+    position: sticky;
+    top: 0;
     @media (max-width: 1000px) {
       min-width: 20rem;
       max-width: 20rem;
@@ -41,5 +43,10 @@
     @media (max-width: 1000px) {
       height: 80px;
     }
+  }
+
+  &__nav {
+    position: sticky;
+    top: 0;
   }
 }

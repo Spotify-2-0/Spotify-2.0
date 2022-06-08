@@ -2,8 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  background-color: var(--color-background);
-  position: absolute;
+  background-color: var(--color-background-app);
   width: 100%;
   column-gap: 2rem;
   padding: 1rem;
@@ -20,7 +19,6 @@
     align-items: center;
     width: 25rem;
     height: 3rem;
-    margin-left: 35rem;
   }
 
   &__search-bar {

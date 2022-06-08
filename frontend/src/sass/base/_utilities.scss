@@ -10,7 +10,7 @@ $text-size-big: 4rem;
 $text-size-huge: 8rem;
 
 .svg-color-text {
-  fill: var(--color-text);
+  fill: currentColor;
 }
 
 .svg-color-black {

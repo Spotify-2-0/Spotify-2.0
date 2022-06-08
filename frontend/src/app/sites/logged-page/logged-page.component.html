@@ -1,41 +1,45 @@
 <section class="logged-page">
   <app-track-add *ngIf="this.addTrackPopOut" class="add-track" (openTrackAddForm)="this.addTrackPopOut = $event"></app-track-add>
   <app-collection-create *ngIf="this.createCollectionPopOut" class="collection-create" (openCollectionCreateForm)="this.createCollectionPopOut = false"></app-collection-create>
-  <header class="logged-page__nav">
-    <nav class="logged-nav">
-      <div class="logged-nav__search-bar">
-        <div class="logged-nav__search-container">
-          <button class="logged-nav__search-btn">
-            <app-icon class="search-bar__icon" icon="search"></app-icon>
-          </button>
-          <input
-            type="search"
-            class="search-bar"
-            placeholder="Artists, songs or podcasts"
-          />
-        </div>
-      </div>
-      <div class="logged-nav__theme">
-        <app-icon
-          class="icon--theme"
-          icon="theme"
-          (click)="toggleTheme()"
-        ></app-icon>
-      </div>
-      <div class="logged-nav__notification">
-        <app-icon icon="notifications" class="logged-nav__photo"></app-icon>
-      </div>
-      <div class="logged-nav__avatar">
-        <img class="logged-nav__img" alt="avatar" [src]="this.avatarBlob" />
-      </div>
-      <span class="logged-nav__text">
-        {{ this.firstName + " " + this.lastName }}
-      </span>
-    </nav>
-  </header>
   <main class="logged-page__main">
     <app-sidebar class="logged-page__sidebar"></app-sidebar>
-    <router-outlet (activate)="subscribeToCollectionPopouts($event)"></router-outlet>
+    <ng-container>
+      <div style="width: 100%">
+        <header class="logged-page__nav">
+          <nav class="logged-nav">
+            <div class="logged-nav__search-bar">
+              <div class="logged-nav__search-container">
+                <button class="logged-nav__search-btn">
+                  <app-icon class="search-bar__icon" icon="search"></app-icon>
+                </button>
+                <input
+                  type="search"
+                  class="search-bar"
+                  placeholder="Artists, songs or podcasts"
+                />
+              </div>
+            </div>
+            <div class="logged-nav__theme">
+              <app-icon
+                class="icon--theme"
+                icon="theme"
+                (click)="toggleTheme()"
+              ></app-icon>
+            </div>
+            <div class="logged-nav__notification">
+              <app-icon icon="notifications" class="logged-nav__photo"></app-icon>
+            </div>
+            <div class="logged-nav__avatar">
+              <img class="logged-nav__img" alt="avatar" [src]="this.avatarBlob" />
+            </div>
+            <span class="logged-nav__text">
+        {{ this.firstName + " " + this.lastName }}
+      </span>
+          </nav>
+        </header>
+        <router-outlet (activate)="subscribeToCollectionPopouts($event)"></router-outlet>
+      </div>
+    </ng-container>
   </main>
   <footer class="logged-page__footer">
     <app-player class="logged-page__player"></app-player>

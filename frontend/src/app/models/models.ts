@@ -145,3 +145,12 @@ export interface IdAndNameDTO {
   id: number,
   name: string
 }
+
+
+export const TRACK_START = 'event-track-start';
+export const TRACK_END= 'event-track-end';
+
+export interface PlayerEvent {
+  event: string,
+  data: any
+}

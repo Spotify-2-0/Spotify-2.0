@@ -3,14 +3,17 @@
   border-collapse: collapse;
   overflow-y: scroll;
   display: block;
-  max-height: 60rem;
 
   &__row {
-    border-bottom: 1px solid rgba(gray, 0.3);
+    &:first-child {
+      border-bottom: 1px solid rgba(gray, 0.3);
+    }
     &--hover {
       cursor: pointer;
     }
-
+    &--active {
+      color: var(--color-green-light);
+    }
   }
 
   &__heading {
@@ -20,6 +23,11 @@
 
     &--bigger {
       min-width: 16rem;
+    }
+
+    &--index {
+      min-width: 2rem;
+      max-width: 2rem;
     }
   }
 

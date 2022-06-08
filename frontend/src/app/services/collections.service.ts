@@ -10,38 +10,8 @@ import { Collection, CollectionRequest, IdAndNameDTO, pausingSongFromCollectionE
 export class CollectionsService {
   updateTable: Subject<void> = new Subject();
 
-  private selected = new BehaviorSubject<SelectedSongInCollectionEvent>(null as any);
-  private playSound = new BehaviorSubject<playingSongFromCollectionEvent>(null as any);
-  private pauseSound = new BehaviorSubject<pausingSongFromCollectionEvent>(null as any);
-  private playCollection = new BehaviorSubject<PlayCollectionEvent>(null as any);
-  selectedSongInCollection: Observable<SelectedSongInCollectionEvent>;
-  playSongFromCollection: Observable<playingSongFromCollectionEvent>;
-  pauseSongFromCollection: Observable<playingSongFromCollectionEvent>;
-  playingCollection: Observable<PlayCollectionEvent>;
-
   constructor(private readonly http: HttpClient) {
-    this.selectedSongInCollection = this.selected.asObservable();
-    this.playSongFromCollection = this.playSound.asObservable();
-    this.pauseSongFromCollection = this.pauseSound.asObservable();
-    this.playingCollection = this.playCollection.asObservable();
   }
-
-  public announceSoundSelection(selectedEvent: SelectedSongInCollectionEvent) {
-    this.selected.next(selectedEvent);
-  }
-
-  public announcePlaySongFromCollection(playingFromCollectionEvent: playingSongFromCollectionEvent) {
-    this.playSound.next(playingFromCollectionEvent);
-  }
-
-  public announcePauseSongFromCollection(pausingFromCollectionEvent: pausingSongFromCollectionEvent) {
-    this.pauseSound.next(pausingFromCollectionEvent);
-  }
-
-  public announcePlayCollection(playCollectionEvent: PlayCollectionEvent) {
-    this.playCollection.next(playCollectionEvent);
-  }
-
 
   public emitUpdateTable() {
     this.updateTable.next();
