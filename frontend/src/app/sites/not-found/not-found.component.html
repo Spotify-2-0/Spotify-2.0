@@ -1,0 +1,33 @@
+<app-navigation
+  [isAlwaysWhite]="true"
+  [fixed]="true"
+  [backgroundAfterScroll]="false"
+  background="#000000"
+  iconThemeColor="#FFFFFF">
+</app-navigation>
+
+
+<div class="not-found">
+  <div class="not-found__icon--wrapper">
+    <div class="not-found__icon"><app-icon icon="spaceman"> </app-icon></div>
+  </div>
+  <div class="not-found__info">
+    <div class="not-found__info--header">404</div>
+    <div class="not-found__info--title">Whoops! You drifted away.</div>
+    <div class="not-found__info--subtitle">
+      The page you are looking for does not exist.
+      How you got here is a mystery. But you can click
+      the button below to go back to the homepage.
+    </div>
+    <span class="container__btn u-margin-top-medium">
+      <a routerLink="/" class="btn btn--violetdarker btn--text-white btn--animated-bg">
+        Home
+      </a>
+    </span>
+  </div>
+</div>
+
+
+<app-footer>
+
+</app-footer>

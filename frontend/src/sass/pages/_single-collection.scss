@@ -1,0 +1,135 @@
+.singleCollections_container {
+    width: 100%;
+    @include padding(all, medium)
+}
+
+.collection_info_container {
+    display: flex;
+}
+
+.collection_info_container img {
+    width: 256px;
+    height: 256px;
+    border-radius: 15%;
+}
+
+.collection_info_container .collection_info {
+    padding-left: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding-bottom: 1em;
+}
+
+.collection_info .collection_name{
+    font-size: 3em;
+    font-weight: bold;
+}
+
+.collection_info .collection_stats{
+    font-size: 1.5em;
+}
+
+.collection_owner {
+    display: flex;
+    align-items: center;
+    padding-top: 1em;
+}
+
+.collection_owner img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+}
+
+.collection_owner p {
+    font-size: 2em;
+    padding-left: 0.2em;
+}
+
+.collection_play_follow_btn_conatiner {
+    padding-top: 1em;
+    display: flex;
+}
+
+.collection_play_follow_btn_conatiner .play_btn{
+    width: 142px;
+    height: 48px;
+    border-radius: 5px;
+    background-color: #1ED760;
+    color: #FFFFFF;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 1em;
+
+    &:hover {
+        background-color: #1ab34f;
+    }
+}
+
+.collection_play_follow_btn_conatiner .follow_btn{
+    width: 142px;
+    height: 48px;
+    border-radius: 5px;
+    background-color: #BCB6FF;
+    color: #FFFFFF;
+    font-size: 2em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #a198ff;
+    }
+}
+
+.table_conatiner {
+  @include margin(top, medium);
+}
+
+.icon_container{
+    width: 32px;
+    height: 32px;
+    margin-right: 0.5em;
+}
+
+.addTrack_deleteCollection_btns_container {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.addTrack_deleteCollection_btns_container .add_track_btn{
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    background-color: #1ED760;
+    color: #FFFFFF;
+    font-size: 2em;
+    margin-right: 0.5em;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #1ab34f;
+    }
+}
+
+.addTrack_deleteCollection_btns_container .delete_collection_btn{
+    width: 180px;
+    height: 50px;
+    border-radius: 5px;
+    border: none;
+    background-color: #EE485C;
+    color: #FFFFFF;
+    font-size: 2em;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #ff2841;
+    }
+}

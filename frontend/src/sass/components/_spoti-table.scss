@@ -1,0 +1,96 @@
+.collection_index {
+    display: flex;
+    align-items: center;
+    width: 2rem;
+
+    img {
+      width: 1.5rem;
+      height: 1.5rem;
+    }
+}
+
+.collection_index p {
+    display: flex;
+    width: 2em;
+    text-align: center;
+}
+
+.collection_description {
+    display: inline-block;
+    @include margin(left, small);
+    min-width: 18em;
+
+    @media (max-width: 1500px) {
+        min-width: 10em;
+    }
+
+    @media (max-width: 1200px) {
+        min-width: 5em;
+    }
+
+    @media (max-width: 1000px) {
+        min-width: 0;
+    }
+}
+
+.index_column_container {
+    display: flex;
+}
+
+.spoti_table_play-button {
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    transition: color 0.3s;
+    user-select: none;
+    &:hover {
+        color: var(--color-accent-richer);
+    }
+
+    &__hide {
+        visibility: hidden;
+    }
+}
+
+.btns_column_container {
+    display: flex;
+    align-items: center;
+    margin-left: 8em;
+
+    @media (max-width: 1400px) {
+        margin-left: 0;
+    }
+}
+
+.btns_column_container .follow-btn{
+    width: 32px;
+    height: 32px;
+    margin-right: 2em;
+}
+
+.btns_column_container .delete-btn{
+    width: 78px;
+    height: 32px;
+    border-radius: 5px;
+    border: none;
+    background-color: #EE485C;
+    color: #FFFFFF;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #ff2841;
+    }
+}
+
+.track_description .track_artists {
+    padding-top: 0.2em;
+}
+
+.collection_description .collection_title {
+    padding-bottom: 0.3em;
+}
+
+
+.collection_description .collection_title, .collection_description .collection_songs_count, .track_description {
+    text-align: left;
+}

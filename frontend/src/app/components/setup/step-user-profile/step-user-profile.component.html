@@ -1,0 +1,46 @@
+<div class="flex flex-row flex-center">
+  <div class="flex flex-col" style="width: 250px">
+    <div class="avatar--wrapper">
+      <img
+        alt=""
+        [src]="getUserProfileUrl()"
+        class="avatar" *ngIf="userAvatarPhoto && !cropped && !deleted" />
+        <div class="avatar avatar--default" *ngIf="userAvatarPhoto && deleted">
+          <span class="avatar__text">{{ this.user?.firstName?.charAt(0) + "" + this.user?.lastName?.charAt(0) }}</span>
+        </div>
+        <img
+        *ngIf="(!userAvatarPhoto && !cropped) || (!userAvatarPhoto && deleted)"
+        alt=""
+        src="/assets/medias/no_picture.png"
+        class="avatar" />
+      <img class="avatar" alt="" *ngIf="cropped && !deleted" [src]="cropped.base64" />
+      <label for="avatar">
+        <app-icon class="avatar__icon-change" icon="picture" [isBlack]="true"></app-icon>
+      </label>
+    </div>
+    <div class="avatar__info" style="margin-top: 30px">
+      We recommend an image of at least <span class="highlight">600x600</span>.
+      You can upload a PNG or an JPG <span class="highlight">under 10 MB</span>.
+    </div>
+  </div>
+</div>
+
+<app-modal [id]="'avatar'" #modal>
+  <app-avatar-cropper
+    [width]="width"
+    [height]="height"
+    [dataURI]="dataUri"
+    format="jpeg"
+    (finished)="cropped = $event; emitImageApplied()"
+  >
+  </app-avatar-cropper>
+</app-modal>
+
+<input
+  style="display: none"
+  type="file"
+  accept="image/*"
+  id="avatar"
+  name="avatar"
+  (change)="selectFile($event)"
+/>

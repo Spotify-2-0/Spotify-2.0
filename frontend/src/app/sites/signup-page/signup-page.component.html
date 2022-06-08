@@ -1,0 +1,82 @@
+<section class="signup">
+  <app-navigation [isAlwaysWhite]="true"></app-navigation>
+
+  <div class="signup__image"></div>
+
+  <div class="signup__form">
+    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="header">Sign up</div>
+
+      <div style="display: flex; flex-flow: row">
+        <app-form-input-text
+          formName="firstName"
+          label="First Name"
+          [formGroup]="form"
+        >
+        </app-form-input-text>
+
+        <app-form-input-text
+          class="u-margin-left-small"
+          formName="lastName"
+          label="Last Name"
+          [formGroup]="form"
+        >
+        </app-form-input-text>
+      </div>
+
+      <app-form-input-text
+        class="u-margin-top-small"
+        label="How should we call you?"
+        formName="displayName"
+        [formGroup]="form"
+      >
+      </app-form-input-text>
+
+      <app-form-input-text
+        class="u-margin-top-small"
+        formName="email"
+        label="Email address"
+        [triggerValidationOnLostFocus]="true"
+        [formGroup]="form"
+      >
+      </app-form-input-text>
+
+      <app-form-input-text
+        class="u-margin-top-small"
+        formName="password"
+        label="Password"
+        [hideInput]="true"
+        [formGroup]="form"
+      >
+      </app-form-input-text>
+
+      <div class="checkbox--signup">
+        <app-checkbox formName="tos" [form]="form">
+          <span class="checkbox--span"
+            >I accept our
+            <span class="highlight--signup">Terms of Service</span> and
+            <span class="highlight--signup">Privacy Policy</span></span
+          >
+        </app-checkbox>
+      </div>
+
+      <div
+        style="display: flex; justify-content: center; align-content: center"
+      >
+        <button
+          class="btn btn--violetdark btn--animated-bg btn--animated-pulsate u-margin-top-medium"
+          type="submit"
+        >
+          Sign up
+        </button>
+      </div>
+    </form>
+
+    <div class="or">OR</div>
+
+    <button class="google">
+      <app-icon class="google__icon" icon="google"></app-icon>
+      <span class="google__text">Continue with google</span>
+    </button>
+  </div>
+</section>

@@ -1,0 +1,149 @@
+<section class="add-track__form">
+  <form class="form" [formGroup]="this.trackForm" (ngSubmit)="onSubmit()">
+    <div class="add-track__fields">
+      <div class="add-track__fields--text">
+        <div class="form__group">
+          <app-form-input-text
+            class="form__input"
+            label="Title"
+            [formGroup]="this.trackForm"
+            formName="title"
+          >
+          </app-form-input-text>
+        </div>
+        <div class="form__group">
+          <app-form-input-text
+            [isSelector]="true"
+            [selectorData]="this.getAlbumsNames()"
+            class="form__input"
+            label="Album"
+            [formGroup]="this.trackForm"
+            formName="album"
+          >
+          </app-form-input-text>
+        </div>
+        <div class="form__group">
+          <div class="label--form-input">Tags</div>
+          <div class="input-wrapper">
+            <input type="text" class="form__input form-input" #tags />
+            <div class="tags-container">
+              <span
+                *ngFor="let tag of this.tagsToSave"
+                class="form__dynamic-item"
+                contenteditable="false"
+                (click)="deleteTag(tag)"
+                >{{ tag.name }}</span
+              >
+            </div>
+          </div>
+          <ul
+            class="form-list u-margin-top-small u-margin-bottom-small"
+            *ngIf="this.isTypingTags"
+          >
+            <li
+              *ngIf="
+                !this.searchedTagsLoaded &&
+                this.tagsToSave.length < this.MAX_NUMBER_OF_TAGS
+              "
+            >
+              <app-icon icon="spinner-animated"></app-icon>
+            </li>
+            <li
+              *ngIf="this.tagsToSave.length >= this.MAX_NUMBER_OF_OTHER_ARTISTS"
+            >
+              <span class="error error__text"
+                >You have reached maximum number of tags!</span
+              >
+            </li>
+            <div *ngIf="this.searchedTagsLoaded">
+              <li
+                class="form-list__item"
+                *ngFor="let tag of this.searchedTags"
+                (click)="addTagToSave(tag)"
+              >
+                {{ tag.name }}
+              </li>
+              <span
+                class="error error__text"
+                *ngIf="this.searchedTags.length === 0"
+                >No results!</span
+              >
+            </div>
+          </ul>
+        </div>
+        <div class="form__group u-margin-top-small">
+          <div class="label--form-input">Other artists</div>
+          <div class="input-wrapper">
+            <input type="text" class="form__input form-input" #otherArtists />
+            <div class="tags-container">
+              <span
+                *ngFor="let otherArtist of this.otherArtistsToSave"
+                class="form__dynamic-item"
+                contenteditable="false"
+                (click)="deleteOtherArtist(otherArtist)"
+                >{{ otherArtist.name }}</span
+              >
+            </div>
+          </div>
+          <ul
+            class="form-list u-margin-top-small"
+            *ngIf="this.isTypingOtherArtists"
+          >
+            <li
+              *ngIf="
+                !this.searchedOtherArtistsLoaded &&
+                this.otherArtistsToSave.length <
+                  this.MAX_NUMBER_OF_OTHER_ARTISTS
+              "
+            >
+              <app-icon icon="spinner-animated"></app-icon>
+            </li>
+            <li
+              *ngIf="
+                this.otherArtistsToSave.length >=
+                this.MAX_NUMBER_OF_OTHER_ARTISTS
+              "
+            >
+              <span class="error error__text"
+                >You have reached maximum number of other artists!</span
+              >
+            </li>
+            <div *ngIf="this.searchedOtherArtistsLoaded">
+              <li
+                class="form-list__item"
+                *ngFor="let otherArtist of this.searchedOtherArtists"
+                (click)="addOtherArtistToSave(otherArtist)"
+              >
+                {{ otherArtist.name }}
+              </li>
+              <span
+                class="error error__text"
+                *ngIf="this.searchedOtherArtists.length === 0"
+                >No results!</span
+              >
+            </div>
+          </ul>
+        </div>
+        <div class="form__group u-margin-top-small">
+          <div class="label--form-input">Audio file</div>
+          <div class="form__input form-input file-selector">
+            <input type="file" accept="audio/mpeg3,.mp3,.mp4,audio/*" #fileInput formControlName="file"/>
+            <span class="file-selector__label" #selectorLabel>No file selected</span>
+            <app-icon icon="paperclip" (click)="fileInput.click()"></app-icon>
+          </div>
+          <span class="error error__text" *ngIf="this.isInputFileError()"
+          >{{ this.getInputFileError() }}</span
+        >
+        </div>
+      </div>
+    </div>
+    <div class="add-track__button--submit">
+      <button
+        type="submit"
+        class="form__button btn btn--violetdark btn--animated-bg u-margin-top-medium"
+      >
+        Add track
+      </button>
+    </div>
+  </form>
+</section>

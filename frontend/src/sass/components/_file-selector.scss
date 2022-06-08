@@ -1,0 +1,23 @@
+.file-selector {
+  width: 100%;
+  display: block;
+  height: 4rem;
+  width: 100%;
+  display: flex;
+
+  input[type=file] {
+    display: none;
+  }
+
+  &__label {
+    flex-grow: 1;
+  }
+
+  app-icon {
+    display: flex;
+    justify-content: right;
+    align-items: bottom;
+    padding-right: .8rem;
+    cursor: pointer;
+  }
+}

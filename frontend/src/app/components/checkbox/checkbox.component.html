@@ -1,0 +1,24 @@
+<div class="checkbox--custom">
+  <div style="width: 100%; display: flex; flex-flow: row">
+    <label
+      class="input--checkbox"
+      [htmlFor]="formName"
+      [class.input__checked]="isChecked"
+      [class.input__error]="isError()"
+      [formGroup]="form"
+    >
+      <div class="input--checkbox-bg"></div>
+      <app-icon *ngIf="isChecked" icon="check" class="check--custom"></app-icon>
+      <input
+        class="input-checkbox"
+        (change)="onClick()"
+        [formControlName]="formName"
+        [value]="isChecked"
+        [name]="formName"
+        [id]="formName"
+        type="checkbox"
+      />
+    </label>
+    <ng-content></ng-content>
+  </div>
+</div>

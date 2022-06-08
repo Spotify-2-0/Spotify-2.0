@@ -1,0 +1,46 @@
+<section class="signin">
+  <app-navigation [isAlwaysWhite]="true"></app-navigation>
+
+  <div class="signin__image"></div>
+
+  <div class="signin__form">
+    <form class="form--signin" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+      <div class="header">Sign in</div>
+
+      <div style="display: flex; flex-flow: column">
+        <app-form-input-text
+          label="Email"
+          formName="email"
+          [formGroup]="signinForm"
+        ></app-form-input-text>
+
+        <div style="margin-left: 1rem">&nbsp;</div>
+
+        <app-form-input-text
+          label="Password"
+          formName="password"
+          [formGroup]="signinForm"
+          [hideInput]="true"
+        ></app-form-input-text>
+        <span class="bold href" routerLink="/password-reset">Forgot your password?</span>
+      </div>
+      <div
+        style="display: flex; justify-content: center; align-content: center"
+      >
+        <button
+          class="btn btn--violetdark btn--animated-bg btn--animated-pulsate u-margin-top-medium"
+          type="submit"
+        >
+          Sign in
+        </button>
+      </div>
+    </form>
+
+    <div class="or">OR</div>
+
+    <button class="google">
+      <app-icon class="google__icon" icon="google"></app-icon>
+      <span class="google__text">Continue with google</span>
+    </button>
+  </div>
+</section>

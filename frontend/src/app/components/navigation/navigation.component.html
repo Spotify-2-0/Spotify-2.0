@@ -1,0 +1,49 @@
+<nav class="navigation"
+     [ngStyle]="{
+        'position': fixed ? 'fixed' : 'absolute',
+        'background-color':
+          background ? backgroundAfterScroll ? isScrolled ? background : 'transparent' : background : null
+      }"
+>
+  <div class="navigation__logo">
+    <a
+      routerLink="/"
+      class="navigation__link"
+      [ngClass]="{ 'navigation__link--white': isAlwaysWhite === true }"
+      >Spotify 2.0</a
+    >
+  </div>
+  <ul class="navigation__list">
+    <ng-container *ngIf="isOnHomePage">
+      <li class="navigation__item">
+        <a
+          routerLink="/signup"
+          class="navigation__link navigation__link--violet navigation__link--highlighted"
+          >Sign Up</a
+        >
+      </li>
+
+      <li class="navigation__item">
+        <div class="divider" [style.background]="isOnHomePage ? 'white' : null">&nbsp;</div>
+      </li>
+
+      <li class="navigation__item">
+        <a
+          [style.color]="isOnHomePage ? 'white' : null"
+          routerLink="/signin"
+          class="navigation__link navigation__link--highlighted"
+          >Sign In</a
+        >
+      </li>
+    </ng-container>
+
+    <li class="navigation__item" *ngIf="!isOnHomePage">
+      <app-icon
+        [style.color]="iconThemeColor ? iconThemeColor : null"
+        class="icon--theme"
+        icon="theme"
+        (click)="toggleTheme()"
+      ></app-icon>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,59 @@
+<section class="account-settings">
+  <div class="account-settings__container">
+  <form class="form" [formGroup]="accountSettingsForm" (ngSubmit)="onSubmit()">
+    <div class="form__group form__group--inline">
+      <app-form-input-text
+        class="form__input"
+        formName="firstName"
+        label="First name"
+        [formGroup]="accountSettingsForm"
+      >
+      </app-form-input-text>
+      <app-form-input-text
+        class="form__input"
+        formName="lastName"
+        label="Last name"
+        [formGroup]="accountSettingsForm"
+      >
+      </app-form-input-text>
+    </div>
+    <div class="form__group">
+      <app-form-input-text
+        class="form__input"
+        formName="displayName"
+        label="Display name"
+        [formGroup]="accountSettingsForm"
+      >
+      </app-form-input-text>
+    </div>
+    <div class="form__group">
+      <app-form-input-text
+        class="form__input"
+        formName="email"
+        label="E-mail"
+        [formGroup]="accountSettingsForm"
+        [disable]="true"
+      >
+      </app-form-input-text>
+    </div>
+    <div class="form__wrapper">
+      <button
+        type="submit"
+        class="form__button btn btn--violetdark btn--animated-bg"
+      >
+        Save
+      </button>
+    </div>
+  </form>
+  <div class="account-settings__avatar">
+    <app-step-user-profile (imageApplied)="this.imgBlob = $event" [settings]="true"></app-step-user-profile>
+    <button
+    type="button"
+    class="form__button btn btn--redlight btn--animated-bg"
+    (click)="onDeleteImg()"
+  >
+    Delete
+  </button>
+  </div>
+</div>
+</section>

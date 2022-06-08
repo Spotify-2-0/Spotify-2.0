@@ -1,0 +1,55 @@
+version: '3.9'
+services:
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-frontend-prod
+    container_name: "frontend"
+    ports:
+      - 80:80
+    expose:
+      - 80
+
+  postgres:
+    image: "postgres"
+    container_name: "postgres"
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=spotify
+
+  mongodb:
+    image: "mongo"
+    container_name: "mongodb"
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=rootuser
+      - MONGO_INITDB_ROOT_PASSWORD=rootpass
+
+
+  backend:
+    build:
+      context: .
+      dockerfile: ./Dockerfile-backend-prod
+    container_name: "backend"
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+      - mongodb
+    environment:
+      - DB_DATABASE=spotify
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=root
+      - DB_PASS=root
+      - MONGO_USER=rootuser
+      - MONGO_PASS=rootpass
+      - MONGO_HOST=mongodb
+      - MONGO_PORT=27017
+    expose:
+      - 8080

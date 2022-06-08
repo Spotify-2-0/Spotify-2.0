@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%; //1rem = 10px 10px/16px = 62.5%
+  font-family: var(--font-family-default);
+  box-sizing: border-box;
+  overflow-y: overlay;
+}
+
+[data-theme="dark"] {
+  --color-text: #EEEEEE;
+  --color-background: #10141d;
+  --color-background-app: #161B27;
+  --color-player-background: #0C111C;
+  --color-sidebar-background: #10141D;
+}
+
+::-webkit-scrollbar {
+  position: absolute;
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: var(--color-violet-light);
+}

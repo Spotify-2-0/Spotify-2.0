@@ -1,0 +1,114 @@
+<table class="table">
+    <tr class="table__row table__row--head" *ngIf="tableType === 'collections'; else singleCollection">
+      <th class="table__heading table__heading--index">#</th>
+      <ng-container *ngFor="let column of columns">
+        <th class="table__heading">
+          {{ column.toUpperCase() }}
+        </th>
+      </ng-container>
+    </tr>
+    <ng-template #singleCollection>
+      <tr class="table__row table__row--head" *ngIf="isFavoritesLoaded">
+        <th class="table__heading table__heading--index">#</th>
+        <ng-container *ngFor="let column of columns">
+          <th class="table__heading">
+            {{ column.toUpperCase() }}
+          </th>
+        </ng-container>
+      </tr>
+    </ng-template>
+
+    <ng-container *ngIf="tableType === 'collections'; else singleCollectionRows">
+      <tr class="table__row table__row--hover" *ngFor="let collection of data; let i = index" [routerLink]="['/app/collection', collection.id]">
+        <td class="table__item ">
+          <div class="collection_index">
+            <p> {{i + 1}} </p>
+          </div>
+        </td>
+        <td class="table__item table__item--stretched" style="display: inline-block">
+          <div style="display: inline-block">
+            <img class="table__item__image"
+                 src="{{ collection.imageMongoRef !== null ? getAvatarUrlByMongoRef(collection.imageMongoRef) : '/assets/medias/no_picture.png' }}"
+                 alt="collection avatar">
+            <div class="collection_description">
+              <p class="collection_title"> {{ collection.name }}</p>
+              <p class="collection_songs_count"> {{ collection.tracks.length }} songs </p>
+            </div>
+          </div>
+        </td>
+        <td class="table__item table__item--stretched">
+          {{ collection.type }}
+        </td>
+        <td class="table__item table__item--stretched">
+          {{ collection.views}}
+        </td>
+        <td class="table__item table__item--stretched">
+          {{ msToHMS(collection.duration) }}
+        </td>
+        <td class="table__item table__item--stretched">
+          {{ convertDate(collection.publishedDate) }}
+        </td>
+      </tr>
+    </ng-container>
+    <ng-template #singleCollectionRows>
+      <ng-container *ngIf="isFavoritesLoaded">
+        <tr class="table__row table__row--hover"
+          [class.table__row--active]="isTrackActive(track)"
+          (mouseover)="currentlyHoveredTrackId=track.id"
+          (mouseout)="currentlyHoveredTrackId=undefined"
+          *ngFor="let track of data.tracks; let i = index">
+          <td class="table__item" (click)="play(track)">
+            <div class="index_column_container">
+              <div class="collection_index">
+                <div *ngIf="isTrackActive(track); else index">
+                  <div *ngIf="playerService.isPaused() && !isHovered(track)">
+                    <p>{{i + 1}}</p>
+                  </div>
+                  <div *ngIf="!playerService.isPaused() && !isHovered(track)">
+                    <img src="../../../assets/medias/playing_equaliser.gif" />
+                  </div>
+                  <div *ngIf="!playerService.isPaused() && isHovered(track)">
+                    <app-icon style="width: 1.5rem; height: 1.5rem" icon="pause"></app-icon>
+                  </div>
+                  <div *ngIf="playerService.isPaused() && isHovered(track)">
+                    <app-icon style="width: 1.5rem; height: 1.5rem" icon="play"></app-icon>
+                  </div>
+                </div>
+                <ng-template #index>
+                  <div *ngIf="isHovered(track)">
+                    <app-icon style="width: 1.5rem; height: 1.5rem" icon="play"></app-icon>
+                  </div>
+                  <div *ngIf="!isHovered(track)">
+                    <p>{{i + 1}}</p>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </td>
+          <td class="table__item">
+            <div class="track_description">
+              <p class="track_title"> {{ track.name }}</p>
+              <p class="track_artists">{{ artistsToText(track.artists) }}</p>
+            </div>
+          </td>
+          <td class="table__item table__item--stretched">
+            {{ track.views }}
+          </td>
+          <td class="table__item table__item--stretched">
+            {{ msToHMS(track.duration) }}
+          </td>
+          <td class="table__item table__item--stretched">
+            <div class="published">{{convertDate(track.publishedDate) }} </div>
+          </td>
+          <td class="table__item">
+            <div class="btns_column_container">
+              <div class="follow-btn">
+                <app-heart-btn [favorites]="userFavorites!" [trackId]="track.id"></app-heart-btn>
+              </div>
+              <button class="delete-btn" *ngIf="isOwner()" (click)="deleteBtn(track.id)">Delete</button>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </ng-template>
+  </table>

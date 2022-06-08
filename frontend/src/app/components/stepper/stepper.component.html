@@ -1,0 +1,37 @@
+<div class="steps">
+  <div class="step" *ngFor="let step of steps; let i = index">
+    <div class="step--index">
+      <app-icon *ngIf="stepIndex > i" icon="tick"></app-icon>
+      <div *ngIf="stepIndex <= i">{{ i + 1 }}</div>
+    </div>
+    <div class="flex-col">
+      <div class="step--status">{{ getStatus(i) }}</div>
+      <div class="step--details">{{ step.name }}</div>
+    </div>
+  </div>
+</div>
+
+<div
+  class="u-text-big u-margin-bottom-medium text-default"
+  *ngIf="stepIndex < steps.length"
+>
+  {{ currentStepName() }}
+</div>
+<div style="height: 60%; display: block; overflow: hidden">
+  <ng-container #container></ng-container>
+</div>
+
+<div class="step-progress" *ngIf="stepIndex < steps.length">
+  <div class="step-progress__help">
+    Having troubles? <span class="highlight">Get Help</span>
+  </div>
+
+  <div class="step__footer">
+    <a
+      class="step-progress__button btn btn--animated-bg btn--animated-pulsate"
+      (click)="nextStep()"
+    >
+      Next <app-icon class="step-progress__icon" icon="arrow-right"></app-icon>
+    </a>
+  </div>
+</div>

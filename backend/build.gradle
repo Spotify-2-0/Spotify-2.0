@@ -1,0 +1,45 @@
+plugins {
+    id 'org.springframework.boot' version '2.6.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+}
+
+group = 'umcs'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+    implementation 'io.jsonwebtoken:jjwt:0.9.1'
+    runtimeOnly 'org.postgresql:postgresql'
+
+
+    implementation 'com.maxmind.geoip2:geoip2:3.0.1'
+    implementation 'org.mongodb:mongo-java-driver:3.12.10'
+    implementation 'net.jodah:expiringmap:0.5.10'
+    implementation 'org.modelmapper:modelmapper:3.1.0'
+    implementation group: 'ws.schild', name: 'jave-all-deps', version: '3.3.1'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-mail:2.6.5'
+
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+jar {
+    archiveFileName = "backend.jar"
+}

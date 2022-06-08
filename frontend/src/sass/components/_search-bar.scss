@@ -1,0 +1,22 @@
+.search-bar {
+  border-radius: 2rem;
+  outline: none;
+  height: 100%;
+  width: 100%;
+  padding: 1rem;
+  padding-left: 3rem;
+  border: 1px solid rgba(gray, 0.5);
+
+
+  &__icon {
+    position: absolute;
+    width: 1.4rem;
+    height: 1.4rem;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    opacity: .5;
+    cursor: pointer;
+    z-index: 999;
+  }
+}

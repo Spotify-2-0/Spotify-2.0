@@ -1,0 +1,24 @@
+FROM openjdk:17-ea-jdk-buster as builder
+
+ARG JAR_FILE=*.jar
+COPY ${JAR_FILE} application.jar
+RUN java -Djarmode=layertools -jar application.jar extract
+
+FROM openjdk:17-ea-jdk-buster
+
+RUN apt-get update
+RUN apt-get install -y netcat
+RUN apt-get install -y dos2unix
+
+COPY wait-for-db.sh /wait-for-db.sh
+RUN chmod +x /wait-for-db.sh
+
+COPY --from=builder dependencies/ .
+RUN true
+COPY --from=builder snapshot-dependencies/ .
+RUN true
+COPY --from=builder spring-boot-loader/ .
+RUN true
+COPY --from=builder application/ .
+
+CMD dos2unix ./wait-for-db.sh && ./wait-for-db.sh && java org.springframework.boot.loader.JarLauncher
